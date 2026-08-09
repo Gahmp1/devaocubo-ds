@@ -1,0 +1,108 @@
+:root {
+  --background: 0 0% 98%;
+  --foreground: 240 6% 4%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 6% 4%;
+  --border: 240 5% 90%;
+  --input: 240 5% 90%;
+  --muted: 240 5% 95%;
+  --muted-foreground: 240 4% 42%;
+  --primary: 240 5% 9%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 5% 95%;
+  --secondary-foreground: 240 5% 9%;
+  --destructive: 4 74% 39%;
+  --destructive-foreground: 0 0% 98%;
+  --accent: 240 5% 95%;
+  --accent-foreground: 240 5% 9%;
+  --ring: 240 5% 9%;
+  --radius: 0.6rem;
+
+  --success: 142 66% 27%;
+  --success-foreground: 138 62% 95%;
+  --warning: 38 83% 31%;
+  --warning-foreground: 45 90% 95%;
+}
+
+[data-theme="dark"] {
+  --background: 240 6% 4%;
+  --foreground: 220 9% 96%;
+  --card: 240 5% 9%;
+  --card-foreground: 220 9% 96%;
+  --border: 240 5% 16%;
+  --input: 240 5% 16%;
+  --muted: 240 4% 12%;
+  --muted-foreground: 240 4% 62%;
+  --primary: 220 9% 96%;
+  --primary-foreground: 240 6% 4%;
+  --secondary: 240 4% 12%;
+  --secondary-foreground: 220 9% 96%;
+  --destructive: 0 91% 71%;
+  --destructive-foreground: 240 6% 4%;
+  --accent: 240 4% 12%;
+  --accent-foreground: 220 9% 96%;
+  --ring: 220 9% 96%;
+
+  --success: 142 71% 60%;
+  --success-foreground: 142 71% 10%;
+  --warning: 38 92% 68%;
+  --warning-foreground: 38 92% 12%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: 240 6% 4%;
+    --foreground: 220 9% 96%;
+    --card: 240 5% 9%;
+    --card-foreground: 220 9% 96%;
+    --border: 240 5% 16%;
+    --input: 240 5% 16%;
+    --muted: 240 4% 12%;
+    --muted-foreground: 240 4% 62%;
+    --primary: 220 9% 96%;
+    --primary-foreground: 240 6% 4%;
+    --secondary: 240 4% 12%;
+    --secondary-foreground: 220 9% 96%;
+    --destructive: 0 91% 71%;
+    --destructive-foreground: 240 6% 4%;
+    --accent: 240 4% 12%;
+    --accent-foreground: 220 9% 96%;
+    --ring: 220 9% 96%;
+    --success: 142 71% 60%;
+    --success-foreground: 142 71% 10%;
+    --warning: 38 92% 68%;
+    --warning-foreground: 38 92% 12%;
+  }
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-ring: hsl(var(--ring));
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+* { border-color: hsl(var(--border)); }
+body { background: hsl(var(--background)); color: hsl(var(--foreground)); }

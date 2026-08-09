@@ -1,0 +1,13 @@
+{
+  "name": "devaocubo-ds",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Shared design tokens (Tailwind v4) for DevAoCuboHub and its plugins.",
+  "files": [
+    "tokens.css",
+    "README.md"
+  ],
+  "exports": {
+    "./tokens.css": "./tokens.css"
+  }
+}
