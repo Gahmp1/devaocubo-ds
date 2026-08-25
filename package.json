@@ -1,13 +1,18 @@
 {
   "name": "devaocubo-ds",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "description": "Shared design tokens (Tailwind v4) for DevAoCuboHub and its plugins.",
   "files": [
     "tokens.css",
+    "defaults.json",
     "README.md"
   ],
   "exports": {
-    "./tokens.css": "./tokens.css"
+    "./tokens.css": "./tokens.css",
+    "./defaults.json": "./defaults.json"
+  },
+  "scripts": {
+    "test": "node --test"
   }
 }
