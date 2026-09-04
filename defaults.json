@@ -25,7 +25,16 @@
     "--spacing-sm": "0.5rem",
     "--spacing-md": "1rem",
     "--spacing-lg": "1.5rem",
-    "--spacing-xl": "2rem"
+    "--spacing-xl": "2rem",
+    "--success": "hsl(142 66% 27%)",
+    "--success-foreground": "hsl(138 62% 95%)",
+    "--warning": "hsl(38 83% 31%)",
+    "--warning-foreground": "hsl(45 90% 95%)",
+    "--chart-1": "hsl(240 5% 9%)",
+    "--chart-2": "hsl(240 5% 28%)",
+    "--chart-3": "hsl(240 4% 42%)",
+    "--chart-4": "hsl(240 5% 65%)",
+    "--chart-5": "hsl(240 5% 85%)"
   },
   "dark": {
     "--background": "hsl(240 6% 4%)",
@@ -46,6 +55,15 @@
     "--destructive-foreground": "hsl(240 6% 4%)",
     "--border": "hsl(240 5% 16%)",
     "--input": "hsl(240 5% 16%)",
-    "--ring": "hsl(220 9% 96%)"
+    "--ring": "hsl(220 9% 96%)",
+    "--success": "hsl(142 71% 60%)",
+    "--success-foreground": "hsl(142 71% 10%)",
+    "--warning": "hsl(38 92% 68%)",
+    "--warning-foreground": "hsl(38 92% 12%)",
+    "--chart-1": "hsl(220 9% 96%)",
+    "--chart-2": "hsl(240 5% 75%)",
+    "--chart-3": "hsl(240 4% 62%)",
+    "--chart-4": "hsl(240 5% 40%)",
+    "--chart-5": "hsl(240 5% 22%)"
   }
 }
