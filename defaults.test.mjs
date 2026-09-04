@@ -11,6 +11,8 @@ const REQUIRED_LIGHT_KEYS = [
   "--accent", "--accent-foreground", "--destructive", "--destructive-foreground",
   "--border", "--input", "--ring", "--font-sans",
   "--spacing-xs", "--spacing-sm", "--spacing-md", "--spacing-lg", "--spacing-xl",
+  "--success", "--success-foreground", "--warning", "--warning-foreground",
+  "--chart-1", "--chart-2", "--chart-3", "--chart-4", "--chart-5",
 ];
 const REQUIRED_DARK_KEYS = [
   "--background", "--foreground", "--card", "--card-foreground",
@@ -18,6 +20,8 @@ const REQUIRED_DARK_KEYS = [
   "--secondary", "--secondary-foreground", "--muted", "--muted-foreground",
   "--accent", "--accent-foreground", "--destructive", "--destructive-foreground",
   "--border", "--input", "--ring",
+  "--success", "--success-foreground", "--warning", "--warning-foreground",
+  "--chart-1", "--chart-2", "--chart-3", "--chart-4", "--chart-5",
 ];
 
 test("defaults.json has light and dark blocks", () => {
