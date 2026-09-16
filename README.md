@@ -31,7 +31,7 @@ already had, so updating a token here updates every consumer.
    import still gives you an OS-dark-aware, standalone-correct look with no
    extra wiring.
 
-4. Component recipes (Button, Card, Input, Label, ...) are not part of this
+4. Component recipes (Button, Card, Input, Label, Collapsible, ...) are not part of this
    package — copy the Tailwind classNames from devAoCuboSocials'
    `components/ui/*` (the canonical `new-york` shadcn style) when adding a
    shared component to a new plugin, the same way DevAoCuboHub's were
