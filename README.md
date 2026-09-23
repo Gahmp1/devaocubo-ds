@@ -3,9 +3,10 @@
 Shared Tailwind v4 design tokens for DevAoCuboHub and every plugin mounted
 under it (devAoCuboSocials today; any future `/plugin-slug` app).
 
-Source of truth for the token *values* is devAoCuboSocials' `app/globals.css`.
-This package does not redesign anything — it only centralizes what socials
-already had, so updating a token here updates every consumer.
+`tokens.css` is the source of truth for runtime token values. It was extracted
+from devAoCuboSocials and is imported by that app's `web/app/globals.css`.
+This package does not redesign anything — it centralizes the shared values, and
+consumers receive updates when they install or update this git dependency.
 
 ## Usage
 
@@ -23,11 +24,11 @@ already had, so updating a token here updates every consumer.
    @import "devaocubo-ds/tokens.css";
    ```
 
-3. Do not redeclare `--background`, `--foreground`, `--card`, `--border`,
-   `--input`, `--muted`, `--primary`, `--secondary`, `--destructive`,
-   `--accent`, `--ring`, `--success`, `--warning`, `--radius`, or any
-   `--color-*` / `--radius-*` Tailwind mapping — they all come from the
-   package. If your app is standalone (not proxied under the hub), the same
+3. Do not redeclare the variables or `@theme inline` mappings provided by
+   `tokens.css`, including `--background`, `--foreground`, `--card`,
+   `--border`, `--input`, `--muted`, `--primary`, `--secondary`,
+   `--destructive`, `--accent`, `--ring`, `--success`, `--warning`, and
+   `--radius`. If your app is standalone (not proxied under the hub), the same
    import still gives you an OS-dark-aware, standalone-correct look with no
    extra wiring.
 
@@ -39,3 +40,7 @@ already had, so updating a token here updates every consumer.
 
 5. Do not fork or override token values locally "just for this page" — if a
    value needs to change, change it here and every consumer picks it up.
+
+6. `defaults.json` exports the light and dark default values for generators
+   such as ProjectsCLI. Consume it as `devaocubo-ds/defaults.json`; the
+   runtime CSS remains `devaocubo-ds/tokens.css`.
