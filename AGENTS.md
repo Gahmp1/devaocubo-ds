@@ -10,7 +10,8 @@ Shared Tailwind v4 design tokens for DevAoCuboHub and its plugins.
   ProjectsCLI. It uses complete CSS values and is exported as
   `devaocubo-ds/defaults.json`.
 - `README.md` documents the consumer import and component recipe convention.
-- `package.json` publishes only `tokens.css`, `defaults.json`, and `README.md`.
+- The package's explicit `files` list includes `tokens.css`, `defaults.json`,
+  and `README.md`.
 
 Keep the CSS token names and JSON shape compatible with their consumers. Do
 not add component implementations here; copy the established recipes from a
