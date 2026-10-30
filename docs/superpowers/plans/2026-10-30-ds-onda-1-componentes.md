@@ -18,7 +18,7 @@ acessibilidade; os sites de referência dão estrutura, estado e movimento.
 `expo@58.0.21/bundledNativeModules.json`): npm workspaces em `ds/`, TypeScript ~6.0.3; Expo ~58.0.21, RN 0.88.1,
 React 19.3.0, Reanimated 4.7.1, worklets 0.13.0, `@shopify/react-native-skia` 2.14.0, `react-native-svg` 15.16.0,
 `react-native-safe-area-context` ~5.10.1, `react-native-gesture-handler` ~3.3.0, `expo-blur` ~58.0.5,
-`@shopify/flash-list` 2.3.2; web com React DOM 19.3.0, `radix-ui` ^1.8.1, `motion` ^14.8.0, Storybook ^10.6.5, Vite ^8.3.5, `react-native-web` ~0.21.4; `@changesets/cli` ^3.0.3;
+`@shopify/flash-list` 2.3.2, `expo-haptics` ~58.0.7, `expo-audio` ~58.0.10; web com React DOM 19.3.0, `radix-ui` ^1.8.1, `motion` ^14.8.0, Storybook ^10.6.5, Vite ^8.3.5, `react-native-web` ~0.21.4; `@changesets/cli` ^3.0.3;
 `@modelcontextprotocol/sdk` ^1.32.2 no `ds-mcp`.
 
 **Spec:** `docs/superpowers/specs/2026-10-30-componentes-devaocubo-ds-design.md`. Leia as seções 6, 7, 9, 9b, 10, 11, 13,
@@ -46,8 +46,13 @@ React 19.3.0, Reanimated 4.7.1, worklets 0.13.0, `@shopify/react-native-skia` 2.
 - **Peers de `ds-native`** = o conjunto do Expo SDK 58 (os apps sobem para o SDK 58 nas ondas 2, 4 e 5): `react >=19.3`,
   `react-native >=0.88`, `react-native-reanimated >=4.7`, `react-native-worklets >=0.13`, `react-native-svg >=15.16`,
   `@shopify/react-native-skia >=2.14`, `react-native-safe-area-context >=5.10`, `react-native-gesture-handler >=3.3`,
-  `expo-blur >=58`, `@shopify/flash-list >=2.3` (só JS na v2: o pacote 2.3.2 não traz código nativo). Nenhum outro
-  módulo nativo.
+  `expo-blur >=58`, `@shopify/flash-list >=2.3` (só JS na v2: o pacote 2.3.2 não traz código nativo),
+  `expo-haptics >=58`, `expo-audio >=58` (Task 10b). Nenhum outro módulo nativo.
+- **Feedback sensorial** (Task 10b; referência `design-library/references/som-e-haptics.md`): componente nenhum chama
+  `expo-haptics`, `expo-audio`, `AudioContext` ou `navigator.vibrate`; tudo passa por `useFeedback().play(papel)`, que
+  consulta tema, preferências do app, modo silencioso e suporte. Som começa **desligado** em todo produto; haptic só nos
+  papéis da tabela da Task 10b; nunca em toque de botão comum, tecla, rolagem ou navegação. O que o haptic ou o som
+  comunica também aparece em tela. Com movimento reduzido: um pulso por evento, sem sequência.
 - **`ds-web`**: React DOM, `radix-ui@^1.8.1` (o Trippo sobe junto na onda 4) só em Sheet, Dialog, Select e Menu; sem Tailwind;
   `motion` ^14.8.0 para molas e layout animado (pílula da `TabBar`, polegar do `Toggle`, `Reveal`, `Sheet`), lendo a mola
   de `useThemeMotion()` do web para casar com o Reanimated do RN; transições simples continuam em CSS. CSS só com `var(--ds-*)`: a
@@ -68,10 +73,11 @@ React 19.3.0, Reanimated 4.7.1, worklets 0.13.0, `@shopify/react-native-skia` 2.
   Os catálogos usam `lucide-react` / `lucide-react-native` (ISC) só como implementação de catálogo.
 - **Código de referência**: só MIT, Apache-2.0 ou ISC lido na fonte, recriado (não colado) e com atribuição no topo do
   arquivo: `// Referência: <projeto> (<licença>), <url>`. Nunca React Bits, Rare UI, Canvas UI (Commons Clause) nem
-  fontes sem licença lida (Beautiful UI, Bencho, 23rd, Create UI, Invisible Details).
+  fontes sem licença lida (Beautiful UI, 23rd, Create UI, Invisible Details). O repositório público do Bencho
+  (`cabralorenzo/bencho`) é MIT (LICENSE lido em 2026-10-30; nome, marca e fotos ficam de fora); o Bencho Pro não.
 - **Sem alias nem re-export de transição.** Barris gerados (`index.ts`, `motion.ts`, `ai.ts`, registro da galeria
   nativa) não são editados à mão nem commitados (`.gitignore`).
-- **Identidade**: nenhum componente decide cor, raio, fonte, sombra ou ritmo por conta própria; tudo vem dos nove eixos.
+- **Identidade**: nenhum componente decide cor, raio, fonte, sombra ou ritmo por conta própria; tudo vem dos eixos do tema (os nove da spec mais `feedback`, Task 10b).
   Variante nova é mudança no DS. `style`/`className` só para layout.
 - Fontes não são distribuídas; catálogos seguem com Outfit no lugar de Gilroy (licença a verificar).
 - Nada é publicado sem o OK do João (spec §9: cada release é autorizada pelo dono).
@@ -103,6 +109,11 @@ React 19.3.0, Reanimated 4.7.1, worklets 0.13.0, `@shopify/react-native-skia` 2.
 - `caution` (#ECFD30) do Zenith não tem papel no tema: vira `warning`. A comparação antes/depois da onda 2 mostra se o
   designer precisa de um papel próprio.
 - `Celebration` ganha confete leve em Skia/CSS (o Zenith só tinha o fundo estático), com uma execução por montagem.
+- **Décimo eixo `feedback` e `ai.gradient` no tema** (pedido do João em 2026-10-30, "sim, na onda 1", a partir dos links
+  do designer: Bencho, libraries.dev/voice, Pulsar): haptics e som por produto, som opt-in, e um gradiente de IA de três
+  paradas por produto e esquema que alimenta `VoiceGlow`, `WaitingOrb` e `GlowBorder`. Valores do gradiente são
+  provisórios (derivados de acento, `info` e texto) até o designer desenhar; Pulsar fica para depois (exige prebuild e
+  só vale se o designer quiser padrões próprios).
 
 **Genéricos do Zenith fora da spec §11** (inventário §2): absorvidos aqui ou adiados para o PR da área do SWFitness
 que os usa na onda 2, sempre recriados no DS (nunca cópia local no app):
@@ -134,6 +145,10 @@ que os usa na onda 2, sempre recriados no DS (nunca cópia local no app):
 5. **Botão voltar do Android e tecla Esc com overlay aberto** (Sheet, Dialog, Select, Menu, Toast com ação): esperado
    que feche o overlay de cima e devolva o foco a quem abriu. Coberto na Task 18 (`onRequestClose`, Radix) e na QA da
    fatia D.
+6. **Feedback em sequência rápida e no silencioso** (puxar e soltar várias vezes, alternar um toggle rápido, iPhone no
+   modo silencioso, microfone gravando): esperado no máximo um haptic e um som por 150 ms, nenhum som com o silencioso
+   ligado nem durante a gravação, e nada quebra onde não há suporte (simulador, Safari iOS). Coberto pela autochecagem de
+   `resolveFeedback` (Task 10b) e pelo log de feedback do catálogo nas QAs; vibração real só em aparelho físico (João).
 
 ## Execução por subagentes
 
@@ -395,6 +410,68 @@ Roles: `switch`, `checkbox` (com `mixed`), `radiogroup`/`radio`. `emit({ kind: '
 `Shimmer` vai em `src/motion/Shimmer` (exportado por `./motion`); os outros em `src/primitives`. Todos param o loop e
 cancelam a animação ao desmontar e quando `reduced` vira verdadeiro (Review Focus 3).
 
+### Task 10b: Eixo de feedback sensorial e gradiente de IA
+
+Referências: `design-library/references/som-e-haptics.md` (princípios, mapa de papéis) e a seção "Voz com gradiente" de
+`orbes-e-loaders-de-ia.md`; som sintetizado como o repositório MIT do Bencho (`cabralorenzo/bencho`, receitas recriadas
+com atribuição, nunca os sons do Pro).
+
+**Files:**
+- Modify: `ds/packages/theme/src/types.ts`, `themes/{devaocubo,swfitness,somma,trippo}.ts`, `generate/css.ts`,
+  `check/` (gradiente: três cores que o `parseColor` lê, nos dois esquemas)
+- Create: `ds/packages/core/src/feedback.ts`, `ds/packages/core/src/check/feedback.check.ts`; Modify: `context.ts`
+  (`DSContextValue.feedback`, `DSProviderBaseProps.feedback`)
+- Create: `ds/packages/native/src/core/feedback.ts`, `ds/scripts/sounds.mjs` (gera `ds/packages/native/assets/sounds/*.wav`
+  a partir das receitas de `ds-core` no `prebuild`; gerado e no `.gitignore`, entra no `files` do pacote)
+- Create: `ds/packages/web/src/core/feedback.ts` (Web Audio sintetizado das mesmas receitas; `navigator.vibrate` quando existir)
+- Modify: Toggle, Checkbox, Radio, FilterChip (nativo e web) para tocar o papel deles
+- Create: `ds/apps/catalog-web/src/fundamentos/Feedback.stories.tsx`, `ds/apps/catalog-native/src/gallery/Feedback.tsx`
+
+**Interfaces:**
+- Produces (`ds-theme`): `DSTheme.feedback: { haptics: { default: 'on' | 'off'; intensity: 'soft' | 'crisp' }; sound: { default: 'off'; timbre: 'soft' | 'crisp'; volume: number } }`;
+  `ColorRoles.aiGradient: [string, string, string]` (por esquema); CSS `--ds-ai-gradient-1`, `-2`, `-3`.
+  `tokens.css`/`defaults.json` legados não mudam.
+- Produces (`ds-core`): `type FeedbackRole = 'select' | 'toggle' | 'pull-commit' | 'confirm' | 'complete' | 'warn' | 'error' | 'hold' | 'voice-start' | 'voice-stop'`;
+  `type FeedbackPrefs = { haptics: boolean; sound: boolean; volume: number }`;
+  `resolveFeedback(theme: ResolvedTheme, prefs: FeedbackPrefs, role: FeedbackRole, ctx: { now: number; last: number; micActive: boolean }): { haptic?: HapticSpec; sound?: SoundName } | null`
+  (pura: regra dos 150 ms, papel sem som, microfone ativo, reduzido = um pulso); `SOUND_RECIPES: Record<SoundName, Note[]>`
+  (dados, timbre `soft`/`crisp`); `HAPTICS: Record<FeedbackRole, HapticSpec>` (nome do `expo-haptics` no iOS, constante de
+  `performAndroidHapticsAsync` no Android, milissegundos para `navigator.vibrate`); `useFeedback(): { play(role: FeedbackRole): void; setMicActive(on: boolean): void }`.
+  `DSProviderBaseProps.feedback?: Partial<FeedbackPrefs>` (o app guarda a preferência; ausente = padrão do tema).
+- Consumed by: Tasks 13 (`Celebration` → `complete`), 17 (`TabBar`, `SegmentedControl` → `select`), 19 (`Toast` success →
+  `confirm`, danger → `error`), 21b (`PullToRefresh` → `pull-commit`), 23 (`WaitingOrb` usa `aiGradient`), 26
+  (`VoiceGlow`, `RecordingBar` → `voice-start`/`voice-stop`), 27 (`ApprovalCard` aprovar → `confirm`).
+
+Mapa (proposta da referência, agora decidido para a onda 1):
+
+| Papel | Haptic iOS / Android / web ms | Som |
+|---|---|---|
+| `select` | `selectionAsync` / `Segment_Tick` / 8 | — |
+| `toggle` | `selectionAsync` / `Toggle_On`·`Toggle_Off` / 8 | — |
+| `pull-commit` | `impactAsync(Medium)` / `Confirm` / 14 | clique curto (≈80 ms) |
+| `confirm`, `complete` | `notificationAsync(Success)` / `Confirm` / [10, 40, 18] | duas notas ascendentes (≤ 300 ms) |
+| `warn` | `notificationAsync(Warning)` / `Long_Press` / [20, 60, 20] | — |
+| `error` | `notificationAsync(Error)` / `Reject` / [30, 60, 30] | nota grave curta |
+| `hold` | `impactAsync(Rigid)` / `Long_Press` / 20 | — |
+| `voice-start`, `voice-stop` | `impactAsync(Light)` / `Clock_Tick` / 8 | — (microfone ativo) |
+
+Valores por produto: swfitness `haptics { on, crisp }`, `sound { off, crisp, 0.5 }`; devaocubo, somma, trippo
+`haptics { on, soft }`, `sound { off, soft, 0.4 }`. `aiGradient` provisório, comentado `// provisório: acento, mistura
+com info 55% e com texto 45%; aguarda designer`, calculado uma vez e escrito como cor literal no tema.
+
+- [ ] **Step 1:** autochecagens (`node:assert`) em `feedback.check.ts`: dois `play` a 100 ms → o segundo dá `null`;
+  `select` nunca tem som; `pull-commit` com `sound: false` não tem som; com `micActive` nenhum papel tem som; reduzido
+  dá um pulso só (array do web com um elemento); `aiGradient` dos 4 temas nos 2 esquemas passa no `parseColor`. Entradas
+  `Feedback` nos dois catálogos (interruptores de vibração e som, um botão por papel, log do último resultado, faixa do
+  gradiente) antes do código. Expected: FAIL (módulos e tipos inexistentes).
+- [ ] **Step 2:** implementar. Nativo: `expo-haptics` só se `prefs.haptics`; som com `expo-audio`, `setAudioModeAsync({ playsInSilentMode: false, interruptionMode: 'mixWithOthers' })`
+  uma vez, players carregados só quando o som é ligado, `seekTo(0)` e `play()`, volume ≤ `theme.feedback.sound.volume`.
+  Web: um `AudioContext` criado no primeiro `play` (depois de gesto), receita sintetizada com envelope (ataque ≥ 1 ms,
+  passa-baixa); vibração só com `'vibrate' in navigator`. Erro do sistema nunca sobe para o componente.
+- [ ] **Step 3:** Toggle e Checkbox tocam `toggle`, Radio e FilterChip tocam `select`, só quando o valor muda.
+- [ ] **Step 4:** portões. Expected: `ds-core: N checagens ok` com as novas; `tokens.css`/`defaults.json` sem diferença.
+- [ ] **Step 5:** commit `feat(ds): eixo de feedback sensorial e gradiente de IA`.
+
 ### Task 11: QA da fatia B (sessão principal)
 
 - [ ] Web: Storybook em background (`npm run storybook -w catalog-web`), navegador embutido a 375 px e 1280 px. Para
@@ -404,6 +481,9 @@ cancelam a animação ao desmontar e quando `reduced` vira verdadeiro (Review Fo
 - [ ] Nativo (skill `mobile-simulator-coordination`): simulador iOS e emulador Android temporários, Metro com porta
   dinâmica; galeria por deep link em swfitness escuro e claro e trippo claro; "Reduzir movimento" ligado com spinner e
   shimmer rodando (param sem congelar, Review Focus 3); tamanho de fonte máximo nos dois (Review Focus 4).
+- [ ] Feedback (Review Focus 6): no catálogo, tocar rápido em cada papel e conferir no log a regra dos 150 ms e o som
+  desligado por padrão; ouvir o som web no navegador. Simulador não vibra: a vibração real fica para o João num aparelho
+  físico, com o catálogo nativo (registrar como não verificado).
 - [ ] Capturas em `ds/apps/catalog-web/evidence/onda-1/b-*.png` e `ds/apps/catalog-native/evidence/onda-1/b-*.png`.
   Defeito encontrado volta como correção na task de origem, antes de abrir a fatia seguinte.
 - [ ] Commit `docs(ds): evidência da fatia B`.
@@ -428,6 +508,8 @@ Lógica: `ds-core/logic/ticker.ts` com `digitsOf(value, format)` (autochecagem: 
 → `['1','2','3','4','.','5']`).
 
 ### Task 13 ∥: Glow, GlowScene, Blur, Celebration
+
+`Celebration` toca `complete` uma vez por montagem (Task 10b).
 
 | Componente | API (props) | Estados no catálogo | Base |
 |---|---|---|---|
@@ -480,7 +562,8 @@ nativo usa `ListItem`), depois 17 a 21 em paralelo (até três por vez).
 | `TabBar` | `items: { key: string; label: string; icon: DSIconName; badge?: number }[]`; `value: string`; `onChange(key)`; `variant?: 'floating' \| 'glass' \| 'solid'` (padrão `components.tabBar`) | 3 a 5 abas × 3 variantes; com badge | Zenith `TabBar`+`TabBarItem`+`BlurPress` sem `useTabStore`/`TAB_ROUTES`; pílula ativa que desliza (beUI Native Tabs, mola do tema); `glass` usa `Blur` |
 | `SegmentedControl` | `options: { value: string; label: string }[]`; `value`; `onChange`; `size?: 'small' \| 'normal'` | 2 e 4 opções | Zenith `SegmentedControl`; indicador deslizante (beUI Native/Arc) |
 
-A11y: `tablist`/`tab` com `selected`; `HeaderTitle` como `header`.
+A11y: `tablist`/`tab` com `selected`; `HeaderTitle` como `header`. `TabBar` e `SegmentedControl` tocam `select` (Task
+10b) quando o valor muda.
 
 ### Task 18 ∥: Sheet, Dialog, Select, Menu
 
@@ -503,6 +586,8 @@ o foco volta ao gatilho nos dois. Catálogo tem um caso de `Dialog` aberto por c
 | `Callout` | `title?`; `children`; `onClose?` (`strings.close`); `placement?: 'top' \| 'bottom'` (bico) | com e sem fechar | Zenith `TipCallout` sem i18n |
 | `Stepper` | `value: number`; `onChange`; `min?`; `max?`; `step?`; `format?` | no mínimo, no meio, no máximo | Zenith `Stepper` (numérico); `accessibilityRole="adjustable"` com `accessibilityActions` increment/decrement de verdade e `strings.increment/decrement` |
 
+`Toast` toca `confirm` no tom `success` e `error` no `danger` ao aparecer (Task 10b); `neutral` não toca nada.
+
 ### Task 20 ∥: CircularProgress, BarChart, LineChart
 
 | Componente | API (props) | Estados no catálogo | Base |
@@ -523,6 +608,18 @@ geram `NaN`. Desenho em `react-native-svg` no RN e SVG inline no web; cores com 
 | `Table` (só web) | `columns: { key: string; title: string; align?: 'start' \| 'end'; sortable?: boolean }[]`; `rows: Record<string, ReactNode>[]`; `sort?`; `onSortChange?`; `empty?: ReactNode` | 5 linhas, ordenado, vazio, 375 px com rolagem própria | agent-chat `widgets/table.tsx`; BoardUI/Sort UI (MIT) para ordenação |
 | `DataList` (só RN) | `items: { key: string; title: string; values: { label: string; value: string }[] }[]`; `empty?` | 3 itens, vazio | agent-chat RN `widgets/table.tsx` em formato de lista |
 
+### Task 21b ∥: PullToRefresh
+
+| Componente | API (props) | Estados no catálogo | Base |
+|---|---|---|---|
+| `PullToRefresh` | `refreshing: boolean`; `onRefresh(): void`; `threshold?: number` (padrão 72); `children` (a área rolável) | puxando, limiar cruzado, atualizando, concluído | bloco `pull` do Bencho (MIT, recriado com atribuição): o compromisso acontece ao **cruzar** o limiar, não ao soltar; toca `pull-commit` uma vez por puxada (Task 10b); indicador é o `Spinner`; "dados chegaram" não toca nada |
+
+Nativo: `Gesture.Pan` simultâneo com `Gesture.Native` do `ScrollView`/`FlashList`, ativo só no topo, translação em
+Reanimated com resistência e retorno pela mola do tema (não o `RefreshControl`, que não avisa quando o limiar é
+cruzado). Web: eventos de ponteiro, como `design-library/examples/feedback-sensorial`. A11y: ação acessível "Atualizar"
+(`accessibilityActions` / botão visível só ao foco no web); texto por prop `refreshLabel?` (padrão "Atualizar", sem chave
+nova em `DSStrings`). Reduzido: sem resistência elástica, o indicador aparece e some sem deslizar.
+
 ### Task 22: QA da fatia D (sessão principal)
 
 Roteiro da Task 11, mais: voltar do Android e Esc com `Dialog` sobre `Sheet` (Review Focus 5); `Toast` com leitor de
@@ -537,6 +634,8 @@ Mesmos passos; entradas em `src/ai/` no catálogo e grupo `ai` na galeria; códi
 catálogo usam um relógio falso controlado por botões (sem rede).
 
 ### Task 23 ∥: WaitingOrb, WaitingState, StepList
+
+O orbe e o feixe usam as três paradas de `color.aiGradient` (Task 10b) em vez de uma cor só.
 
 | Componente | API (props) | Estados no catálogo | Base |
 |---|---|---|---|
@@ -582,11 +681,15 @@ Autochecagem de `formatClock(65000) === '1:05'`.
 | Componente | API (props) | Estados no catálogo | Base |
 |---|---|---|---|
 | `Composer` | `value`; `onChangeText`; `onSend`; `busy?: boolean` (liga `GlowBorder` e troca enviar por parar); `onStop?`; `placeholder?`; slots `leading?`, `trailing?` (anexo, microfone); `disabled?`; `maxRows?` (padrão 6) | vazio, digitando, ocupado com borda, desabilitado, com anexo e microfone | Zenith `ChatInput` (sem `analyticsId` fixos); agent-chat `composer.tsx`; beUI Native prompt-input |
-| `RecordingBar` | `recording: boolean`; `elapsedMs: number`; `level?: number` (0–1); `onStop`; `onCancel` | gravando com nível variando, parado | Zenith `RecordingBar`; brilho que sobe com a voz do libraries.dev voice-glow; forma de onda do audiocn (MIT, web) |
+| `RecordingBar` | `recording: boolean`; `elapsedMs: number`; `level?: number` (0–1); `onStop`; `onCancel` | gravando com nível variando, parado | Zenith `RecordingBar`; usa `VoiceGlow`; forma de onda do audiocn (MIT, web); toca `voice-start`/`voice-stop` e chama `setMicActive` (Task 10b) |
+| `VoiceGlow` (motion) | `state: 'idle' \| 'listening' \| 'speaking'`; `level?: number` (0–1, cru); `height?` | parado, ouvindo com nível variando, falando, reduzido | libraries.dev `voice-glow` (MIT, recriado com atribuição): três camadas (traço, luz, bloom `v²`) nas cores de `aiGradient`; envelope ataque 100 ms / soltura 500 ms com porta 0,03 em `ds-core` (`logic/voiceEnvelope.ts`, autochecado); nativo em Skia no UI thread, web em CSS com `--lvl`; reduzido: sem deslizar o gradiente, só a altura; `idle` não desenha |
 
 `emit({ component: 'Composer', kind: 'submit' })` no envio; nunca envia o texto na telemetria.
 
 ### Task 27 ∥: ApprovalCard, ClarificationCard, Sources, Files
+
+`ApprovalCard` toca `confirm` depois que a aprovação é aceita (não ao tocar) e `warn` ao pedir a confirmação destrutiva
+(Task 10b).
 
 | Componente | API (props) | Estados no catálogo | Base |
 |---|---|---|---|
