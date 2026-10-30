@@ -10,7 +10,6 @@
     "@expo-google-fonts/geist": "^0.4.2",
     "@expo-google-fonts/ibm-plex-mono": "^0.4.1",
     "@expo-google-fonts/outfit": "^0.4.3",
-    "@gahmp1/ds-core": "*",
     "@gahmp1/ds-native": "*",
     "@gahmp1/ds-theme": "*",
     "@shopify/flash-list": "2.3.2",

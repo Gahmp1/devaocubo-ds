@@ -1,6 +1,6 @@
 import { useDS } from '@gahmp1/ds-core'
 import { useState } from 'react'
-import { Pressable, type LayoutChangeEvent, type PressableProps, type StyleProp, type ViewStyle } from 'react-native'
+import { Pressable, StyleSheet, type LayoutChangeEvent, type PressableProps, type StyleProp, type ViewStyle } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { usePressFeedback } from './usePressFeedback.js'
 
@@ -18,10 +18,15 @@ export type PressProps = Omit<PressableProps, 'style'> & {
   feedback?: boolean
 }
 
-/** `Pressable` com feedback do tema, alvo de 44 pt (via `hitSlop`) e `emit` de telemetria no toque. */
+/**
+ * `Pressable` com feedback do tema, alvo de 44 pt (via `hitSlop`) e `emit` de telemetria no toque.
+ * Não passe `transform` em `style` (é do feedback de escala) e não use opacidade para o visual de desabilitado
+ * (vem das cores do tema); uma `opacity` em `style` é multiplicada pelo feedback de opacidade.
+ */
 export function Press({ interactionId, component, feedback = true, style, hitSlop, onPress, onPressIn, onPressOut, onLayout, disabled, accessibilityLabel, ...rest }: PressProps) {
   const { emit } = useDS()
-  const fb = usePressFeedback({ disabled: disabled ?? false })
+  const baseOpacity = StyleSheet.flatten(style)?.opacity
+  const fb = usePressFeedback({ disabled: disabled ?? false, baseOpacity: typeof baseOpacity === 'number' ? baseOpacity : 1 })
   const [size, setSize] = useState<{ w: number; h: number } | null>(null)
   const slop = hitSlop ?? (size ? { top: Math.max(0, (MIN_TARGET - size.h) / 2), bottom: Math.max(0, (MIN_TARGET - size.h) / 2), left: Math.max(0, (MIN_TARGET - size.w) / 2), right: Math.max(0, (MIN_TARGET - size.w) / 2) } : undefined)
   return (

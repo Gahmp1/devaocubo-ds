@@ -1,4 +1,4 @@
-import type { DSIconName, IconComponent } from '@gahmp1/ds-core'
+import type { DSIconName, IconComponent } from '@gahmp1/ds-native'
 import { ArrowDown, Check, ChevronDown, ChevronLeft, ChevronRight, CircleAlert, CircleCheck, Ellipsis, Eye, EyeOff, File, Info, Link, Mic, Minus, Paperclip, Plus, Search, Send, Square, TriangleAlert, X, type LucideIcon } from 'lucide-react-native'
 
 // lucide (ISC) só como implementação do catálogo; o DS pede ícones por nome.
