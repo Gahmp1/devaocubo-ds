@@ -1,0 +1,69 @@
+.ds-glow {
+  position: relative;
+  flex: none;
+  width: var(--ds-glow-size);
+  height: var(--ds-glow-size);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ds-glow__breath,
+.ds-glow__trace,
+.ds-glow__inner {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+/* Bloom: o dobro do diâmetro, centrado; o gradiente (--ds-glow-falloff) chega a ~0 na borda, meio diâmetro além do círculo. */
+.ds-glow__bloom {
+  position: absolute;
+  inset: calc(var(--ds-glow-size) / -2);
+  border-radius: 50%;
+  background: var(--ds-glow-falloff);
+  opacity: var(--ds-glow-bloom);
+}
+
+.ds-glow__inner {
+  background: radial-gradient(closest-side, transparent 50%, var(--ds-glow-color));
+  opacity: var(--ds-glow-inner);
+}
+
+.ds-glow__trace {
+  box-shadow: inset 0 0 0 var(--ds-border-thick) var(--ds-glow-color);
+  opacity: var(--ds-glow-trace);
+}
+
+/* Pulso: a opacidade cai a 55% e o bloom cresce 8% no pico (os mesmos números do nativo); ciclo de 6 × duration.slow. */
+.ds-glow--pulse .ds-glow__breath,
+.ds-glow--pulse .ds-glow__bloom {
+  animation-duration: calc(var(--ds-duration-slow) * 6);
+  animation-timing-function: var(--ds-ease-standard);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.ds-glow--pulse .ds-glow__breath {
+  animation-name: ds-glow-breath;
+}
+
+.ds-glow--pulse .ds-glow__bloom {
+  animation-name: ds-glow-grow;
+}
+
+.ds-glow--paused .ds-glow__breath,
+.ds-glow--paused .ds-glow__bloom {
+  animation-play-state: paused;
+}
+
+@keyframes ds-glow-breath {
+  to {
+    opacity: 0.55;
+  }
+}
+
+@keyframes ds-glow-grow {
+  to {
+    transform: scale(1.08);
+  }
+}
