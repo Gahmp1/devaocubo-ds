@@ -23,7 +23,8 @@ export const trippo: DSTheme = {
       info: '#2563eb', onInfo: '#ffffff',
       // rgba(0,0,0,0.15) e accent rgba(0,0,0,0.05) compostos sobre o bg
       border: '#d2d1ce', borderMuted: '#ebeae6', focus: '#71717a',
-      aiOrb: '#18181b', aiGlow: '#18181b', aiBeam: '#18181b',
+      // apps/web/BRAND.md: Ash #B8B6AE é o brilho e os pontos de rota (decorativo, fora da checagem de texto)
+      aiOrb: '#18181b', aiGlow: '#B8B6AE', aiBeam: '#B8B6AE',
     },
     dark: {
       bg: '#0a0a09', surface1: '#18181b', surface2: '#27272a', surface3: '#27272a',
@@ -33,11 +34,12 @@ export const trippo: DSTheme = {
       textDisabled: '#52525b',
       accent: '#ffffff', onAccent: '#18181b', danger: '#dc2626', onDanger: '#ffffff',
       warning: '#d97706', onWarning: '#1c1c1b',
-      success: 'hsl(161 94% 25%)', onSuccess: '#ffffff',
+      // fonte #059669; no escuro a tinta por cima passa (4.53) e o verde lê melhor como texto sobre o Night
+      success: '#059669', onSuccess: '#1c1c1b',
       info: '#2563eb', onInfo: '#ffffff',
       // rgba(255,255,255,0.15) e accent rgba(255,255,255,0.10) compostos sobre o bg
       border: '#2f2f2e', borderMuted: '#232322', focus: '#71717a',
-      aiOrb: '#ffffff', aiGlow: '#ffffff', aiBeam: '#ffffff',
+      aiOrb: '#f7f6f2', aiGlow: '#B8B6AE', aiBeam: '#B8B6AE',
     },
   },
   type: {

@@ -9,6 +9,8 @@ const PAIRS: Pair[] = [
   ['onAccent', 'accent', 4.5], ['onDanger', 'danger', 4.5], ['onWarning', 'warning', 4.5],
   ['onSuccess', 'success', 4.5], ['onInfo', 'info', 4.5],
   ['textSubtle', 'bg', 3], ['focus', 'bg', 3], ['accent', 'bg', 3],
+  // sucesso e perigo também viram texto e ícone direto sobre o fundo (ex.: variação positiva, erro de campo)
+  ['success', 'bg', 3], ['danger', 'bg', 3],
 ]
 
 /** Lista de falhas AA do tema; vazia se ok. */

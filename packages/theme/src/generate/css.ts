@@ -30,6 +30,13 @@ function staticVars(t: DSTheme): string[] {
   for (const [k, v] of Object.entries(motion.duration)) out.push(`--ds-duration-${k}: ${v}ms;`)
   for (const [k, v] of Object.entries(motion.easing)) out.push(`--ds-ease-${k}: cubic-bezier(${v.join(', ')});`)
   out.push(`--ds-ai-beam-period: ${ai.beamPeriodMs}ms;`, `--ds-ai-reveal-per-word: ${ai.revealMsPerWord}ms;`)
+  // Escolhas discretas (lidas por JS ou style queries): orbe, etapas, toque e variante padrão de componente.
+  const { components: c } = t
+  out.push(
+    `--ds-ai-orb: ${ai.orb};`, `--ds-ai-steps: ${ai.steps};`,
+    `--ds-press-kind: ${motion.press.kind};`, `--ds-press-value: ${motion.press.value};`,
+    `--ds-button-shape: ${c.button.shape};`, `--ds-card-type: ${c.card.type};`, `--ds-tab-bar: ${c.tabBar};`, `--ds-header: ${c.header};`,
+  )
   return out
 }
 
