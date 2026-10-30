@@ -13,7 +13,7 @@ export const TamanhosEVariantes: StoryObj = {
   render: () => (
     <Stack gap="md" style={{ padding: 24, background: 'var(--ds-color-bg)' }}>
       {VARIANTS.map((variant) => (
-        <Stack key={variant} direction="row" gap="md" align="center">
+        <Stack key={variant} direction="row" gap="md" align="center" wrap>
           <Stack style={{ width: 72 }}><Text variant="xs" color="textMuted" label>{variant}</Text></Stack>
           {SIZES.map((size) => (
             <IconButton key={size} icon="plus" accessibilityLabel="Adicionar" variant={variant} size={size} onPress={noop} />

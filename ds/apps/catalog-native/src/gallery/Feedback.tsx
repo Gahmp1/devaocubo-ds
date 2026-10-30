@@ -67,7 +67,7 @@ function FeedbackScreen() {
       <Text variant="sm" mono accessibilityLiveRegion="polite">{log}</Text>
 
       <Stack gap="xs">
-        <Text variant="xs" color="textMuted" label>aiGradient · {theme.provisional ? 'provisório' : 'definitivo'}</Text>
+        <Text variant="xs" color="textMuted" label>aiGradient · provisório, aguarda o designer</Text>
         <View style={s.strip} onLayout={(e) => setWidth(e.nativeEvent.layout.width)}>
           <Canvas style={{ width, height: STRIP }}>
             <Rect x={0} y={0} width={width} height={STRIP}>

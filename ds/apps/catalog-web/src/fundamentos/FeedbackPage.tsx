@@ -56,7 +56,7 @@ export function FeedbackPage() {
       <Text variant="sm" mono aria-live="polite" data-testid="feedback-log">{log}</Text>
 
       <Stack gap="xs">
-        <Text variant="xs" color="textMuted" label>aiGradient · {theme.provisional ? 'provisório' : 'definitivo'}</Text>
+        <Text variant="xs" color="textMuted" label>aiGradient · provisório, aguarda o designer</Text>
         <div data-testid="gradient-strip" style={{ height: 40, borderRadius: 'var(--ds-radius-md)', background: 'linear-gradient(90deg, var(--ds-ai-gradient-1), var(--ds-ai-gradient-2), var(--ds-ai-gradient-3))' }} />
         <Stack direction="row" gap="sm">
           {g.map((c, i) => (
