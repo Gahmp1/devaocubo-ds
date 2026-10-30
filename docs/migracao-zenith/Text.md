@@ -17,7 +17,8 @@ Origem: `atoms/DSText/DSText.tsx`. Destino: `Text` de `@gahmp1/ds-native` e `@ga
 | `success` | `success` |
 | `emptyState` | `textMuted` |
 | `numberOfLines` | igual |
-| `testID`, `style` | removidos (o DS não aceita estilo de texto; use `variant`/`color`) |
+| `testID` | passa adiante (native: todas as props do `Text` do RN; web: atributos HTML, `as` e `htmlFor`) |
+| `style` | só layout (margem, flex, alinhamento); fonte, cor e tamanho vêm de `variant`/`color` |
 | modo markdown (`text`, `defaultStyle`) | removido: era formato de conteúdo do backend iOS; fica no app |
 
 Novos: `label` (caixa do tema + `tracking.wide`), `mono`, `tabular` (padrão = `type.numeric` do tema),

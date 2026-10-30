@@ -42,6 +42,11 @@ function TextScreen() {
         <Text tabular={false}>8888,88</Text>
       </Stack>
       <Stack gap="xs">
+        <Text variant="xs" color="textMuted" label>semântica</Text>
+        <Text variant="xlMedium" accessibilityRole="header" testID="titulo">Título com accessibilityRole header</Text>
+        <Text selectable>Texto selecionável</Text>
+      </Stack>
+      <Stack gap="xs">
         <Text variant="xs" color="textMuted" label>texto longo</Text>
         <Text>{LONG}</Text>
         <Text numberOfLines={2}>{LONG}</Text>

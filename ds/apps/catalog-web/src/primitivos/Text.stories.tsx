@@ -69,3 +69,14 @@ export const TextoLongo: StoryObj = {
     </Stack>
   ),
 }
+
+export const Semantica: StoryObj = {
+  render: () => (
+    <Stack gap="xs" style={{ padding: 24 }}>
+      <Text as="h2" variant="xlMedium">Título como h2</Text>
+      <Text as="p" color="textMuted">Parágrafo como p, com id e aria-label.</Text>
+      <Text as="label" htmlFor="campo" variant="sm" label>Rótulo ligado ao campo</Text>
+      <input id="campo" aria-label="campo" />
+    </Stack>
+  ),
+}
