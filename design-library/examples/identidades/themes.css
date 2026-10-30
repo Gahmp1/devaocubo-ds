@@ -1,0 +1,153 @@
+/* gerado por @gahmp1/ds-theme (npm run build); não editar */
+
+/* devaocubo: gerado por @gahmp1/ds-theme; não editar */
+
+[data-product="devaocubo"] {
+  --ds-font-display: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --ds-font-body: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --ds-font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ds-text-xs-size: 12px;
+  --ds-text-xs-line: 16px;
+  --ds-text-sm-size: 14px;
+  --ds-text-sm-line: 20px;
+  --ds-text-base-size: 16px;
+  --ds-text-base-line: 24px;
+  --ds-text-lg-size: 18px;
+  --ds-text-lg-line: 28px;
+  --ds-text-xl-size: 24px;
+  --ds-text-xl-line: 32px;
+  --ds-text-display-size: 40px;
+  --ds-text-display-line: 48px;
+  --ds-weight-regular: 400;
+  --ds-weight-medium: 500;
+  --ds-weight-semibold: 600;
+  --ds-weight-bold: 700;
+  --ds-tracking-tight: -0.02em;
+  --ds-tracking-normal: 0em;
+  --ds-tracking-wide: 0.04em;
+  --ds-label-case: none;
+  --ds-numeric: normal;
+  --ds-radius-sm: 5.6px;
+  --ds-radius-md: 7.6px;
+  --ds-radius-lg: 9.6px;
+  --ds-radius-xl: 13.6px;
+  --ds-radius-xxl: 24px;
+  --ds-radius-full: 9999px;
+  --ds-radius-control: 7.6px;
+  --ds-border-hairline: 1px;
+  --ds-border-thin: 1px;
+  --ds-border-thick: 2px;
+  --ds-space-xxs: 2px;
+  --ds-space-xs: 4px;
+  --ds-space-sm: 8px;
+  --ds-space-md: 16px;
+  --ds-space-lg: 24px;
+  --ds-space-xl: 32px;
+  --ds-space-xxl: 40px;
+  --ds-space-xxxl: 48px;
+  --ds-space-huge: 64px;
+  --ds-control-sm: 36px;
+  --ds-control-md: 40px;
+  --ds-control-lg: 48px;
+  --ds-duration-fast: 150ms;
+  --ds-duration-base: 200ms;
+  --ds-duration-slow: 300ms;
+  --ds-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ds-ease-enter: cubic-bezier(0, 0, 0.2, 1);
+  --ds-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ds-ai-beam-period: 3000ms;
+  --ds-ai-reveal-per-word: 50ms;
+  --ds-color-bg: hsl(0 0% 98%);
+  --ds-color-surface1: hsl(0 0% 100%);
+  --ds-color-surface2: hsl(240 5% 95%);
+  --ds-color-surface3: hsl(240 5% 90%);
+  --ds-color-scrim: rgba(0, 0, 0, 0.6);
+  --ds-color-text: hsl(240 6% 4%);
+  --ds-color-text-muted: hsl(240 4% 42%);
+  --ds-color-text-subtle: hsl(240 4% 42%);
+  --ds-color-text-disabled: hsl(240 5% 90%);
+  --ds-color-accent: hsl(240 5% 9%);
+  --ds-color-on-accent: hsl(0 0% 98%);
+  --ds-color-danger: hsl(4 74% 39%);
+  --ds-color-on-danger: hsl(0 0% 98%);
+  --ds-color-warning: hsl(38 83% 31%);
+  --ds-color-on-warning: hsl(45 90% 95%);
+  --ds-color-success: hsl(142 66% 27%);
+  --ds-color-on-success: hsl(138 62% 95%);
+  --ds-color-info: hsl(240 5% 9%);
+  --ds-color-on-info: hsl(0 0% 98%);
+  --ds-color-border: hsl(240 5% 90%);
+  --ds-color-border-muted: hsl(240 5% 90%);
+  --ds-color-focus: hsl(240 5% 9%);
+  --ds-color-ai-orb: hsl(240 5% 9%);
+  --ds-color-ai-glow: hsl(240 5% 9%);
+  --ds-color-ai-beam: hsl(240 5% 9%);
+  --ds-depth-model: hairline;
+  --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  --ds-shadow-overlay: 0px 8px 24px 0px rgba(0, 0, 0, 0.12);
+}
+
+[data-product="devaocubo"][data-theme="dark"] {
+  --ds-color-bg: hsl(240 6% 4%);
+  --ds-color-surface1: hsl(240 5% 9%);
+  --ds-color-surface2: hsl(240 4% 12%);
+  --ds-color-surface3: hsl(240 5% 16%);
+  --ds-color-scrim: rgba(0, 0, 0, 0.6);
+  --ds-color-text: hsl(220 9% 96%);
+  --ds-color-text-muted: hsl(240 4% 62%);
+  --ds-color-text-subtle: hsl(240 4% 62%);
+  --ds-color-text-disabled: hsl(240 5% 16%);
+  --ds-color-accent: hsl(220 9% 96%);
+  --ds-color-on-accent: hsl(240 6% 4%);
+  --ds-color-danger: hsl(0 91% 71%);
+  --ds-color-on-danger: hsl(240 6% 4%);
+  --ds-color-warning: hsl(38 92% 68%);
+  --ds-color-on-warning: hsl(38 92% 12%);
+  --ds-color-success: hsl(142 71% 60%);
+  --ds-color-on-success: hsl(142 71% 10%);
+  --ds-color-info: hsl(220 9% 96%);
+  --ds-color-on-info: hsl(240 6% 4%);
+  --ds-color-border: hsl(240 5% 16%);
+  --ds-color-border-muted: hsl(240 5% 16%);
+  --ds-color-focus: hsl(220 9% 96%);
+  --ds-color-ai-orb: hsl(220 9% 96%);
+  --ds-color-ai-glow: hsl(220 9% 96%);
+  --ds-color-ai-beam: hsl(220 9% 96%);
+  --ds-depth-model: hairline;
+  --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  --ds-shadow-overlay: 0px 8px 24px 0px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-product="devaocubo"]:not([data-theme="light"]) {
+    --ds-color-bg: hsl(240 6% 4%);
+    --ds-color-surface1: hsl(240 5% 9%);
+    --ds-color-surface2: hsl(240 4% 12%);
+    --ds-color-surface3: hsl(240 5% 16%);
+    --ds-color-scrim: rgba(0, 0, 0, 0.6);
+    --ds-color-text: hsl(220 9% 96%);
+    --ds-color-text-muted: hsl(240 4% 62%);
+    --ds-color-text-subtle: hsl(240 4% 62%);
+    --ds-color-text-disabled: hsl(240 5% 16%);
+    --ds-color-accent: hsl(220 9% 96%);
+    --ds-color-on-accent: hsl(240 6% 4%);
+    --ds-color-danger: hsl(0 91% 71%);
+    --ds-color-on-danger: hsl(240 6% 4%);
+    --ds-color-warning: hsl(38 92% 68%);
+    --ds-color-on-warning: hsl(38 92% 12%);
+    --ds-color-success: hsl(142 71% 60%);
+    --ds-color-on-success: hsl(142 71% 10%);
+    --ds-color-info: hsl(220 9% 96%);
+    --ds-color-on-info: hsl(240 6% 4%);
+    --ds-color-border: hsl(240 5% 16%);
+    --ds-color-border-muted: hsl(240 5% 16%);
+    --ds-color-focus: hsl(220 9% 96%);
+    --ds-color-ai-orb: hsl(220 9% 96%);
+    --ds-color-ai-glow: hsl(220 9% 96%);
+    --ds-color-ai-beam: hsl(220 9% 96%);
+    --ds-depth-model: hairline;
+    --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    --ds-shadow-overlay: 0px 8px 24px 0px rgba(0, 0, 0, 0.5);
+  }
+}
+

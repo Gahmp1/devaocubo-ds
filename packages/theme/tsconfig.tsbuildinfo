@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/types.ts","./src/check/color.ts","./src/check/contrast.ts","./src/generate/legacy.ts","./src/legacy/devaocubo.ts","./src/scripts/build.ts","./src/scripts/check.ts"],"version":"6.0.3"}
+{"root":["./src/index.ts","./src/types.ts","./src/check/color.ts","./src/check/contrast.ts","./src/generate/css.ts","./src/generate/legacy.ts","./src/legacy/devaocubo.ts","./src/scripts/build.ts","./src/scripts/check.ts","./src/themes/devaocubo.ts"],"version":"6.0.3"}
