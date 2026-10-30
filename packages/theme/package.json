@@ -1,0 +1,19 @@
+{
+  "name": "@gahmp1/ds-theme",
+  "version": "0.0.0",
+  "description": "Contrato de tema e temas dos produtos do devaocubo-ds.",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./css/*": "./dist/css/*"
+  },
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "publishConfig": { "registry": "https://npm.pkg.github.com" },
+  "scripts": {
+    "build": "tsc -b && node dist/scripts/build.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0"
+  }
+}
