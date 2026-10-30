@@ -96,13 +96,24 @@ são DOM/Tailwind. "Aproveitável" significa recriar olhando o código, não col
 - verificado em: 2026-10-30, design-research
 
 ## Bencho
-- url: https://bencho.dev/
+- url: https://bencho.dev/ (código https://github.com/cabralorenzo/bencho; sons https://bencho.dev/sounds)
 - categoria: design systems
 - movimento: forte
-- licença: a verificar (página não diz licença, preço ou repositório): só índice, nada de código
+- licença: MIT para o que está no repositório público (`LICENSE` lido em raw.githubusercontent.com/cabralorenzo/bencho/main/LICENSE, © 2026 Lorenzo Cabra); [F] o mesmo arquivo exclui o nome e a marca "Bencho", as fotos do site e material de terceiros (`THIRD_PARTY.md`: dois sons recriados de cuelume, MIT, © 2026 Daniel Belyi). [F] o README diz "44 blocks and 24 sounds, free" e aponta https://bencho.dev/pricing para o "Pro" (130+ sons a mais, camadas, download em WAV); o site lista ≈150 blocos, então os que não estão em `blocks/` são, pelo que vimos, do Pro: preço e termos do Pro **a verificar** (a página de preços e a de licença do site são SPA e não abriram por WebFetch; a de licença só é citada em https://bencho.dev/llms.txt como "MIT")
 - estado: só link
-- componentes: Celebration, Skeleton, TabBar, ScrollFade (apenas como lista de interações a estudar em outras fontes)
-- o que pegar: [F] ≈150 blocos nomeados por tipo de gesto (drag, hover, press, type, loading). Úteis só como vocabulário: "Confetti", "Skeleton morph", "Tab bar", "Progressive blur", "Slide to confirm", "Rolling counter", "Voice chat", "Thinking". Sem descrição na página.
+- componentes: Pull to refresh (`blocks/pull`, cartão de saldo), Slide to confirm, Like, Toast stack, Rolling counter, Voice note, Dynamic island; (lista completa do repositório em `blocks/`)
+- o que pegar: [F] vocabulário de ≈150 blocos por gesto. [F] `blocks/pull/Balance.tsx` decide o compromisso numa DISTÂNCIA, não ao soltar (cruzar o limiar é o momento do "pegou"), limiar de 80 px reduzido depois no código, mola que acomoda e leitura de `prefers-reduced-motion`; o bloco do repositório não toca som nem vibra. [F] `sounds/sounds.ts`: 24 sons sintetizados em Web Audio, sem arquivo; cada nota é osciladora ou ruído filtrado + passa-baixa + envelope (ataque ≥ 1 ms para não estalar); pico por nota entre ≈0,003 e 0,07; duração típica 20 a 600 ms; `play(nome, {volume, pitch})` cria um `AudioContext` preguiçoso e chama `resume()`. [F] não tem mudo, opt-in nem leitura de preferências: isso é nosso. Detalhes de padrão em `som-e-haptics.md`.
+- exemplo local: examples/feedback-sensorial (recriado do zero, sem copiar os sons)
+- verificado em: 2026-10-30, design-research
+
+## Pulsar (Software Mansion)
+- url: https://docs.swmansion.com/pulsar/ (código https://github.com/software-mansion/pulsar)
+- categoria: design systems
+- movimento: nenhum (haptics)
+- licença: MIT (`LICENSE` do repositório lido, © 2025 Krzysztof Piaskowy; API do GitHub: `mit`; npm `react-native-pulsar` 1.7.0 e `pulsar-haptics` 0.2.0, ambos `MIT` no registro; README: "Pulsar library is licensed under The MIT License"). [F] preço de Pulsar Studio, do app para celular e do plugin do Figma: **a verificar** (as páginas lidas não dizem). A suposição do dono ("deve ser pago") não se confirma para a biblioteca.
+- estado: só link
+- componentes: nenhum visual; presets e compositores de haptics
+- o que pegar: [F] presets nomeados e chamáveis: nativo `Presets.System.impactMedium()`, `notificationSuccess`, `selection`, mais padrões próprios (`hammer`, `dogBark`, `buzz`, `pulse`, `Fanfare`, `Heartbeat`); web (`pulsar-haptics`): 45 visíveis (alarm, alert, bounce, doubleTap, heartbeat, longPress, reject, ripple, softTap, tap, tripleTap, timeout, trill...) e 37 escondidos. [F] três modos: `Presets`, `usePatternComposer` (segmentos `continuous`/`pulse`/`line`) e `useRealtimeComposer` (`set(amplitude, frequency)` em tempo real, bom para gesto e voz). [F] `useAdaptiveHaptics` escolhe config por plataforma; `Settings` tem `enableHaptics`, `enableSound`, `getHapticsSupportLevel`. [F] RN exige Nova Arquitetura, RN 0.71+ e `react-native-worklets` (Reanimated 4 já depende dele: [I]); no Expo, `npx expo install react-native-pulsar` mais prebuild (não roda no Expo Go: [I]). [F] web usa `navigator.vibrate` e simula intensidade por PWM; no iOS/iPadOS Safari não vibra ("Apple does not implement the Web Vibration API in Safari"). [I] não adotar agora: `expo-haptics` cobre impacto, notificação e seleção; Pulsar vale se quisermos padrões próprios ou háptico realtime ligado à voz. Guia: https://docs.swmansion.com/pulsar/sdk/react-native/ e /sdk/web/.
 - exemplo local: nenhum
 - verificado em: 2026-10-30, design-research
 
@@ -157,7 +168,7 @@ são DOM/Tailwind. "Aproveitável" significa recriar olhando o código, não col
 - licença: MIT (`LICENSE` de `border-beam`, `thinking-orbs`, `voice-glow` e `voice-ring`, © 2026 Jakub Antalik, lidos um a um); os modelos de ML (Magnet, VoiceDirection) não foram lidos
 - estado: só link
 - componentes: Glow, GlowBorder, GlowScene, WaitingOrb, RecordingBar
-- o que pegar: [F] `border-beam`: tipos `rotate` (md/sm/line) e `pulse` (inner/outside), `strength` 0–1, `theme`, `active` com fade de entrada e saída, detecta o `border-radius` do filho; `pulse-outside` exige filho opaco e usa o próprio hairline de 1 px. [F] `voice-glow`: três camadas (traço da borda, luz interna, bloom desfocado) cuja altura segue a voz; é o "irmão" do tipo `line`. [F] `border-beam/ports` tem `ios` e `react-native`; arquitetura RN já descrita em `orbes-e-loaders-de-ia.md`.
+- o que pegar: [F] `border-beam`: tipos `rotate` (md/sm/line) e `pulse` (inner/outside), `strength` 0–1, `theme`, `active` com fade de entrada e saída, detecta o `border-radius` do filho; `pulse-outside` exige filho opaco e usa o próprio hairline de 1 px. [F] `voice-glow`: três camadas (traço da borda, luz interna, bloom desfocado) cuja altura segue a voz; é o "irmão" do tipo `line`. [F] `border-beam/ports` tem `ios` e `react-native`; arquitetura RN já descrita em `orbes-e-loaders-de-ia.md`. [F] `voice-glow` 0.3.0 (npm, MIT, atualizado em 2026-10-05; página https://libraries.dev/voice): React 18+ sem dependências, SwiftUI (`VoiceGlowKit`, iOS 17+), **React Native "Coming soon"**; nível 0–1 por `stream` (MediaStream) ou `level` (número ou getter por quadro); ganho `sensitivity`, porta `threshold`, envelope `attack`/`release`; forma `reach`, `spread`, `flow`, `bend`, `bands`; oito paletas e `colors` (até 7 lóbulos). O estado "processing" (feixe varrendo) é do **Libraries Pro** e o preço não consta na página: a verificar. Detalhes em `orbes-e-loaders-de-ia.md`.
 - exemplo local: examples/lab-apps, examples/lab-swfitness
 - verificado em: 2026-10-30, design-research
 
@@ -276,7 +287,8 @@ Legenda da coluna de código: **sim** = sim com atribuição (MIT/Apache lido), 
 - **Rare UI** (https://www.rareui.com/): [F] o `LICENSE` de swamimalode07/rare-ui abre com "MIT + Commons Clause License Condition v1.0 + Attribution". Mesma restrição. (A API do GitHub apresentou "MIT" para outro repositório de nome parecido; ignorar.)
 - **Canvas UI** (https://canvasui.dev/): [F] a FAQ da própria página diz "MIT + Commons Clause"; além disso depende de HTML-in-Canvas experimental, atrás de flag no Chrome. Fora por licença e maturidade.
 - **Create UI** e **Invisible Details**: licenças pagas ou não lidas; ficam como inventário e como leitura, sem código.
-- **Beautiful UI**, **Bencho**, **23rd** (https://23rd.dev/): sem texto de licença lido (23rd: nem `LICENSE` nem campo no GitHub; a página só mostra shaders e "Live Orb WebGL"). Só vocabulário, nenhum código.
+- **Beautiful UI** e **23rd** (https://23rd.dev/): sem texto de licença lido (23rd: nem `LICENSE` nem campo no GitHub; a página só mostra shaders e "Live Orb WebGL"). Só vocabulário, nenhum código.
+- **Bencho Pro** (blocos e sons fora do repositório público) e **Libraries Pro** (estado "processing" do voice-glow): licença e preço a verificar; Bencho free (repositório MIT) saiu desta lista em 2026-10-30.
 - **Evil Buttons** (https://www.evilbuttons.com/): [F] Apache-2.0 (`LICENSE` lido), mas a página só lista botões de efeito (Ash Burst, Minecraft) sem descrever comportamento: qualidade baixa para um DS sóbrio.
 - **Toolcraft** (https://toolcraft.sh/): [F] MIT (`LICENSE.md`), mas é kit de apps de design com IA (sliders, camadas, timeline); fora da lista da onda 1.
 - **Input OTP** (https://input-otp.rodz.dev/): [F] MIT, ótimo padrão (um input real sob slots, `autocomplete="one-time-code"`), mas OTP não é componente da onda 1.
@@ -285,3 +297,4 @@ Legenda da coluna de código: **sim** = sim com atribuição (MIT/Apache lido), 
 
 ## O que não foi aberto
 `orbs.jakubantalik.com` e `beam.jakubantalik.com` (esta só diz que a biblioteca mudou para `libraries.dev/beam`; foi lido o README no repositório). Docs de Skia, Reanimated e Radix não foram reabertos aqui: valem os registros de `motion-e-video.md`.
+`bencho.dev/pricing` e `bencho.dev/license` (SPA, o WebFetch devolveu só a navegação); páginas de preço do Libraries Pro e do Pulsar Studio; HIG do Apple "Playing haptics" e "Playing audio" foram lidas pelo JSON público do site de documentação, não pelo HTML.
