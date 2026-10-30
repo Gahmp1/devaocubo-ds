@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR" style='--prod:"devaocubo-ds";--p-fill:#18181b;--p-acc:#18181b;--p-on:#ffffff'>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relatório da onda 0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../pdf/pdf.css">
+<style>
+  /* capturas: as PNGs ficam nos catálogos (design-library é só texto) */
+  .shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 3mm 0; break-inside: avoid; }
+  .shots img { width: 100%; height: 52mm; object-fit: cover; object-position: top; border: 1px solid var(--p-line); border-radius: 2mm; }
+  .shots figcaption, .shots + .cap { font-size: 7.5pt; color: var(--p-mut); }
+  .wide img { height: 62mm; }
+  .wide { grid-template-columns: 1fr 1fr; }
+  td.ok { color: var(--p-acc); font-weight: 600; }
+</style>
+</head>
+<body>
+<header class="ui">
+  <div class="row">
+    <div class="brand">devaocubo-ds<small>relatório da onda 0 · A4</small></div>
+    <div class="tools">
+      <div class="switch" role="group" aria-label="Modo de visualização" id="mode">
+        <button type="button" data-m="sheets" aria-pressed="true">Folhas</button>
+        <button type="button" data-m="flow" aria-pressed="false">Rolagem contínua</button>
+      </div>
+      <div class="zoom" id="zoomBox">
+        <button class="btn" type="button" id="zout" aria-label="Diminuir zoom">−</button>
+        <input type="range" id="zr" min="40" max="150" step="5" value="100" aria-label="Zoom">
+        <button class="btn" type="button" id="zin" aria-label="Aumentar zoom">+</button>
+        <output id="zv" for="zr">100%</output>
+        <button class="btn" type="button" id="zfit">Ajustar</button>
+      </div>
+      <button class="btn pri" type="button" id="print">Imprimir ou salvar PDF</button>
+    </div>
+  </div>
+</header>
+
+<main class="stage" id="stage">
+  <p class="hint" id="hint">Pré-visualização das folhas A4.</p>
+
+  <div class="sheet-wrap"><article class="page cover" aria-label="Página 1">
+    <div class="band"><span>Relatório · onda 0</span></div>
+    <p class="eyebrow mut" style="font-size:8pt;letter-spacing:.12em;text-transform:uppercase">devaocubo-ds · branch feat/ds-onda-0</p>
+    <h1>Tema em nove eixos e catálogos</h1>
+    <p class="sub">Base do design system compartilhado: o pacote <code>@gahmp1/ds-theme</code> com quatro temas em claro e escuro, checagem de contraste e os catálogos web e nativo.</p>
+    <dl class="meta">
+      <div><dt>Data</dt><dd>30 de outubro de 2026</dd></div>
+      <div><dt>Spec</dt><dd>2026-10-30-componentes-devaocubo-ds-design</dd></div>
+      <div><dt>Plano</dt><dd>2026-10-30-ds-onda-0-base</dd></div>
+      <div><dt>Estado</dt><dd>Aguardando revisão do João</dd></div>
+    </dl>
+    <p class="mut">Nada foi publicado nesta onda. Os arquivos legados <code>tokens.css</code> e <code>defaults.json</code> continuam idênticos byte a byte.</p>
+    <div class="pf"><span>devaocubo-ds · onda 0</span><span class="n"></span></div>
+  </article></div>
+
+  <div class="sheet-wrap"><article class="page" aria-label="Página 2">
+    <div class="ph"><span>Relatório · onda 0</span><span>devaocubo-ds</span></div>
+    <h2><span class="nr">1.</span>O que a onda entrega</h2>
+    <ul class="check">
+      <li>Monorepo com workspaces e changesets; o pacote raiz segue só com tokens.</li>
+      <li><code>@gahmp1/ds-theme</code>: tipos dos nove eixos, temas <b>devaocubo</b>, <b>swfitness</b>, <b>somma</b> e <b>trippo</b>, geração de CSS <code>--ds-*</code> por tema, mapeamento do Tailwind 4 e dos arquivos legados.</li>
+      <li>Checagem WCAG que reprova o build quando um par fica abaixo do mínimo.</li>
+      <li>Catálogo web (Storybook 10) e catálogo nativo (Expo 57, Reanimated 4), verificados em navegador, simulador iOS e emulador Android.</li>
+      <li>Tela-modelo com os quatro temas lado a lado, referência de marca e deck da identidade.</li>
+    </ul>
+    <h2 style="margin-top:6mm"><span class="nr">2.</span>Checagem de contraste</h2>
+    <p>Dezesseis pares por esquema: texto sobre fundo e superfícies (4,5:1), cada cor de preenchimento com o texto por cima (4,5:1), e texto sutil, foco, acento, sucesso e perigo sobre o fundo (3:1). Resultado: <b>4 temas, 0 falhas</b>.</p>
+    <div class="tblw"><table>
+      <caption>Tabela 1 — Par com menor folga em cada tema e esquema</caption>
+      <thead><tr><th>Tema</th><th>Esquema</th><th>Par mais apertado</th><th class="n">Razão</th><th class="n">Mínimo</th></tr></thead>
+      <tbody>
+        <tr><td>devaocubo</td><td>claro</td><td>onWarning / warning</td><td class="n ok">5,08</td><td class="n">4,5</td></tr>
+        <tr><td>devaocubo</td><td>escuro</td><td>textMuted / surface1</td><td class="n ok">6,50</td><td class="n">4,5</td></tr>
+        <tr><td>swfitness</td><td>claro (provisório)</td><td>focus / bg</td><td class="n ok">3,20</td><td class="n">3</td></tr>
+        <tr><td>swfitness</td><td>escuro</td><td>onInfo / info</td><td class="n ok">4,80</td><td class="n">4,5</td></tr>
+        <tr><td>somma</td><td>claro (provisório)</td><td>onAccent / accent</td><td class="n ok">5,75</td><td class="n">4,5</td></tr>
+        <tr><td>somma</td><td>escuro (provisório)</td><td>textMuted / surface1</td><td class="n ok">6,49</td><td class="n">4,5</td></tr>
+        <tr><td>trippo</td><td>claro (provisório)</td><td>onDanger / danger</td><td class="n ok">4,83</td><td class="n">4,5</td></tr>
+        <tr><td>trippo</td><td>escuro (provisório)</td><td>onSuccess / success</td><td class="n ok">4,53</td><td class="n">4,5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="mut">O SWFitness escuro (definitivo) passou sem nenhuma alteração nos valores do Zenith.</p>
+    <div class="pf"><span>devaocubo-ds · onda 0</span><span class="n"></span></div>
+  </article></div>
+
+  <div class="sheet-wrap"><article class="page" aria-label="Página 3">
+    <div class="ph"><span>Relatório · onda 0</span><span>devaocubo-ds</span></div>
+    <h2><span class="nr">3.</span>Ajustes nos temas provisórios</h2>
+    <p>Cada ajuste está comentado no arquivo do tema como <code>// ajustado: fonte &lt;valor&gt; (razão &lt;x&gt;)</code>. Os valores das fontes não foram tocados nos repositórios dos produtos.</p>
+    <div class="tblw"><table>
+      <caption>Tabela 2 — O que mudou em relação à fonte</caption>
+      <thead><tr><th>Tema</th><th>Papel</th><th>Fonte</th><th>No tema</th><th>Motivo</th></tr></thead>
+      <tbody>
+        <tr><td>swfitness claro</td><td>accent, success, focus</td><td>#B6FB2D (1,19:1)</td><td>hsl(80 96% 31%) (3,20:1)</td><td>lima some sobre fundo claro</td></tr>
+        <tr><td>swfitness claro</td><td>onDanger</td><td>#FFFFFF (3,47:1)</td><td>#0E0E11 (5,56:1)</td><td>mesma regra do escuro</td></tr>
+        <tr><td>somma escuro</td><td>onInfo</td><td>#F7F7F2 (2,91:1)</td><td>#050505</td><td>maior contraste</td></tr>
+        <tr><td>somma</td><td>controle, botão, toque</td><td>plano: arredondado, 0,6</td><td>pílula, opacidade 0,9</td><td>notas de marca do Somma</td></tr>
+        <tr><td>trippo</td><td>onWarning</td><td>#ffffff (3,19:1)</td><td>#1c1c1b (5,35:1)</td><td>maior contraste</td></tr>
+        <tr><td>trippo claro</td><td>success</td><td>#059669 (3,77:1 com branco)</td><td>hsl(161 94% 25%) (5,24:1)</td><td>escurecido, mesmo matiz</td></tr>
+        <tr><td>trippo escuro</td><td>success, onSuccess</td><td>#059669 / #ffffff</td><td>#059669 / #1c1c1b (4,53:1)</td><td>verde legível como texto no Night</td></tr>
+        <tr><td>trippo</td><td>brilho de IA</td><td>tinta</td><td>Ash #B8B6AE</td><td>BRAND.md: Ash é o brilho</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Valores sem fonte (inferência)</h3>
+    <p>Marcados no código como inferência: <code>scrim</code> de Somma e Trippo, <code>textDisabled</code> do SWFitness claro e do Trippo, densidade, mola e ritmo de IA de Somma e Trippo, e a mola do SWFitness (a TabBar trocou o <code>withSpring</code> por <code>withTiming</code> sem bounce; o tema usa uma mola criticamente amortecida).</p>
+    <div class="pf"><span>devaocubo-ds · onda 0</span><span class="n"></span></div>
+  </article></div>
+
+  <div class="sheet-wrap"><article class="page" aria-label="Página 4">
+    <div class="ph"><span>Relatório · onda 0</span><span>devaocubo-ds</span></div>
+    <h2><span class="nr">4.</span>Capturas dos catálogos</h2>
+    <figure class="shots">
+      <img src="../../../ds/apps/catalog-web/evidence/onda-0/swfitness-escuro.png" alt="Storybook, swfitness escuro">
+      <img src="../../../ds/apps/catalog-web/evidence/onda-0/somma-claro.png" alt="Storybook, somma claro">
+      <img src="../../../ds/apps/catalog-web/evidence/onda-0/trippo-claro.png" alt="Storybook, trippo claro">
+      <img src="../../../ds/apps/catalog-web/evidence/onda-0/devaocubo-escuro.png" alt="Storybook, devaocubo escuro">
+    </figure>
+    <p class="cap">Figura 1 — Storybook a 375 px: swfitness escuro, somma claro, trippo claro, devaocubo escuro.</p>
+    <figure class="shots">
+      <img src="../../../ds/apps/catalog-native/evidence/onda-0/ios-swfitness-escuro.png" alt="iOS, swfitness escuro">
+      <img src="../../../ds/apps/catalog-native/evidence/onda-0/ios-somma-escuro.png" alt="iOS, somma escuro">
+      <img src="../../../ds/apps/catalog-native/evidence/onda-0/android-somma-claro.png" alt="Android, somma claro">
+      <img src="../../../ds/apps/catalog-native/evidence/onda-0/android-trippo-escuro.png" alt="Android, trippo escuro">
+    </figure>
+    <p class="cap">Figura 2 — Expo: iOS 26.5 (swfitness e somma escuros) e Android 36 (somma claro, trippo escuro).</p>
+    <figure class="shots wide">
+      <img src="../../../ds/apps/catalog-web/evidence/onda-0/tela-modelo-escuro.png" alt="Tela-modelo, quatro temas no escuro">
+      <img src="../../../ds/apps/catalog-web/evidence/onda-0/tela-modelo-claro.png" alt="Tela-modelo, quatro temas no claro">
+    </figure>
+    <p class="cap">Figura 3 — Tela-modelo: devaocubo, swfitness, somma e trippo lado a lado, escuro e claro.</p>
+    <div class="pf"><span>devaocubo-ds · onda 0</span><span class="n"></span></div>
+  </article></div>
+
+  <div class="sheet-wrap"><article class="page" aria-label="Página 5">
+    <div class="ph"><span>Relatório · onda 0</span><span>devaocubo-ds</span></div>
+    <h2><span class="nr">5.</span>Identidade: o critério da spec</h2>
+    <p>"Dá para dizer qual app é qual sem ver o logo": <b>sim</b> para SWFitness (lima, Gilroy/Outfit, pílula, vidro) e Somma (mono, caixa-alta, verde único, orbe em anel, etapas em linha do tempo). <b>Ainda não</b> entre devaocubo e Trippo: os dois são neutros e em tinta, e o acento do Trippo é decisão pendente.</p>
+    <h2 style="margin-top:6mm"><span class="nr">6.</span>Decisões pendentes do João</h2>
+    <ul class="check">
+      <li>Acento de marca e fonte do mobile do Trippo (com o designer).</li>
+      <li>Ligar o tema claro em produção: hoje o SWFitness segue só no escuro até a revisão do designer.</li>
+    </ul>
+    <h2 style="margin-top:6mm"><span class="nr">7.</span>O que não foi verificado</h2>
+    <ul>
+      <li>Licença da Gilroy: a verificar. Os catálogos usam Outfit no lugar, registrada com os nomes da Gilroy no Expo.</li>
+      <li>Device físico: só simulador iOS e emulador Android. O painel do simulador não foi aprovado durante a sessão; a navegação no iOS foi por deep link e <code>simctl</code>.</li>
+      <li>Leitores de tela (VoiceOver, TalkBack): não testados nesta onda.</li>
+      <li>No emulador Android houve um ANR do Expo Go no primeiro boot (carga 30); não repetiu após reabrir a frio.</li>
+      <li>Nada foi publicado no GitHub Packages; a publicação começa na onda 1.</li>
+    </ul>
+    <div class="pf"><span>devaocubo-ds · onda 0</span><span class="n"></span></div>
+  </article></div>
+</main>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s), stage = $('#stage'), zr = $('#zr'), zv = $('#zv')
+  const SHEET_W = 210 * 96 / 25.4
+  const setZoom = (p) => { p = Math.max(40, Math.min(150, Math.round(p / 5) * 5)); zr.value = p; zv.textContent = p + '%'; stage.style.setProperty('--z', p / 100) }
+  const fit = () => Math.min(150, Math.floor(((stage.clientWidth - 32) / SHEET_W) * 100))
+  const setMode = (m) => {
+    stage.classList.toggle('flow', m === 'flow')
+    for (const b of document.querySelectorAll('#mode button')) b.setAttribute('aria-pressed', String(b.dataset.m === m))
+    for (const el of $('#zoomBox').querySelectorAll('button,input')) el.disabled = m === 'flow'
+  }
+  $('#mode').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) setMode(b.dataset.m) })
+  zr.addEventListener('input', () => setZoom(+zr.value))
+  $('#zin').onclick = () => setZoom(+zr.value + 10)
+  $('#zout').onclick = () => setZoom(+zr.value - 10)
+  $('#zfit').onclick = () => setZoom(fit())
+  $('#print').onclick = () => window.print()
+  document.documentElement.style.setProperty('--total', `"${document.querySelectorAll('.page').length}"`)
+  setMode(document.documentElement.clientWidth < 700 ? 'flow' : 'sheets')
+  setZoom(Math.min(100, fit()))
+})()
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Identidade por produto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Gilroy não é carregada (licença a verificar): o swfitness cai em Outfit pela pilha do tema. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=Outfit:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="themes.css" />
+  <link rel="stylesheet" href="identidades.css" />
+</head>
+<body data-product="devaocubo">
+  <header class="page-bar">
+    <div>
+      <h1>Identidade por produto</h1>
+      <p class="page-sub">Mesma tela, quatro temas do devaocubo-ds. Textos são de exemplo. Critério: dá para dizer qual app é qual sem ver o nome?</p>
+    </div>
+    <div class="controls">
+      <div class="seg" role="radiogroup" aria-label="Esquema de cor">
+        <button type="button" role="radio" data-scheme="system" aria-checked="true">Sistema</button>
+        <button type="button" role="radio" data-scheme="light" aria-checked="false">Claro</button>
+        <button type="button" role="radio" data-scheme="dark" aria-checked="false">Escuro</button>
+      </div>
+      <label class="check"><input type="checkbox" id="hide-names" /> Esconder nomes</label>
+    </div>
+  </header>
+
+  <main class="grid" id="grid"></main>
+
+  <template id="screen">
+    <section class="col">
+      <p class="cap"><span class="cap-name"></span><span class="cap-prov">provisório</span></p>
+      <div class="phone">
+        <div class="screen">
+          <div class="hd">
+            <span class="label">Exemplo</span>
+            <h2 class="title">Hoje</h2>
+          </div>
+
+          <div class="card hero">
+            <span class="label">Total do mês</span>
+            <span class="big num">1.234,56</span>
+            <span class="sub">+12% sobre o mês anterior</span>
+          </div>
+
+          <ul class="card list">
+            <li><span class="pin"></span><span class="li-t">Item de exemplo</span><span class="num">48,90</span></li>
+            <li><span class="pin"></span><span class="li-t">Outro item</span><span class="num">120,00</span></li>
+            <li><span class="pin"></span><span class="li-t">Mais um item</span><span class="num">7,35</span></li>
+          </ul>
+
+          <div class="chat">
+            <p class="msg me">Monte o plano da semana para mim</p>
+            <div class="msg ai">
+              <div class="wait">
+                <span class="orb" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="wait-t">Pensando</span>
+              </div>
+              <ol class="steps">
+                <li class="done"><i></i>Lendo o histórico</li>
+                <li class="on"><i></i>Comparando opções</li>
+                <li><i></i>Escrevendo a resposta</li>
+              </ol>
+            </div>
+
+            <div class="card approve">
+              <span class="label">Aprovação</span>
+              <p class="ap-t">Aplicar 3 alterações ao plano?</p>
+              <p class="ap-d">Texto de exemplo com o que muda antes de confirmar.</p>
+              <div class="ap-a">
+                <button type="button" class="btn primary">Aprovar</button>
+                <button type="button" class="btn ghost">Recusar</button>
+              </div>
+            </div>
+
+            <div class="beam">
+              <div class="composer"><span>Pergunte algo</span><button type="button" class="go" aria-label="Enviar (exemplo)"></button></div>
+            </div>
+          </div>
+
+          <nav class="tabs" aria-label="Abas de exemplo">
+            <button type="button" class="tab on">Início</button>
+            <button type="button" class="tab">Chat</button>
+            <button type="button" class="tab">Perfil</button>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <script src="identidades.js"></script>
+</body>
+</html>

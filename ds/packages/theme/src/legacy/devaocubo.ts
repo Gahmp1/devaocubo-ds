@@ -1,0 +1,135 @@
+// Valores atuais do tema neutro devaocubo, como dados. tokens.css e defaults.json são gerados a partir daqui.
+export type Entry = readonly [name: string, value: string]
+
+export const legacyCss = {
+  light: [
+    ["background", "0 0% 98%"],
+    ["foreground", "240 6% 4%"],
+    ["card", "0 0% 100%"],
+    ["card-foreground", "240 6% 4%"],
+    ["border", "240 5% 90%"],
+    ["input", "240 5% 90%"],
+    ["muted", "240 5% 95%"],
+    ["muted-foreground", "240 4% 42%"],
+    ["primary", "240 5% 9%"],
+    ["primary-foreground", "0 0% 98%"],
+    ["secondary", "240 5% 95%"],
+    ["secondary-foreground", "240 5% 9%"],
+    ["destructive", "4 74% 39%"],
+    ["destructive-foreground", "0 0% 98%"],
+    ["accent", "240 5% 95%"],
+    ["accent-foreground", "240 5% 9%"],
+    ["ring", "240 5% 9%"],
+    ["radius", "0.6rem"],
+  ],
+  lightStatus: [
+    ["success", "142 66% 27%"],
+    ["success-foreground", "138 62% 95%"],
+    ["warning", "38 83% 31%"],
+    ["warning-foreground", "45 90% 95%"],
+  ],
+  dark: [
+    ["background", "240 6% 4%"],
+    ["foreground", "220 9% 96%"],
+    ["card", "240 5% 9%"],
+    ["card-foreground", "220 9% 96%"],
+    ["border", "240 5% 16%"],
+    ["input", "240 5% 16%"],
+    ["muted", "240 4% 12%"],
+    ["muted-foreground", "240 4% 62%"],
+    ["primary", "220 9% 96%"],
+    ["primary-foreground", "240 6% 4%"],
+    ["secondary", "240 4% 12%"],
+    ["secondary-foreground", "220 9% 96%"],
+    ["destructive", "0 91% 71%"],
+    ["destructive-foreground", "240 6% 4%"],
+    ["accent", "240 4% 12%"],
+    ["accent-foreground", "220 9% 96%"],
+    ["ring", "220 9% 96%"],
+  ],
+  darkStatus: [
+    ["success", "142 71% 60%"],
+    ["success-foreground", "142 71% 10%"],
+    ["warning", "38 92% 68%"],
+    ["warning-foreground", "38 92% 12%"],
+  ],
+} as const satisfies Record<string, readonly Entry[]>
+
+// Cores do defaults.json saem de legacyCss (fonte única); popover = card. Chart, spacing e fonte só existem aqui.
+const pick = (scheme: 'light' | 'dark') => (name: string): string => {
+  const e = [...legacyCss[scheme], ...legacyCss[`${scheme}Status`]].find(([n]) => n === name)
+  if (!e) throw new Error(`legacyCss.${scheme} sem ${name}`)
+  return name === 'radius' ? e[1] : `hsl(${e[1]})`
+}
+const L = pick('light')
+const D = pick('dark')
+
+export const legacyDefaults = {
+  "light": {
+    "--radius": L("radius"),
+    "--background": L("background"),
+    "--foreground": L("foreground"),
+    "--card": L("card"),
+    "--card-foreground": L("card-foreground"),
+    "--popover": L("card"),
+    "--popover-foreground": L("card-foreground"),
+    "--primary": L("primary"),
+    "--primary-foreground": L("primary-foreground"),
+    "--secondary": L("secondary"),
+    "--secondary-foreground": L("secondary-foreground"),
+    "--muted": L("muted"),
+    "--muted-foreground": L("muted-foreground"),
+    "--accent": L("accent"),
+    "--accent-foreground": L("accent-foreground"),
+    "--destructive": L("destructive"),
+    "--destructive-foreground": L("destructive-foreground"),
+    "--border": L("border"),
+    "--input": L("input"),
+    "--ring": L("ring"),
+    "--font-sans": "ui-sans-serif, system-ui, -apple-system, sans-serif",
+    "--spacing-xs": "0.25rem",
+    "--spacing-sm": "0.5rem",
+    "--spacing-md": "1rem",
+    "--spacing-lg": "1.5rem",
+    "--spacing-xl": "2rem",
+    "--success": L("success"),
+    "--success-foreground": L("success-foreground"),
+    "--warning": L("warning"),
+    "--warning-foreground": L("warning-foreground"),
+    "--chart-1": "hsl(240 5% 9%)",
+    "--chart-2": "hsl(240 5% 28%)",
+    "--chart-3": "hsl(240 4% 42%)",
+    "--chart-4": "hsl(240 5% 65%)",
+    "--chart-5": "hsl(240 5% 85%)"
+  },
+  "dark": {
+    "--background": D("background"),
+    "--foreground": D("foreground"),
+    "--card": D("card"),
+    "--card-foreground": D("card-foreground"),
+    "--popover": D("card"),
+    "--popover-foreground": D("card-foreground"),
+    "--primary": D("primary"),
+    "--primary-foreground": D("primary-foreground"),
+    "--secondary": D("secondary"),
+    "--secondary-foreground": D("secondary-foreground"),
+    "--muted": D("muted"),
+    "--muted-foreground": D("muted-foreground"),
+    "--accent": D("accent"),
+    "--accent-foreground": D("accent-foreground"),
+    "--destructive": D("destructive"),
+    "--destructive-foreground": D("destructive-foreground"),
+    "--border": D("border"),
+    "--input": D("input"),
+    "--ring": D("ring"),
+    "--success": D("success"),
+    "--success-foreground": D("success-foreground"),
+    "--warning": D("warning"),
+    "--warning-foreground": D("warning-foreground"),
+    "--chart-1": "hsl(220 9% 96%)",
+    "--chart-2": "hsl(240 5% 75%)",
+    "--chart-3": "hsl(240 4% 62%)",
+    "--chart-4": "hsl(240 5% 40%)",
+    "--chart-5": "hsl(240 5% 22%)"
+  }
+}
