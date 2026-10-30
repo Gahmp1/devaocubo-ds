@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "DS Catálogo",
+    "slug": "devaocubo-ds-catalog",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": { "bundleIdentifier": "me.devaocubo.ds.catalog" },
+    "android": { "package": "me.devaocubo.ds.catalog" }
+  }
+}
