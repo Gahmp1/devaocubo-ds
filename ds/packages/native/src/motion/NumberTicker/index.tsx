@@ -1,5 +1,4 @@
-// Referência: beUI Native number-ticker (MIT), https://github.com/starc007/ui-components — recriada (casa que troca por deslizamento com opacidade), não colada.
-// Referência: NumberFlow (MIT), https://github.com/barvian/number-flow — só a ideia (rolagem por dígito, algarismos tabulares).
+// Ideia: number-ticker da beUI Native (licença e fonte a verificar) e NumberFlow (rolagem por dígito, algarismos tabulares); recriada, sem código copiado.
 import { digitsOf, rollDirection, type Trend } from '@gahmp1/ds-core'
 import { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -71,7 +70,7 @@ export function NumberTicker({ value, format, trend = 'auto', variant = 'base', 
   const { type } = useTheme()
   const [seen, setSeen] = useState({ value, dir: 1 as 1 | -1 })
   const dir = rollDirection(trend, seen.value, value, seen.dir)
-  if (seen.value !== value) setSeen({ value, dir })
+  if (!Object.is(seen.value, value)) setSeen({ value, dir })
   const chars = digitsOf(value, format)
   const line = type.scale[variant.replace(/Medium$/, '') as keyof typeof type.scale].lineHeight
   // Casas contadas do fim: o dígito das unidades mantém a mesma casa quando o número ganha ou perde algarismos.

@@ -11,3 +11,8 @@
     transparent
   );
 }
+
+/* A máscara cortaria o anel de foco fora da caixa; recuado, ele fica dentro da área visível. */
+.ds-scrollfade:focus-visible {
+  outline-offset: -2px;
+}

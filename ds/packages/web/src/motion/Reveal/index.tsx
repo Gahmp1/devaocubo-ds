@@ -1,4 +1,4 @@
-// Referência: beUI web rise-in (MIT), https://github.com/starc007/ui-components — recriada (entrada com deslocamento e opacidade), não colada.
+// Ideia: rise-in da beUI (licença e fonte a verificar), recriada (entrada com deslocamento e opacidade), sem código copiado.
 import { motion } from 'motion/react'
 import { Children, isValidElement, type ReactNode } from 'react'
 import { useTheme } from '../../core/useTheme.js'

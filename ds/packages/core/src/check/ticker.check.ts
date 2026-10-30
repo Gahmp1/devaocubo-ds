@@ -17,5 +17,8 @@ export const checks: Check[] = [
     assert.equal(rollDirection('auto', 1, 5, -1), 1)
     assert.equal(rollDirection('auto', 5, 1, 1), -1)
     assert.equal(rollDirection('auto', 3, 3, -1), -1)
+    // NaN não compara: sem direção nova, mantém a última.
+    assert.equal(rollDirection('auto', 3, NaN, -1), -1)
+    assert.equal(rollDirection('auto', NaN, 3, 1), 1)
   }],
 ]

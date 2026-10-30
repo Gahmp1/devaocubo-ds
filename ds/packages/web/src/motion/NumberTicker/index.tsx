@@ -1,5 +1,4 @@
-// Referência: NumberFlow (MIT), https://github.com/barvian/number-flow — só a ideia (rolagem por dígito, algarismos tabulares), recriada sobre `motion`.
-// Referência: beUI web number-ticker (MIT), https://github.com/starc007/ui-components — recriada (casa que troca por deslizamento com opacidade), não colada.
+// Ideia: number-ticker da beUI (licença e fonte a verificar) e NumberFlow (rolagem por dígito, algarismos tabulares); recriada sobre `motion`, sem código copiado.
 import { digitsOf, rollDirection, type Trend } from '@gahmp1/ds-core'
 import { AnimatePresence, motion } from 'motion/react'
 import { useState } from 'react'
@@ -24,11 +23,11 @@ const VARIANTS = {
   exit: (dir: 1 | -1) => ({ y: `${-dir * 100}%`, opacity: 0 }),
 }
 
-export function NumberTicker({ value, format, trend = 'auto', variant, color }: NumberTickerProps) {
+export function NumberTicker({ value, format, trend = 'auto', variant = 'base', color = 'text' }: NumberTickerProps) {
   const { duration, easing, reduced } = useTheme().motion
   const [seen, setSeen] = useState({ value, dir: 1 as 1 | -1 })
   const dir = rollDirection(trend, seen.value, value, seen.dir)
-  if (seen.value !== value) setSeen({ value, dir })
+  if (!Object.is(seen.value, value)) setSeen({ value, dir })
   const chars = digitsOf(value, format)
   const transition = { duration: reduced ? 0 : duration.base / 1000, ease: easing.standard }
   // Casas contadas do fim: o dígito das unidades mantém a mesma casa quando o número ganha ou perde algarismos.

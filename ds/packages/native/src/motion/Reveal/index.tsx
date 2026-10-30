@@ -1,4 +1,4 @@
-// Referência: beUI Native rise-in (MIT), https://github.com/starc007/ui-components — recriada (entrada com deslocamento e opacidade), não colada.
+// Ideia: rise-in da beUI Native (licença e fonte a verificar), recriada (entrada com deslocamento e opacidade), sem código copiado.
 import { Children, isValidElement, useEffect, type ReactNode } from 'react'
 import Animated, { useAnimatedStyle, useSharedValue, withDelay, withSpring, withTiming } from 'react-native-reanimated'
 import { useTheme } from '../../core/DSProvider.js'
