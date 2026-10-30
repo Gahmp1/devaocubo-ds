@@ -16,6 +16,8 @@ export type PressProps = Omit<PressableProps, 'style'> & {
   component: string
   /** `false` desliga o feedback de pressão (o componente cuida do seu). */
   feedback?: boolean
+  /** Evento de telemetria no lugar do `press` padrão (alternadores emitem `toggle` com o novo valor). */
+  event?: { kind: 'toggle'; value: string | number | boolean }
 }
 
 /**
@@ -23,7 +25,7 @@ export type PressProps = Omit<PressableProps, 'style'> & {
  * Não passe `transform` em `style` (é do feedback de escala) e não use opacidade para o visual de desabilitado
  * (vem das cores do tema); uma `opacity` em `style` é multiplicada pelo feedback de opacidade.
  */
-export function Press({ interactionId, component, feedback = true, style, hitSlop, onPress, onPressIn, onPressOut, onLayout, disabled, accessibilityLabel, ...rest }: PressProps) {
+export function Press({ interactionId, component, feedback = true, event, style, hitSlop, onPress, onPressIn, onPressOut, onLayout, disabled, accessibilityLabel, ...rest }: PressProps) {
   const { emit } = useDS()
   const baseOpacity = StyleSheet.flatten(style)?.opacity
   const fb = usePressFeedback({ disabled: disabled ?? false, baseOpacity: typeof baseOpacity === 'number' ? baseOpacity : 1 })
@@ -49,7 +51,7 @@ export function Press({ interactionId, component, feedback = true, style, hitSlo
         onPressOut?.(e)
       }}
       onPress={(e) => {
-        emit({ component, kind: 'press', id: interactionId, label: accessibilityLabel })
+        emit({ component, kind: event?.kind ?? 'press', value: event?.value, id: interactionId, label: accessibilityLabel })
         onPress?.(e)
       }}
     />

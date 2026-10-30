@@ -1,0 +1,71 @@
+.ds-radio-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-radio {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-md); /* Zenith: RadioButton (gap md entre aro e rótulo) */
+  box-sizing: border-box;
+  min-block-size: var(--ds-control-sm);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* O input cobre a linha inteira (alvo de toque); o anel de foco vai no aro. */
+.ds-radio__input {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.ds-radio__input:focus-visible {
+  outline: none;
+}
+
+.ds-radio__input:focus-visible + .ds-radio__ring {
+  outline: 2px solid var(--ds-color-focus);
+  outline-offset: 2px;
+}
+
+.ds-radio__ring {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: 20px; /* Zenith: RadioButton (círculo 20x20) */
+  block-size: 20px;
+  border: var(--ds-border-thin) solid var(--ds-color-text-muted);
+  border-radius: var(--ds-radius-full);
+  transition: border-color var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+.ds-radio__ring--on {
+  border: var(--ds-border-thick) solid var(--ds-color-accent);
+}
+
+.ds-radio__dot {
+  inline-size: 12px; /* Zenith: RadioButton (ponto 12x12) */
+  block-size: 12px;
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-accent);
+}
+
+.ds-radio--off {
+  cursor: default;
+}
+
+.ds-radio--off .ds-radio__ring {
+  border-color: var(--ds-color-text-disabled);
+}
+
+.ds-radio--off .ds-radio__dot {
+  background: var(--ds-color-text-disabled);
+}

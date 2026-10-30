@@ -1,0 +1,47 @@
+/* Trilho vazado, cor no polegar (Zenith). Geometria por custom properties postas pelo componente. */
+.ds-toggle {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  box-sizing: border-box;
+  inline-size: var(--ds-toggle-w);
+  block-size: var(--ds-toggle-h);
+  margin: 0;
+  padding: 0;
+  border: var(--ds-border-thin) solid var(--ds-color-text);
+  border-radius: var(--ds-radius-full);
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Alvo de toque mínimo de 44px (spec 14) quando o interruptor é menor. */
+.ds-toggle::after {
+  content: "";
+  position: absolute;
+  inset: min(0px, calc((100% - 44px) / 2));
+}
+
+.ds-toggle__thumb {
+  position: absolute;
+  inset-block-start: var(--ds-toggle-gap);
+  inset-inline-start: var(--ds-toggle-gap);
+  block-size: var(--ds-toggle-thumb);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-surface3);
+  transition: background-color var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+.ds-toggle--on .ds-toggle__thumb {
+  background: var(--ds-color-accent);
+}
+
+.ds-toggle--off {
+  border-color: var(--ds-color-text-disabled);
+  cursor: default;
+}
+
+.ds-toggle--off.ds-toggle--on .ds-toggle__thumb {
+  background: var(--ds-color-text-disabled);
+}

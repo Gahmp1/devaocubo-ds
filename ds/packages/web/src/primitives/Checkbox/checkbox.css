@@ -1,0 +1,89 @@
+.ds-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px; /* Zenith: CheckBox (iOS HStack spacing 10) */
+  box-sizing: border-box;
+  min-block-size: var(--ds-control-sm);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* O input cobre a linha inteira (alvo de toque e clique no rótulo); o anel de foco vai na caixa. */
+.ds-checkbox__input {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.ds-checkbox__input:focus-visible {
+  outline: none;
+}
+
+.ds-checkbox__input:focus-visible + .ds-checkbox__box {
+  outline: 2px solid var(--ds-color-focus);
+  outline-offset: 2px;
+}
+
+.ds-checkbox__box {
+  display: inline-flex;
+  flex: none;
+  box-sizing: border-box;
+  inline-size: 20px; /* Zenith: CheckBox (caixa 20x20) */
+  block-size: 20px;
+  border: var(--ds-border-thick) solid var(--ds-color-text-muted);
+  border-radius: var(--ds-radius-sm);
+  background: transparent;
+  transition: background-color var(--ds-duration-base) var(--ds-ease-standard), border-color var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+.ds-checkbox__mark {
+  inline-size: 100%;
+  block-size: 100%;
+  fill: none;
+  stroke: var(--ds-color-on-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Traço desenhado: `pathLength="1"` faz o offset ir de 1 (escondido) a 0 (inteiro). */
+.ds-checkbox__stroke {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  stroke-opacity: 0;
+  transition: stroke-dashoffset var(--ds-duration-base) var(--ds-ease-standard), stroke-opacity 0s linear var(--ds-duration-base);
+}
+
+.ds-checkbox--checked .ds-checkbox__box,
+.ds-checkbox--mixed .ds-checkbox__box {
+  border-color: var(--ds-color-accent);
+  background: var(--ds-color-accent);
+}
+
+.ds-checkbox--checked .ds-checkbox__stroke--check,
+.ds-checkbox--mixed .ds-checkbox__stroke--dash {
+  stroke-dashoffset: 0;
+  stroke-opacity: 1;
+  transition: stroke-dashoffset var(--ds-duration-base) var(--ds-ease-standard), stroke-opacity 0s;
+}
+
+.ds-checkbox--off {
+  cursor: default;
+}
+
+.ds-checkbox--off .ds-checkbox__box {
+  border-color: var(--ds-color-text-disabled);
+}
+
+.ds-checkbox--off:is(.ds-checkbox--checked, .ds-checkbox--mixed) .ds-checkbox__box {
+  background: var(--ds-color-text-disabled);
+}
+
+.ds-checkbox--off .ds-checkbox__mark {
+  stroke: var(--ds-color-bg);
+}
