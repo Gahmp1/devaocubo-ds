@@ -8,7 +8,7 @@ O Zenith não tem `Badge`: só os wrappers de domínio de `Tag`. O padrão vem d
 | `count?: number` | número; acima de 99 mostra `99+`; zero (ou ausente, sem `dot`) não desenha o selo |
 | `dot?: boolean` | ponto de 8 sem texto ("novo") |
 | `tone?: Tone` | os seis tons do `Tag`; padrão `danger`. Cheio, com o `on*` do papel como texto; `neutral` = `surface3` com `text` |
-| `children?` | âncora: o selo fica sobre o canto superior direito, com um anel da cor `bg` |
+| `children?` | âncora: o selo fica sobre o canto superior direito, com um anel da cor `bg` por fora da caixa (web: `box-shadow`; nativo: `View` com padding), sem encolher o selo |
 
 Movimento: a troca de número rola em `duration.fast` (o antigo sai e o novo entra; para cima se subiu, para baixo se caiu); com movimento
 reduzido, troca seca. Nativo: Reanimated, `Roll.tsx`; web: `AnimatePresence` do `motion`.

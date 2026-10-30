@@ -29,7 +29,8 @@ const useStyles = createStyles((t) => {
     pill: { alignItems: 'center', justifyContent: 'center', borderRadius: t.shape.radius.full },
     dot: { width: DOT, height: DOT },
     count: { minWidth: MIN, minHeight: MIN, paddingHorizontal: t.density.space.xs },
-    ring: { borderWidth: t.shape.borderWidth.thick, borderColor: t.color.bg },
+    // Anel por fora do selo: a borda do RN fica dentro da caixa e encolheria o ponto e a pílula.
+    ring: { padding: t.shape.borderWidth.thick, borderRadius: t.shape.radius.full, backgroundColor: t.color.bg },
     wrap: { alignSelf: 'flex-start' },
     corner: { position: 'absolute', top: t.density.space.xxs, right: t.density.space.xxs, transform: [{ translateX: '50%' }, { translateY: '-50%' }] },
   }
@@ -43,7 +44,7 @@ export function Badge({ count = 0, dot, tone = 'danger', children }: BadgeProps)
   if (!dot && count <= 0) return children ? <View style={s.wrap}>{children}</View> : null
   const label = dot ? strings.new : count > MAX ? `${MAX}+` : String(count)
   const pill = (
-    <View accessible accessibilityRole="text" accessibilityLabel={label} style={[s.pill, dot ? s.dot : s.count, s[tone], !!children && s.ring]}>
+    <View accessible accessibilityRole="text" accessibilityLabel={label} style={[s.pill, dot ? s.dot : s.count, s[tone]]}>
       {!dot && <Roll label={label} value={count} color={FG[tone]} />}
     </View>
   )
@@ -51,7 +52,9 @@ export function Badge({ count = 0, dot, tone = 'danger', children }: BadgeProps)
   return (
     <View style={s.wrap}>
       {children}
-      <View pointerEvents="none" style={s.corner}>{pill}</View>
+      <View pointerEvents="none" style={s.corner}>
+        <View style={s.ring}>{pill}</View>
+      </View>
     </View>
   )
 }

@@ -57,7 +57,7 @@ export function ChipBase({ label, onPress, onRemove, selected, icon, disabled, i
           {content}
         </button>
       ) : (
-        <span className="ds-chip__body">{content}</span>
+        <span className="ds-chip__body" aria-disabled={disabled || undefined}>{content}</span>
       )}
       {onRemove && (
         <button

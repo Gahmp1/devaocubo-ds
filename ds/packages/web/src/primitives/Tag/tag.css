@@ -1,7 +1,12 @@
-/* Tinte de 15% do tom (o Zenith usava cores literais com alfa 0.15); `accent` é cheio. */
+/*
+ * Tinte de 15% do tom (o Zenith usava cores literais com alfa 0.15); `accent` é cheio.
+ * O rótulo dos tons de estado fica em `text`: o papel do tom sobre o tinte passa de 4.5:1 só em parte dos temas (ex.: `info` no
+ * SWFitness escuro, 4.17). O ícone usa 40% do tom e 60% de `text`, que passa de 5.9:1 nos 4 temas, claro e escuro.
+ */
 .ds-tag {
   --ds-tag-bg: var(--ds-color-surface2);
   --ds-tag-fg: var(--ds-color-text);
+  --ds-tag-icon: var(--ds-tag-fg);
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
@@ -13,6 +18,11 @@
   color: var(--ds-tag-fg);
 }
 
+.ds-tag__icon {
+  display: inline-flex;
+  color: var(--ds-tag-icon);
+}
+
 .ds-tag--accent {
   --ds-tag-bg: var(--ds-color-accent);
   --ds-tag-fg: var(--ds-color-on-accent);
@@ -20,20 +30,20 @@
 
 .ds-tag--success {
   --ds-tag-bg: color-mix(in srgb, var(--ds-color-success) 15%, transparent);
-  --ds-tag-fg: var(--ds-color-success);
+  --ds-tag-icon: color-mix(in srgb, var(--ds-color-text) 60%, var(--ds-color-success));
 }
 
 .ds-tag--warning {
   --ds-tag-bg: color-mix(in srgb, var(--ds-color-warning) 15%, transparent);
-  --ds-tag-fg: var(--ds-color-warning);
+  --ds-tag-icon: color-mix(in srgb, var(--ds-color-text) 60%, var(--ds-color-warning));
 }
 
 .ds-tag--danger {
   --ds-tag-bg: color-mix(in srgb, var(--ds-color-danger) 15%, transparent);
-  --ds-tag-fg: var(--ds-color-danger);
+  --ds-tag-icon: color-mix(in srgb, var(--ds-color-text) 60%, var(--ds-color-danger));
 }
 
 .ds-tag--info {
   --ds-tag-bg: color-mix(in srgb, var(--ds-color-info) 15%, transparent);
-  --ds-tag-fg: var(--ds-color-info);
+  --ds-tag-icon: color-mix(in srgb, var(--ds-color-text) 60%, var(--ds-color-info));
 }

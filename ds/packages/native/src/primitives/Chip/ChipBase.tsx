@@ -59,7 +59,9 @@ export function ChipBase({ label, onPress, onRemove, selected, icon, disabled, i
   const edgeOff = rgba(disabled ? c.borderMuted : c.border)
   const edge = useAnimatedStyle(() => ({ borderColor: interpolateColor(fill.value, [0, 1], [edgeOff, rgba(onColor)]) }))
   const fillStyle = useAnimatedStyle(() => ({ opacity: fill.value }))
-  const slot = useAnimatedStyle(() => ({ width: fill.value * (size + t.density.space.xxs), opacity: fill.value, overflow: 'hidden' }))
+  // Largura e margem negativa (que cancela o gap do `inner`) crescem juntas: fechado, o slot não deixa vão.
+  const gap = t.density.space.xxs
+  const slot = useAnimatedStyle(() => ({ width: fill.value * size, marginRight: (fill.value - 1) * gap, opacity: fill.value, overflow: 'hidden' }))
 
   const content = (fg: 'text' | 'textDisabled' | 'onAccent' | 'bg') => (
     <View style={s.inner}>

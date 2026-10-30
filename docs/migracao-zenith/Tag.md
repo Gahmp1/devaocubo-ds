@@ -11,9 +11,9 @@ Destino: `Tag` de `@gahmp1/ds-native` e `@gahmp1/ds-web`, mesma API.
 | (novo) `icon?: DSIconName` | ícone decorativo `icon.size.sm` antes do rótulo, na cor do tom |
 
 Cores: `neutral` = `surface2` com `text`; `accent` é cheio (`accent` com `onAccent`, o `primary` do Zenith); `success`, `warning`,
-`danger` e `info` são o tinte do próprio papel a 15% (`withAlpha(<tom>, 0.15)` no nativo, `color-mix(... 15%, transparent)` no web) com
-o texto no papel. Os `rgba` literais do Zenith saíram. O `success` do Zenith usava o lima (`primary`) como texto; no DS é o papel
-`success` do tema (que no SWFitness também é o lima). `DifficultyBadge`, `MechanicsBadge`, `LateralityBadge`, `MuscleTag` e `EquipmentChip`
-seguem no app como wrappers de `Tag`.
+`danger` e `info` são o tinte do próprio papel a 15% (`withAlpha(<tom>, 0.15)` no nativo, `color-mix(... 15%, transparent)` no web).
+O rótulo desses quatro fica em `text` e só o ícone leva o tom (40% do tom, 60% de `text`): o papel do tom sobre o tinte ficava abaixo
+de 4.5:1 em vários temas (ex.: `info` #007AFF no SWFitness escuro, 4.17; `warning` no SWFitness claro, 1.50). Os `rgba` literais do
+Zenith saíram. `DifficultyBadge`, `MechanicsBadge`, `LateralityBadge`, `MuscleTag` e `EquipmentChip` seguem no app como wrappers de `Tag`.
 
 Acessibilidade: não interativa, o texto é o nome. Não tem `role`.

@@ -13,15 +13,19 @@ export type TagProps = {
   icon?: DSIconName
 }
 
-/** `accent` é cheio (o `primary` do Zenith); os tons de estado são um tinte do próprio tom. */
-const FG: Record<Tone, TextColor> = { neutral: 'text', accent: 'onAccent', success: 'success', warning: 'warning', danger: 'danger', info: 'info' }
+/** `accent` é cheio (o `primary` do Zenith); os tons de estado são um tinte do próprio tom, com o rótulo em `text` (contraste: ver `tag.css`). */
+const FG: Record<Tone, TextColor> = { neutral: 'text', accent: 'onAccent', success: 'text', warning: 'text', danger: 'text', info: 'text' }
 
 export function Tag({ label, tone = 'neutral', icon }: TagProps) {
   const theme = useTheme()
   const { Icon } = useDS()
   return (
     <span className={cx('ds-tag', `ds-tag--${tone}`)}>
-      {icon && <Icon name={icon} size={theme.icon.size.sm} color="currentColor" strokeWidth={theme.icon.strokeWidth} />}
+      {icon && (
+        <span className="ds-tag__icon">
+          <Icon name={icon} size={theme.icon.size.sm} color="currentColor" strokeWidth={theme.icon.strokeWidth} />
+        </span>
+      )}
       <Text variant="xs" color={FG[tone]}>{label}</Text>
     </span>
   )

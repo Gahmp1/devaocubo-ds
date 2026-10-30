@@ -39,9 +39,9 @@
   padding-inline: var(--ds-space-xs);
 }
 
-/* Anel da cor do fundo: separa o selo da âncora. */
+/* Anel da cor do fundo, por fora da caixa (sombra, não borda): separa o selo da âncora sem encolher o ponto nem a pílula. */
 .ds-badge--ring {
-  border: var(--ds-border-thick) solid var(--ds-color-bg);
+  box-shadow: 0 0 0 var(--ds-border-thick) var(--ds-color-bg);
 }
 
 /* O número rola dentro de uma janela de uma linha. */
