@@ -14,12 +14,13 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* O input cobre a linha inteira (alvo de toque); o anel de foco vai no aro. */
+/* O input cobre a linha inteira (alvo de toque), com no mínimo 44px (spec 14) como o Button; o anel de foco vai no aro. */
 .ds-radio__input {
   position: absolute;
-  inset: 0;
-  inline-size: 100%;
-  block-size: 100%;
+  inset-block-start: min(0px, calc((100% - 44px) / 2));
+  inset-inline-start: min(0px, calc((100% - 44px) / 2));
+  inline-size: max(100%, 44px);
+  block-size: max(100%, 44px);
   margin: 0;
   opacity: 0;
   cursor: inherit;

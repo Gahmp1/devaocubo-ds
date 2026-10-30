@@ -16,8 +16,8 @@ export type PressProps = Omit<PressableProps, 'style'> & {
   component: string
   /** `false` desliga o feedback de pressão (o componente cuida do seu). */
   feedback?: boolean
-  /** Evento de telemetria no lugar do `press` padrão (alternadores emitem `toggle` com o novo valor). */
-  event?: { kind: 'toggle'; value: string | number | boolean }
+  /** Evento de telemetria no lugar do `press` padrão (alternadores emitem `toggle` com o novo valor); `null` não emite nada. */
+  event?: { kind: 'toggle'; value: string | number | boolean } | null
 }
 
 /**
@@ -51,7 +51,7 @@ export function Press({ interactionId, component, feedback = true, event, style,
         onPressOut?.(e)
       }}
       onPress={(e) => {
-        emit({ component, kind: event?.kind ?? 'press', value: event?.value, id: interactionId, label: accessibilityLabel })
+        if (event !== null) emit({ component, kind: event?.kind ?? 'press', value: event?.value, id: interactionId, label: accessibilityLabel })
         onPress?.(e)
       }}
     />

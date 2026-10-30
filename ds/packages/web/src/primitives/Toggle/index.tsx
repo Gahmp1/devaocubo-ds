@@ -41,7 +41,7 @@ export function Toggle({ value, onValueChange, size = 'normal', disabled, access
       disabled={disabled}
       className={cx('ds-toggle', 'ds-anim', value && 'ds-toggle--on', disabled && 'ds-toggle--off')}
       style={{ '--ds-toggle-w': `${w}px`, '--ds-toggle-h': `${h}px`, '--ds-toggle-thumb': `${thumb}px`, '--ds-toggle-gap': `${gap}px` } as CSSProperties}
-      onPointerDown={() => setPressed(true)}
+      onPointerDown={() => !disabled && setPressed(true)}
       onPointerUp={release}
       onPointerLeave={release}
       onPointerCancel={release}
@@ -52,7 +52,7 @@ export function Toggle({ value, onValueChange, size = 'normal', disabled, access
     >
       {/* Ao esticar ligado, a borda direita fica no lugar: o polegar cresce para a esquerda. */}
       <motion.span
-        className="ds-toggle__thumb"
+        className="ds-toggle__thumb ds-anim"
         initial={false}
         animate={{ x: value ? travel - grow : 0, width: thumb + grow }}
         transition={reduced ? { duration: 0 } : { type: 'spring', ...spring }}

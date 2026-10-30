@@ -43,10 +43,10 @@ export function Checkbox({ checked, onChange, label, disabled, accessibilityLabe
           onChange(next)
         }}
       />
-      <span ref={box} className="ds-checkbox__box" aria-hidden>
+      <span ref={box} className="ds-checkbox__box ds-anim" aria-hidden>
         <svg viewBox="0 0 20 20" className="ds-checkbox__mark">
-          <path className="ds-checkbox__stroke ds-checkbox__stroke--check" d="M5 10.5 L8.5 14 L15 6.5" pathLength="1" />
-          <path className="ds-checkbox__stroke ds-checkbox__stroke--dash" d="M5.5 10 H14.5" pathLength="1" />
+          <path className="ds-checkbox__stroke ds-checkbox__stroke--check ds-anim" d="M5 10.5 L8.5 14 L15 6.5" pathLength="1" />
+          <path className="ds-checkbox__stroke ds-checkbox__stroke--dash ds-anim" d="M5.5 10 H14.5" pathLength="1" />
         </svg>
       </span>
       {label !== undefined && <Text color={disabled ? 'textDisabled' : 'text'}>{label}</Text>}

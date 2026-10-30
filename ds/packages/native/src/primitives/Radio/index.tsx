@@ -64,7 +64,7 @@ export function RadioGroup({ value, onChange, options, accessibilityLabel, inter
           key={o.value}
           component="RadioGroup"
           interactionId={interactionId}
-          event={{ kind: 'toggle', value: o.value }}
+          event={o.value === value ? null : { kind: 'toggle', value: o.value }}
           accessibilityRole="radio"
           accessibilityLabel={o.label}
           accessibilityState={{ selected: o.value === value, disabled: !!o.disabled }}
