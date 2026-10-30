@@ -1,5 +1,5 @@
 // Referência: Zenith RadioButton (SWFitness); ponto que desliza: beUI Native (MIT), https://github.com/starc007/beui-native
-import { useDS } from '@gahmp1/ds-core'
+import { useDS, useFeedback } from '@gahmp1/ds-core'
 import { motion } from 'motion/react'
 import { useId } from 'react'
 import { cx } from '../../core/cx.js'
@@ -22,6 +22,7 @@ export type RadioGroupProps = {
 export function RadioGroup({ value, onChange, options, accessibilityLabel, interactionId }: RadioGroupProps) {
   const id = useId()
   const { emit } = useDS()
+  const { play } = useFeedback()
   const { spring, reduced } = useThemeMotion()
   return (
     <div role="radiogroup" aria-label={accessibilityLabel} className="ds-radio-group">
@@ -38,6 +39,8 @@ export function RadioGroup({ value, onChange, options, accessibilityLabel, inter
               disabled={o.disabled}
               onChange={() => {
                 emit({ component: 'RadioGroup', kind: 'toggle', id: interactionId, label: o.label, value: o.value })
+                // o input de rádio só dispara onChange quando a escolha muda
+                play('select')
                 onChange(o.value)
               }}
             />

@@ -1,7 +1,8 @@
 import type { ColorRoles, DSTheme, Scheme } from '../types.js'
-import { contrastRatio } from './color.js'
+import { contrastRatio, parseColor } from './color.js'
 
-type Pair = [fg: keyof ColorRoles, bg: keyof ColorRoles, min: number]
+type Role = Exclude<keyof ColorRoles, 'aiGradient'>
+type Pair = [fg: Role, bg: Role, min: number]
 
 const PAIRS: Pair[] = [
   ['text', 'bg', 4.5], ['text', 'surface1', 4.5], ['text', 'surface2', 4.5], ['text', 'surface3', 4.5],
@@ -18,6 +19,14 @@ export function checkTheme(t: DSTheme): string[] {
   const fails: string[] = []
   for (const scheme of ['light', 'dark'] as Scheme[]) {
     const c = t.color[scheme]
+    // gradiente é decoração: só precisa ser lido pelo parseColor, sem regra de contraste
+    for (const g of c.aiGradient) {
+      try {
+        parseColor(g)
+      } catch (e) {
+        fails.push(`${t.name}/${scheme}: aiGradient: ${(e as Error).message}`)
+      }
+    }
     for (const [fg, bg, min] of PAIRS) {
       let ratio: number
       try {

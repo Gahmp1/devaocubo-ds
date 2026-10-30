@@ -1,5 +1,5 @@
 // Referência: Zenith CheckBox (SWFitness); marca desenhada: beUI Native (MIT), https://github.com/starc007/beui-native
-import { mixColor, withAlpha } from '@gahmp1/ds-core'
+import { mixColor, useFeedback, withAlpha } from '@gahmp1/ds-core'
 import { useEffect } from 'react'
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { createStyles } from '../../core/createStyles.js'
@@ -34,6 +34,7 @@ const useStyles = createStyles((t) => ({
 export function Checkbox({ checked, onChange, label, disabled, accessibilityLabel, interactionId }: CheckboxProps) {
   const t = useTheme()
   const s = useStyles()
+  const { play } = useFeedback()
   const { duration, easing, reduced } = useThemeMotion()
   const bounce = useKeyframeBounce()
   const next = checked !== true
@@ -64,6 +65,7 @@ export function Checkbox({ checked, onChange, label, disabled, accessibilityLabe
       disabled={disabled}
       onPress={() => {
         bounce.trigger()
+        play('toggle', next)
         onChange(next)
       }}
       style={s.row}

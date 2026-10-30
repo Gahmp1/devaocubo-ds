@@ -10,11 +10,20 @@ export interface ColorRoles {
   success: string; onSuccess: string; info: string; onInfo: string
   border: string; borderMuted: string; focus: string
   aiOrb: string; aiGlow: string; aiBeam: string
+  /** Três paradas do gradiente de IA (decoração, sem regra de contraste); CSS --ds-ai-gradient-1..3. */
+  aiGradient: [string, string, string]
 }
 
 export type TypeStep = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | 'display'
 export type Bezier = [number, number, number, number]
 export interface Shadow { color: string; x: number; y: number; blur: number; spread: number; elevation: number }
+
+/** Eixo de feedback sensorial: padrões do produto; o app guarda a preferência da pessoa. */
+export interface FeedbackAxis {
+  haptics: { default: 'on' | 'off'; intensity: 'soft' | 'crisp' }
+  /** Som começa desligado em todo produto. */
+  sound: { default: 'off'; timbre: 'soft' | 'crisp'; volume: number }
+}
 
 export interface DSTheme {
   name: 'devaocubo' | 'swfitness' | 'somma' | 'trippo'
@@ -48,6 +57,7 @@ export interface DSTheme {
     press: { kind: 'opacity' | 'scale'; value: number }
   }
   icon: { strokeWidth: number; size: { sm: number; md: number; lg: number } }
+  feedback: FeedbackAxis
   ai: { orb: 'dots' | 'fluid' | 'ring'; beamPeriodMs: number; steps: 'list' | 'timeline'; revealMsPerWord: number }
   components: {
     button: { shape: 'pill' | 'rounded' | 'square' }

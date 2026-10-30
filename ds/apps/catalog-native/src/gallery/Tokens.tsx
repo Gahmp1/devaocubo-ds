@@ -1,4 +1,4 @@
-import { contrastRatio, type ColorRoles, type FontFamily, type FontWeight, type TypeStep } from '@gahmp1/ds-theme'
+import { colorRoles, contrastRatio, type ColorRoles, type FontFamily, type FontWeight, type TypeStep } from '@gahmp1/ds-theme'
 import { createStyles, useTheme, useThemeMotion } from '@gahmp1/ds-native'
 import { useEffect } from 'react'
 import { ScrollView, Text, View } from 'react-native'
@@ -8,7 +8,7 @@ import type { GalleryEntry } from '../Gallery'
 // Fonte carregada para o peso, se o tema tiver; senão a do sistema com o peso.
 const font = (f: FontFamily, w: FontWeight) => (f.native[w] ? { fontFamily: f.native[w] } : { fontWeight: String(w) as '400' })
 
-function ratio(c: ColorRoles, role: keyof ColorRoles): string {
+function ratio(c: ColorRoles, role: ReturnType<typeof colorRoles>[number]): string {
   try {
     return contrastRatio(c[role], c.bg).toFixed(2)
   } catch {
@@ -97,7 +97,7 @@ function Tokens() {
       <View style={s.section}>
         <Text style={s.h2}>Cor (razão contra bg)</Text>
         <View style={s.grid}>
-          {(Object.keys(c) as (keyof ColorRoles)[]).map((role) => (
+          {colorRoles(c).map((role) => (
             <View key={role} style={s.cell}>
               <View style={[s.swatch, { backgroundColor: c[role] }]} />
               <Text style={s.text}>{role}</Text>

@@ -2,7 +2,7 @@ import { legacyCss } from '../legacy/devaocubo.js'
 import type { ColorRoles, DSTheme } from '../types.js'
 
 // Tema neutro: as cores são as do tokens.css legado, lidas dos mesmos dados.
-function roles(entries: readonly (readonly [string, string])[]): ColorRoles {
+function roles(entries: readonly (readonly [string, string])[], aiGradient: ColorRoles['aiGradient']): ColorRoles {
   const v = Object.fromEntries(entries.map(([k, x]) => [k, `hsl(${x})`]))
   return {
     bg: v.background, surface1: v.card, surface2: v.muted, surface3: v.border, scrim: 'rgba(0, 0, 0, 0.6)',
@@ -12,6 +12,7 @@ function roles(entries: readonly (readonly [string, string])[]): ColorRoles {
     info: v.primary, onInfo: v['primary-foreground'],
     border: v.border, borderMuted: v.input, focus: v.ring,
     aiOrb: v.primary, aiGlow: v.primary, aiBeam: v.primary,
+    aiGradient,
   }
 }
 
@@ -22,8 +23,9 @@ export const devaocubo: DSTheme = {
   name: 'devaocubo',
   provisional: { light: false, dark: false },
   color: {
-    light: roles([...legacyCss.light, ...legacyCss.lightStatus]),
-    dark: roles([...legacyCss.dark, ...legacyCss.darkStatus]),
+    // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+    light: roles([...legacyCss.light, ...legacyCss.lightStatus], ['#161618', '#161618', '#101012']),
+    dark: roles([...legacyCss.dark, ...legacyCss.darkStatus], ['#F4F4F6', '#F4F4F6', '#F4F4F6']),
   },
   type: {
     family: { display: sans, body: sans, mono: { web: 'ui-monospace, SFMono-Regular, Menlo, monospace', native: {} } },
@@ -53,5 +55,7 @@ export const devaocubo: DSTheme = {
     press: { kind: 'scale', value: 0.98 },
   },
   ai: { orb: 'dots', beamPeriodMs: 3000, steps: 'list', revealMsPerWord: 50 },
+  // som desligado até a pessoa ligar (som-e-haptics.md); timbre acompanha a personalidade do movimento
+  feedback: { haptics: { default: 'on', intensity: 'soft' }, sound: { default: 'off', timbre: 'soft', volume: 0.4 } },
   components: { button: { shape: 'rounded' }, card: { type: 'outline' }, tabBar: 'solid', header: 'compact' },
 }

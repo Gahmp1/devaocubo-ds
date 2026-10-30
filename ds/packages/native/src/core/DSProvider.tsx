@@ -1,13 +1,14 @@
-import { defaultStrings, DSContext, resolveTheme, useDS, type DSContextValue, type DSProviderBaseProps, type InteractionEvent, type ResolvedTheme } from '@gahmp1/ds-core'
-import { useCallback, useMemo, useRef } from 'react'
+import { defaultStrings, DSContext, resolveTheme, useDS, useFeedbackValue, type DSContextValue, type DSProviderBaseProps, type InteractionEvent, type ResolvedTheme } from '@gahmp1/ds-core'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { StyleSheet, useColorScheme } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useReducedMotion } from 'react-native-reanimated'
+import { loadSounds, performFeedback, unloadSounds } from './feedback.js'
 
 const fill = StyleSheet.create({ root: { flex: 1 } })
 
 /** Resolve esquema e movimento reduzido (`'system'` = o do aparelho), preenche o contexto e dá a raiz de gestos. */
-export function DSProvider({ theme, scheme = 'system', reducedMotion = 'system', strings, Icon, onInteraction, children }: DSProviderBaseProps) {
+export function DSProvider({ theme, scheme = 'system', reducedMotion = 'system', strings, Icon, onInteraction, feedback: feedbackPrefs, children }: DSProviderBaseProps) {
   const os = useColorScheme()
   const systemReduced = useReducedMotion()
   const resolvedScheme = scheme === 'system' ? (os === 'dark' ? 'dark' : 'light') : scheme
@@ -21,7 +22,14 @@ export function DSProvider({ theme, scheme = 'system', reducedMotion = 'system',
   // `strings` costuma chegar inline: a chave é o JSON do parcial (textos são dados puros).
   const stringsKey = JSON.stringify(strings ?? null)
   const mergedStrings = useMemo(() => ({ ...defaultStrings, ...strings }), [stringsKey])
-  const value = useMemo<DSContextValue>(() => ({ theme: resolved, strings: mergedStrings, Icon, emit }), [resolved, mergedStrings, Icon, emit])
+  const feedback = useFeedbackValue(theme, feedbackPrefs, performFeedback)
+  // Os players do som só existem enquanto o som está ligado.
+  const timbre = theme.feedback.sound.timbre
+  useEffect(() => {
+    if (feedback.prefs.sound) loadSounds(timbre)
+    else unloadSounds()
+  }, [feedback.prefs.sound, timbre])
+  const value = useMemo<DSContextValue>(() => ({ theme: resolved, strings: mergedStrings, Icon, emit, feedback }), [resolved, mergedStrings, Icon, emit, feedback])
   return (
     <DSContext.Provider value={value}>
       <GestureHandlerRootView style={fill.root}>{children}</GestureHandlerRootView>

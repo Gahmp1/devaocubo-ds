@@ -20,6 +20,8 @@ export const swfitness: DSTheme = {
       success: lime, onSuccess: ink, info: '#007AFF', onInfo: ink,
       border: '#646161', borderMuted: '#454649', focus: lime,
       aiOrb: lime, aiGlow: lime, aiBeam: lime,
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#B6FB2D', '#52B4A1', '#D7FD8C'],
     },
     light: {
       bg: 'hsl(0 0% 98%)', surface1: '#FFFFFF', surface2: 'hsl(240 5% 95%)', surface3: 'hsl(240 5% 95%)',
@@ -37,6 +39,8 @@ export const swfitness: DSTheme = {
       border: 'hsl(240 5% 90%)', borderMuted: 'hsl(240 5% 90%)',
       focus: 'hsl(80 96% 31%)',
       aiOrb: 'hsl(80 96% 31%)', aiGlow: lime, aiBeam: 'hsl(80 96% 31%)',
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#689B03', '#2F898E', '#405C09'],
     },
   },
   type: {
@@ -66,5 +70,7 @@ export const swfitness: DSTheme = {
   },
   // beam: animation 3s em design-library/examples/lab-swfitness/styles.css
   ai: { orb: 'dots', beamPeriodMs: 3000, steps: 'list', revealMsPerWord: 50 },
+  // som desligado até a pessoa ligar (som-e-haptics.md); timbre acompanha a personalidade do movimento
+  feedback: { haptics: { default: 'on', intensity: 'crisp' }, sound: { default: 'off', timbre: 'crisp', volume: 0.5 } },
   components: { button: { shape: 'pill' }, card: { type: 'fill' }, tabBar: 'glass', header: 'large' },
 }

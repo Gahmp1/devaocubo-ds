@@ -21,6 +21,8 @@ export const somma: DSTheme = {
       info: '#2196F3', onInfo: black,
       border: '#5D5D5B', borderMuted: '#313130', focus: '#34D399',
       aiOrb: '#34D399', aiGlow: '#34D399', aiBeam: '#34D399',
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#34D399', '#2AB1CB', '#8CE3C1'],
     },
     light: {
       bg: '#E1E1DC', surface1: paper, surface2: paper, surface3: paper,
@@ -31,6 +33,8 @@ export const somma: DSTheme = {
       success: '#0E6D66', onSuccess: paper, info: '#145DA0', onInfo: paper,
       border: '#B5B5B1', borderMuted: '#CBCBC7', focus: '#0E6D66',
       aiOrb: '#0E6D66', aiGlow: '#34D399', aiBeam: '#0E6D66',
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#0E6D66', '#116486', '#144844'],
     },
   },
   type: {
@@ -60,5 +64,7 @@ export const somma: DSTheme = {
     press: { kind: 'opacity', value: 0.9 },
   },
   ai: { orb: 'ring', beamPeriodMs: 4000, steps: 'timeline', revealMsPerWord: 60 },
+  // som desligado até a pessoa ligar (som-e-haptics.md); timbre acompanha a personalidade do movimento
+  feedback: { haptics: { default: 'on', intensity: 'soft' }, sound: { default: 'off', timbre: 'soft', volume: 0.4 } },
   components: { button: { shape: 'pill' }, card: { type: 'outline' }, tabBar: 'solid', header: 'compact' },
 }

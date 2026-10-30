@@ -8,3 +8,5 @@ ds/packages/*/src/index.ts
 ds/packages/*/src/motion.ts
 ds/packages/*/src/ai.ts
 ds/apps/catalog-native/src/gallery/registry.ts
+# sons gerados por ds/scripts/sounds.mjs a partir das receitas do ds-core
+ds/packages/native/assets/sounds/

@@ -1,5 +1,6 @@
 import { createContext, useContext, type ReactNode } from 'react'
 import type { DSTheme, Scheme } from '@gahmp1/ds-theme'
+import type { DSFeedback, FeedbackPrefs } from './feedback.js'
 import type { IconComponent } from './icons.js'
 import type { InteractionEvent } from './interaction.js'
 import type { DSStrings } from './strings.js'
@@ -10,6 +11,7 @@ export type DSContextValue = {
   strings: DSStrings
   Icon: IconComponent
   emit: (e: InteractionEvent) => void
+  feedback: DSFeedback
 }
 
 /** Props comuns dos provedores de `ds-native` e `ds-web`; cada um resolve 'system' à sua maneira. */
@@ -20,6 +22,8 @@ export type DSProviderBaseProps = {
   strings?: Partial<DSStrings>
   Icon: IconComponent
   onInteraction?: (e: InteractionEvent) => void
+  /** Preferência da pessoa (o app a guarda); ausente = padrão do tema. */
+  feedback?: Partial<FeedbackPrefs>
   children: ReactNode
 }
 

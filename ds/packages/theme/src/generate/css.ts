@@ -3,11 +3,15 @@ import type { ColorRoles, DSTheme, Scheme, Shadow } from '../types.js'
 const kebab = (s: string) => s.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase())
 const shadow = (s: Shadow) => `${s.x}px ${s.y}px ${s.blur}px ${s.spread}px ${s.color}`
 
+/** Papéis de cor de valor único; `aiGradient` (lista) sai como --ds-ai-gradient-N. */
+export const colorRoles = (c: ColorRoles) => (Object.keys(c) as (keyof ColorRoles)[]).filter((k): k is Exclude<keyof ColorRoles, 'aiGradient'> => k !== 'aiGradient')
+
 function schemeVars(t: DSTheme, scheme: Scheme): string[] {
   const c = t.color[scheme]
   const d = t.depth[scheme]
   return [
-    ...(Object.keys(c) as (keyof ColorRoles)[]).map((k) => `--ds-color-${kebab(k)}: ${c[k]};`),
+    ...colorRoles(c).map((k) => `--ds-color-${kebab(k)}: ${c[k]};`),
+    ...c.aiGradient.map((g, i) => `--ds-ai-gradient-${i + 1}: ${g};`),
     `--ds-depth-model: ${d.model};`,
     `--ds-shadow-card: ${shadow(d.card)};`,
     `--ds-shadow-overlay: ${shadow(d.overlay)};`,
@@ -62,7 +66,7 @@ export function toCssVars(t: DSTheme, scope = ':root'): string {
 /** Mapeamento @theme inline do Tailwind 4 para as variáveis --ds-*. */
 export function toTailwindTheme(t: DSTheme): string {
   const decls = [
-    ...Object.keys(t.color.light).map((k) => `--color-${kebab(k)}: var(--ds-color-${kebab(k)});`),
+    ...colorRoles(t.color.light).map((k) => `--color-${kebab(k)}: var(--ds-color-${kebab(k)});`),
     ...Object.keys(t.shape.radius).map((k) => `--radius-${k}: var(--ds-radius-${k});`),
     ...Object.keys(t.type.family).map((k) => `--font-${k}: var(--ds-font-${k});`),
   ]

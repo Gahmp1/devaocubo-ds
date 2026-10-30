@@ -25,6 +25,8 @@ export const trippo: DSTheme = {
       border: '#d2d1ce', borderMuted: '#ebeae6', focus: '#71717a',
       // apps/web/BRAND.md: Ash #B8B6AE é o brilho e os pontos de rota (decorativo, fora da checagem de texto)
       aiOrb: '#18181b', aiGlow: '#B8B6AE', aiBeam: '#B8B6AE',
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#18181B', '#1F418D', '#1A1A1B'],
     },
     dark: {
       bg: '#0a0a09', surface1: '#18181b', surface2: '#27272a', surface3: '#27272a',
@@ -40,6 +42,8 @@ export const trippo: DSTheme = {
       // rgba(255,255,255,0.15) e accent rgba(255,255,255,0.10) compostos sobre o bg
       border: '#2f2f2e', borderMuted: '#232322', focus: '#71717a',
       aiOrb: '#f7f6f2', aiGlow: '#B8B6AE', aiBeam: '#B8B6AE',
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#FFFFFF', '#87A9F4', '#FBFBF9'],
     },
   },
   type: {
@@ -76,5 +80,7 @@ export const trippo: DSTheme = {
     press: { kind: 'scale', value: 0.97 },
   },
   ai: { orb: 'dots', beamPeriodMs: 3000, steps: 'list', revealMsPerWord: 50 },
+  // som desligado até a pessoa ligar (som-e-haptics.md); timbre acompanha a personalidade do movimento
+  feedback: { haptics: { default: 'on', intensity: 'soft' }, sound: { default: 'off', timbre: 'soft', volume: 0.4 } },
   components: { button: { shape: 'rounded' }, card: { type: 'fill' }, tabBar: 'floating', header: 'large' },
 }

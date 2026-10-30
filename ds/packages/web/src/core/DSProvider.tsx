@@ -1,5 +1,6 @@
-import { defaultStrings, DSContext, resolveTheme, type DSContextValue, type DSProviderBaseProps, type InteractionEvent } from '@gahmp1/ds-core'
+import { defaultStrings, DSContext, resolveTheme, useFeedbackValue, type DSContextValue, type DSProviderBaseProps, type InteractionEvent } from '@gahmp1/ds-core'
 import { useCallback, useLayoutEffect, useMemo, useRef, useSyncExternalStore } from 'react'
+import { performFeedback } from './feedback.js'
 
 function useMedia(query: string): boolean {
   const subscribe = useCallback(
@@ -18,7 +19,7 @@ function useMedia(query: string): boolean {
  * Escreve `data-theme` (só com esquema explícito) e `data-reduced-motion` no `<html>`;
  * o CSS do tema o app importa uma vez.
  */
-export function DSProvider({ theme, scheme = 'system', reducedMotion = 'system', strings, Icon, onInteraction, children }: DSProviderBaseProps) {
+export function DSProvider({ theme, scheme = 'system', reducedMotion = 'system', strings, Icon, onInteraction, feedback: feedbackPrefs, children }: DSProviderBaseProps) {
   const osDark = useMedia('(prefers-color-scheme: dark)')
   const osReduced = useMedia('(prefers-reduced-motion: reduce)')
   const resolvedScheme = scheme === 'system' ? (osDark ? 'dark' : 'light') : scheme
@@ -32,7 +33,8 @@ export function DSProvider({ theme, scheme = 'system', reducedMotion = 'system',
   // `strings` costuma chegar inline: a chave é o JSON do parcial (textos são dados puros).
   const stringsKey = JSON.stringify(strings ?? null)
   const mergedStrings = useMemo(() => ({ ...defaultStrings, ...strings }), [stringsKey])
-  const value = useMemo<DSContextValue>(() => ({ theme: resolved, strings: mergedStrings, Icon, emit }), [resolved, mergedStrings, Icon, emit])
+  const feedback = useFeedbackValue(theme, feedbackPrefs, performFeedback)
+  const value = useMemo<DSContextValue>(() => ({ theme: resolved, strings: mergedStrings, Icon, emit, feedback }), [resolved, mergedStrings, Icon, emit, feedback])
 
   useLayoutEffect(() => {
     const html = document.documentElement

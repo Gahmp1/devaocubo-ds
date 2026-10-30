@@ -1,6 +1,7 @@
 import { Geist_400Regular, Geist_500Medium, Geist_600SemiBold, Geist_700Bold } from '@expo-google-fonts/geist'
 import { IBMPlexMono_400Regular, IBMPlexMono_600SemiBold, IBMPlexMono_700Bold } from '@expo-google-fonts/ibm-plex-mono'
 import { Outfit_400Regular, Outfit_500Medium, Outfit_600SemiBold } from '@expo-google-fonts/outfit'
+import type { FeedbackPrefs } from '@gahmp1/ds-core'
 import { createStyles, DSProvider, Press, useTheme } from '@gahmp1/ds-native'
 import { themes } from '@gahmp1/ds-theme'
 import { useFonts } from 'expo-font'
@@ -9,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { Linking, ScrollView, Text, View } from 'react-native'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { CatalogIcon } from './src/CatalogIcon'
+import { SetFeedbackPrefs } from './src/CatalogPrefs'
 import { Gallery } from './src/Gallery'
 
 type SchemeChoice = 'system' | 'light' | 'dark'
@@ -79,6 +81,7 @@ export default function App() {
   })
   const [sel, setSel] = useState<Selection>({ theme: 'swfitness', scheme: 'system', reduced: 'system', screen: null })
   const set = (p: Partial<Selection>) => setSel((prev) => ({ ...prev, ...p }))
+  const [prefs, setPrefs] = useState<Partial<FeedbackPrefs>>({})
   // Deep link ...?theme=somma&scheme=dark&reduced=true&screen=tokens abre direto numa combinação (QA reproduzível sem tocar na tela).
   useEffect(() => {
     const apply = (url: string | null | undefined) => {
@@ -102,8 +105,10 @@ export default function App() {
   if (!loaded) return null
   return (
     <SafeAreaProvider>
-      <DSProvider theme={theme} scheme={sel.scheme} reducedMotion={sel.reduced} Icon={CatalogIcon}>
-        <Shell sel={sel} set={set} />
+      <DSProvider theme={theme} scheme={sel.scheme} reducedMotion={sel.reduced} Icon={CatalogIcon} feedback={prefs}>
+        <SetFeedbackPrefs.Provider value={(p) => setPrefs((prev) => ({ ...prev, ...p }))}>
+          <Shell sel={sel} set={set} />
+        </SetFeedbackPrefs.Provider>
       </DSProvider>
     </SafeAreaProvider>
   )

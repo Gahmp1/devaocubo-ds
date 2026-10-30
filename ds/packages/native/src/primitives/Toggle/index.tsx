@@ -1,5 +1,5 @@
 // Referência: Zenith Toggle (SWFitness): trilho vazado, cor no polegar. Polegar que estica: beUI Native (MIT), https://github.com/starc007/beui-native
-import { mixColor } from '@gahmp1/ds-core'
+import { mixColor, useFeedback } from '@gahmp1/ds-core'
 import { useEffect } from 'react'
 import { View } from 'react-native'
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
@@ -34,6 +34,7 @@ const useStyles = createStyles(() => ({
 export function Toggle({ value, onValueChange, size = 'normal', disabled, accessibilityLabel, interactionId }: ToggleProps) {
   const t = useTheme()
   const s = useStyles()
+  const { play } = useFeedback()
   const { spring, reduced } = useThemeMotion()
   const { w, h, thumb } = SIZES[size]
   const border = t.shape.borderWidth.thin
@@ -70,7 +71,10 @@ export function Toggle({ value, onValueChange, size = 'normal', disabled, access
       accessibilityLabel={accessibilityLabel}
       accessibilityState={{ checked: value, disabled: !!disabled }}
       disabled={disabled}
-      onPress={() => onValueChange(!value)}
+      onPress={() => {
+        play('toggle', !value)
+        onValueChange(!value)
+      }}
       onPressIn={() => setPress(1)}
       onPressOut={() => setPress(0)}
       style={{ width: w, height: h }}

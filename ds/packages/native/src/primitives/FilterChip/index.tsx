@@ -1,3 +1,4 @@
+import { useFeedback } from '@gahmp1/ds-core'
 import { ChipBase, type ChipProps } from '../Chip/ChipBase.js'
 
 export type FilterChipProps = Omit<ChipProps, 'selected' | 'onPress' | 'onRemove'> & {
@@ -8,5 +9,18 @@ export type FilterChipProps = Omit<ChipProps, 'selected' | 'onPress' | 'onRemove
 
 /** `Chip` de filtro: `selected` obrigatório, o toque alterna e o ✓ entra quando selecionado. */
 export function FilterChip({ selected, onPress, ...rest }: FilterChipProps) {
-  return <ChipBase {...rest} component="FilterChip" selected={selected} toggle={!selected} check onPress={() => onPress(!selected)} />
+  const { play } = useFeedback()
+  return (
+    <ChipBase
+      {...rest}
+      component="FilterChip"
+      selected={selected}
+      toggle={!selected}
+      check
+      onPress={() => {
+        play('select')
+        onPress(!selected)
+      }}
+    />
+  )
 }

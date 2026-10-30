@@ -1,4 +1,5 @@
 // Referência: Zenith RadioButton (SWFitness); ponto que desliza: beUI Native (MIT), https://github.com/starc007/beui-native
+import { useFeedback } from '@gahmp1/ds-core'
 import { useEffect, useRef, useState } from 'react'
 import { View } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated'
@@ -35,6 +36,7 @@ type Rect = { y: number; h: number }
 export function RadioGroup({ value, onChange, options, accessibilityLabel, interactionId }: RadioGroupProps) {
   const t = useTheme()
   const s = useStyles()
+  const { play } = useFeedback()
   const { duration, easing, spring, reduced } = useThemeMotion()
   const [rows, setRows] = useState<Record<string, Rect>>({})
   const rect = rows[value]
@@ -69,7 +71,12 @@ export function RadioGroup({ value, onChange, options, accessibilityLabel, inter
           accessibilityLabel={o.label}
           accessibilityState={{ selected: o.value === value, disabled: !!o.disabled }}
           disabled={o.disabled}
-          onPress={() => o.value !== value && onChange(o.value)}
+          onPress={() => {
+            // tocar na opção já escolhida não muda nada: nem feedback
+            if (o.value === value) return
+            play('select')
+            onChange(o.value)
+          }}
           onLayout={(e) => {
             const { y: top, height } = e.nativeEvent.layout
             setRows((r) => (r[o.value]?.y === top && r[o.value]?.h === height ? r : { ...r, [o.value]: { y: top, h: height } }))

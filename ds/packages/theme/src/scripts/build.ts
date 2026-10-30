@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { toCssVars, toTailwindTheme } from '../generate/css.js'
+import { colorRoles, toCssVars, toTailwindTheme } from '../generate/css.js'
 import { toLegacyDefaultsJson, toLegacyTokensCss } from '../generate/legacy.js'
 import { themes } from '../index.js'
 
@@ -14,9 +14,13 @@ mkdirSync(cssDir, { recursive: true })
 for (const t of themes) {
   const css = toCssVars(t)
   // Autochecagem: cada papel aparece no claro, no escuro explícito e no escuro do SO.
-  for (const role of Object.keys(t.color.light)) {
+  for (const role of colorRoles(t.color.light)) {
     const n = css.split(`--ds-color-${role.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase())}:`).length - 1
     if (n !== 3) throw new Error(`${t.name}: papel ${role} aparece ${n} vezes no CSS (esperado 3)`)
+  }
+  for (const n of [1, 2, 3]) {
+    const k = css.split(`--ds-ai-gradient-${n}:`).length - 1
+    if (k !== 3) throw new Error(`${t.name}: --ds-ai-gradient-${n} aparece ${k} vezes no CSS (esperado 3)`)
   }
   writeFileSync(`${cssDir}${t.name}.css`, css)
   writeFileSync(`${cssDir}${t.name}.tailwind.css`, toTailwindTheme(t))
