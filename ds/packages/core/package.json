@@ -1,0 +1,30 @@
+{
+  "name": "@gahmp1/ds-core",
+  "version": "0.0.0",
+  "description": "Tema resolvido, contexto, contrato de ícones, textos pt-BR e cor, iguais em React Native e React web.",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "check": "node dist/check/run.js"
+  },
+  "dependencies": {
+    "@gahmp1/ds-theme": "*"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "~19.3.0"
+  }
+}
