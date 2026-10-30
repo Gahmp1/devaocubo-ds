@@ -1,0 +1,160 @@
+/* Cores por variante em custom properties; desabilitado (`--off`) vem das cores do tema, não de opacidade. */
+.ds-button {
+  --ds-button-h: var(--ds-control-md);
+  --ds-button-bg: transparent;
+  --ds-button-fg: var(--ds-color-text);
+  --ds-button-line: transparent;
+  --ds-button-radius: var(--ds-radius-full);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex: none;
+  min-block-size: var(--ds-button-h);
+  margin: 0;
+  /* Zenith: DSButton (padding horizontal xl); título longo quebra em 2 linhas, então há respiro vertical. */
+  padding: var(--ds-space-xs) var(--ds-space-xl);
+  border: var(--ds-border-thin) solid var(--ds-button-line);
+  border-radius: var(--ds-button-radius);
+  background: var(--ds-button-bg);
+  color: var(--ds-button-fg);
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-fast) var(--ds-ease-standard);
+}
+
+/* Alvo de toque mínimo de 44px (spec 14) quando o botão é menor. */
+.ds-button::after {
+  content: "";
+  position: absolute;
+  inset: min(0px, calc((100% - 44px) / 2));
+}
+
+.ds-button:disabled {
+  cursor: default;
+}
+
+.ds-button--loading:disabled {
+  cursor: progress;
+}
+
+.ds-button--small {
+  --ds-button-h: var(--ds-control-sm);
+}
+
+.ds-button--large {
+  --ds-button-h: var(--ds-control-lg);
+}
+
+.ds-button--rounded {
+  --ds-button-radius: var(--ds-radius-md);
+}
+
+.ds-button--square {
+  --ds-button-radius: 0;
+}
+
+.ds-button--circle {
+  inline-size: var(--ds-button-h);
+  padding-inline: 0;
+}
+
+.ds-button--full {
+  inline-size: 100%;
+}
+
+.ds-button__content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-xs);
+  min-inline-size: 0;
+}
+
+.ds-button--loading .ds-button__content {
+  visibility: hidden;
+}
+
+.ds-button__spinner {
+  position: absolute;
+  display: inline-flex;
+}
+
+/* Texto e spinner herdam a cor da variante. */
+.ds-button .ds-text {
+  color: var(--ds-button-fg);
+  text-align: center;
+}
+
+.ds-button .ds-spinner {
+  --ds-spinner-color: var(--ds-button-fg);
+}
+
+.ds-button--primary {
+  --ds-button-bg: var(--ds-color-accent);
+  --ds-button-fg: var(--ds-color-on-accent);
+}
+
+.ds-button--danger {
+  --ds-button-bg: var(--ds-color-danger);
+  --ds-button-fg: var(--ds-color-on-danger);
+}
+
+.ds-button--inverse {
+  --ds-button-bg: var(--ds-color-text);
+  --ds-button-fg: var(--ds-color-bg);
+}
+
+.ds-button--outline {
+  --ds-button-line: var(--ds-color-border);
+}
+
+.ds-button--inverse-outline {
+  --ds-button-line: var(--ds-color-text);
+}
+
+.ds-button--surface {
+  --ds-button-bg: var(--ds-color-surface1);
+}
+
+.ds-button--surface-outline {
+  --ds-button-bg: var(--ds-color-surface1);
+  --ds-button-line: var(--ds-color-border);
+}
+
+/* Desabilitado: tinta a 30% com texto cheio (Zenith primaryDisabled) nos preenchidos de acento/perigo. */
+.ds-button--primary.ds-button--off {
+  --ds-button-bg: color-mix(in srgb, var(--ds-color-accent) 30%, transparent);
+}
+
+.ds-button--danger.ds-button--off {
+  --ds-button-bg: color-mix(in srgb, var(--ds-color-danger) 30%, transparent);
+}
+
+.ds-button--inverse.ds-button--off {
+  --ds-button-bg: var(--ds-color-text-disabled);
+}
+
+.ds-button--off:is(.ds-button--outline, .ds-button--surface-outline) {
+  --ds-button-line: var(--ds-color-border-muted);
+}
+
+.ds-button--off.ds-button--inverse-outline {
+  --ds-button-line: var(--ds-color-text-disabled);
+}
+
+.ds-button--off:is(.ds-button--outline, .ds-button--ghost, .ds-button--inverse-outline, .ds-button--surface, .ds-button--surface-outline) {
+  --ds-button-fg: var(--ds-color-text-disabled);
+}
+
+/* Toque do tema: opacidade ou escala (`--ds-press-value`); só habilitado. */
+.ds-button--press-opacity:active:not(:disabled) {
+  opacity: var(--ds-press-value);
+}
+
+.ds-button--press-scale:active:not(:disabled) {
+  transform: scale(var(--ds-press-value));
+}

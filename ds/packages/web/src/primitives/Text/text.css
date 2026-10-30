@@ -61,6 +61,10 @@
   color: var(--ds-color-text-disabled);
 }
 
+.ds-text--color-bg {
+  color: var(--ds-color-bg);
+}
+
 .ds-text--color-accent {
   color: var(--ds-color-accent);
 }
@@ -71,6 +75,10 @@
 
 .ds-text--color-danger {
   color: var(--ds-color-danger);
+}
+
+.ds-text--color-on-danger {
+  color: var(--ds-color-on-danger);
 }
 
 .ds-text--color-warning {

@@ -21,6 +21,14 @@
   --ds-spinner-color: var(--ds-color-on-accent);
 }
 
+.ds-spinner--on-danger {
+  --ds-spinner-color: var(--ds-color-on-danger);
+}
+
+.ds-spinner--bg {
+  --ds-spinner-color: var(--ds-color-bg);
+}
+
 .ds-spinner--text {
   --ds-spinner-color: var(--ds-color-text);
 }

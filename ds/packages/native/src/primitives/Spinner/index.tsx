@@ -10,11 +10,11 @@ import { useThemeMotion } from '../../core/useThemeMotion.js'
 import { FLUID_SPINNER_SOURCE } from './shader.js'
 
 export type SpinnerSize = 'small' | 'medium' | 'large'
-export type SpinnerTone = 'accent' | 'onAccent' | 'text'
+export type SpinnerTone = 'accent' | 'onAccent' | 'onDanger' | 'bg' | 'text'
 
 export type SpinnerProps = {
   size?: SpinnerSize
-  /** `onAccent` para usar sobre fundo de acento (botão); `text` sobre superfícies neutras. */
+  /** `onAccent`/`onDanger` sobre fundo de acento/perigo (botão); `bg` sobre fundo `text` (botão inverso); `text` sobre superfícies neutras. */
   tone?: SpinnerTone
   /** Padrão: `strings.loading`. */
   accessibilityLabel?: string

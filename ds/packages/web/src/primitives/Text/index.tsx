@@ -3,7 +3,7 @@ import type { CSSProperties, HTMLAttributes, LabelHTMLAttributes } from 'react'
 import { cx } from '../../core/cx.js'
 
 export type TextVariant = TypeStep | `${TypeStep}Medium`
-export type TextColor = Extract<keyof ColorRoles, 'text' | 'textMuted' | 'textSubtle' | 'textDisabled' | 'accent' | 'onAccent' | 'danger' | 'warning' | 'success' | 'info'>
+export type TextColor = Extract<keyof ColorRoles, 'text' | 'textMuted' | 'textSubtle' | 'textDisabled' | 'bg' | 'accent' | 'onAccent' | 'danger' | 'onDanger' | 'warning' | 'success' | 'info'>
 export type TextElement = 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'label' | 'strong' | 'em'
 
 type OwnProps = {
