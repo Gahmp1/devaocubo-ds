@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR" data-product="somma">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup design-library — referências de design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="library.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">design-library<small>mockup · consulta local de referências</small></div>
+  <div class="switch" role="group" aria-label="Produto" id="prod"></div>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <p class="eyebrow"><b>design-research</b> + <b>design-library</b></p>
+  <h1 style="margin-top:12px">Referências de design, à mão<span style="color:var(--accent)">.</span></h1>
+  <p class="sub">Catálogo local para pesquisar, triar e guardar o padrão de cada referência antes de gerar um mockup.</p>
+  <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <span class="sr">Buscar referências</span>
+    <input id="q" type="search" placeholder="Buscar por nome, tema ou categoria" autocomplete="off" spellcheck="false">
+    <kbd aria-hidden="true">/</kbd></label>
+  <p class="disc" id="disc"></p>
+</div></section>
+
+<section class="s" aria-labelledby="fl-h"><div class="wrap">
+  <div class="sh"><p class="eyebrow">Fluxo de pesquisa</p><h2 id="fl-h">Do brief ao mockup, em seis passos</h2>
+  <p>O fluxo roda em loop só para mostrar a ideia. Clique num passo ou use os botões para avançar no seu ritmo.</p></div>
+  <ol class="flow" id="flow" style="list-style:none;padding:0"></ol>
+  <div class="fcard" id="fcard" aria-live="off">
+    <div class="txt" id="ftxt"></div>
+    <div class="fctl">
+      <button class="btn" type="button" id="fprev" aria-label="Passo anterior">← Anterior</button>
+      <button class="btn" type="button" id="fplay" aria-pressed="true">Pausar</button>
+      <button class="btn pri" type="button" id="fnext" aria-label="Próximo passo">Próximo →</button>
+    </div>
+    <div class="fbar" id="fbar" aria-hidden="true"><i></i></div>
+  </div>
+</div></section>
+
+<section class="s" aria-labelledby="cat-h"><div class="wrap">
+  <div class="sh"><p class="eyebrow">Catálogo</p><h2 id="cat-h">Referências por categoria</h2></div>
+  <div class="bar">
+    <div class="row"><label id="l1">Categoria</label><div class="chips" id="fcat" role="group" aria-labelledby="l1"></div></div>
+    <div class="row"><label id="l2">Movimento</label><div class="chips" id="fmov" role="group" aria-labelledby="l2"></div>
+      <label id="l3" style="min-width:0;margin-left:10px">Estado</label><div class="chips" id="fst" role="group" aria-labelledby="l3"></div>
+      <span class="count" id="count" role="status" aria-live="polite"></span></div>
+  </div>
+  <div class="grid" id="grid"></div>
+</div></section>
+</main>
+<footer><div class="wrap">Nomes e links lidos da página toolfolio.com/design. Resumos em português, níveis de movimento e estados são do mockup; licenças ficam “a verificar” quando a página não diz.</div></footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="pn" aria-hidden="true"></aside>
+<script src="data.js"></script>
+<script src="library.js"></script>
+</body>
+</html>

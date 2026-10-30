@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR" data-product="somma">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup design-pdf — proposta A4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="pdf.css">
+</head>
+<body>
+<header class="ui">
+  <div class="row">
+    <div class="brand">design-pdf<small>mockup · relatório A4 em HTML</small></div>
+    <div class="switch" role="group" aria-label="Produto" id="prod"></div>
+    <div class="tools">
+      <div class="switch" role="group" aria-label="Modo de visualização" id="mode">
+        <button type="button" data-m="sheets" aria-pressed="true">Folhas</button>
+        <button type="button" data-m="flow" aria-pressed="false">Rolagem contínua</button>
+      </div>
+      <div class="zoom" id="zoomBox">
+        <button class="btn" type="button" id="zout" aria-label="Diminuir zoom">−</button>
+        <input type="range" id="zr" min="40" max="150" step="5" value="100" aria-label="Zoom">
+        <button class="btn" type="button" id="zin" aria-label="Aumentar zoom">+</button>
+        <output id="zv" for="zr">100%</output>
+        <button class="btn" type="button" id="zfit">Ajustar</button>
+      </div>
+      <button class="btn pri" type="button" id="print">Imprimir ou salvar PDF</button>
+    </div>
+  </div>
+</header>
+
+<main class="stage" id="stage">
+  <p class="hint" id="hint">Pré-visualização das folhas A4. Na impressão, o navegador usa as margens e o cabeçalho/rodapé correntes do <code>@page</code>.</p>
+
+  <!-- capa -->
+  <div class="sheet-wrap"><article class="page cover" aria-label="Página 1">
+    <div class="band"><span>Proposta · <span data-k="name"></span></span></div>
+    <p class="eyebrow mut" style="font-size:8pt;letter-spacing:.12em;text-transform:uppercase">Documento de exemplo · <span class="tag">EXEMPLO</span></p>
+    <h1 data-k="title"></h1>
+    <p class="sub" data-k="sub"></p>
+    <dl class="meta">
+      <div><dt>Cliente</dt><dd data-k="client"></dd></div>
+      <div><dt>Data</dt><dd>29 de outubro de 2026</dd></div>
+      <div><dt>Versão</dt><dd>1.0 (rascunho de exemplo)</dd></div>
+      <div><dt>Validade</dt><dd>30 dias (exemplo)</dd></div>
+    </dl>
+    <p class="mut">Todo o conteúdo deste documento é <b>EXEMPLO</b>: nomes, prazos e valores são fictícios e existem só para mostrar a diagramação.</p>
+    <div class="pf"><span>Documento de exemplo — dados fictícios</span><span class="n"></span></div>
+  </article></div>
+
+  <!-- página 2 -->
+  <div class="sheet-wrap"><article class="page" aria-label="Página 2">
+    <div class="ph"><span>Proposta · <span class="tag">EXEMPLO</span></span><span data-k="name"></span></div>
+    <h2><span class="nr">1.</span>Resumo executivo</h2>
+    <p class="lead" data-k="lead"></p>
+    <p>A proposta cobre descoberta, desenho de telas, protótipo navegável e entrega dos arquivos para o time de desenvolvimento. O cronograma e os valores abaixo são <b>EXEMPLO</b> e servem para testar tabelas, listas e quebras de página.</p>
+    <h2 style="margin-top:7mm"><span class="nr">2.</span>Objetivos</h2>
+    <ul class="check" id="goals"></ul>
+    <blockquote><p data-k="quote"></p><cite data-k="cite"></cite></blockquote>
+    <h3>Premissas (exemplo)</h3>
+    <p>O cliente fornece acesso ao produto atual e a uma pessoa de referência para tirar dúvidas em até dois dias úteis. Mudanças de escopo são tratadas em adendo, com novo prazo e novo valor.</p>
+    <div class="pf"><span>Documento de exemplo — dados fictícios</span><span class="n"></span></div>
+  </article></div>
+
+  <!-- página 3 -->
+  <div class="sheet-wrap"><article class="page" aria-label="Página 3">
+    <div class="ph"><span>Proposta · <span class="tag">EXEMPLO</span></span><span data-k="name"></span></div>
+    <h2><span class="nr">3.</span>Escopo e cronograma</h2>
+    <p>O trabalho acontece em quatro fases. A tabela mostra a entrega principal de cada uma e o esforço estimado; a figura compara as horas por fase.</p>
+    <div class="tblw"><table>
+      <caption>Tabela 1 — Fases, entregas e esforço (EXEMPLO)</caption>
+      <thead><tr><th>Fase</th><th>Entrega principal</th><th class="n">Semanas</th><th class="n">Horas</th></tr></thead>
+      <tbody id="phases"></tbody>
+      <tfoot><tr><td colspan="2">Total</td><td class="n">7</td><td class="n">168</td></tr></tfoot>
+    </table></div>
+    <figure>
+      <svg viewBox="0 0 520 220" role="img" aria-labelledby="fg-t fg-d">
+        <title id="fg-t">Horas por fase (exemplo)</title>
+        <desc id="fg-d">Gráfico de barras: Descoberta 24 horas, Design 72, Protótipo 48, Entrega 24.</desc>
+        <g stroke="#d9dadd" stroke-width="1"><line x1="40" y1="30" x2="510" y2="30"/><line x1="40" y1="80" x2="510" y2="80"/><line x1="40" y1="130" x2="510" y2="130"/><line x1="40" y1="180" x2="510" y2="180" stroke="#17181a"/></g>
+        <g font-size="11" fill="#5b5d63" text-anchor="end"><text x="34" y="184">0</text><text x="34" y="134">25</text><text x="34" y="84">50</text><text x="34" y="34">75</text></g>
+        <g fill="var(--p-fill)" stroke="#17181a" stroke-width="1.2">
+          <rect x="70" y="130" width="70" height="50"/><rect x="190" y="30" width="70" height="150"/>
+          <rect x="310" y="80" width="70" height="100"/><rect x="430" y="130" width="70" height="50"/>
+        </g>
+        <g font-size="13" font-weight="700" fill="#17181a" text-anchor="middle"><text x="105" y="122">24</text><text x="225" y="22">72</text><text x="345" y="72">48</text><text x="465" y="122">24</text></g>
+        <g font-size="12" fill="#5b5d63" text-anchor="middle"><text x="105" y="202">Descoberta</text><text x="225" y="202">Design</text><text x="345" y="202">Protótipo</text><text x="465" y="202">Entrega</text></g>
+      </svg>
+      <figcaption><b>Figura 1.</b> Horas estimadas por fase. A fase de design concentra 43% do esforço. Dados de <b>EXEMPLO</b>.</figcaption>
+    </figure>
+    <div class="pf"><span>Documento de exemplo — dados fictícios</span><span class="n"></span></div>
+  </article></div>
+
+  <!-- página 4 -->
+  <div class="sheet-wrap"><article class="page" aria-label="Página 4">
+    <div class="ph"><span>Proposta · <span class="tag">EXEMPLO</span></span><span data-k="name"></span></div>
+    <h2><span class="nr">4.</span>Investimento</h2>
+    <div class="tblw"><table>
+      <caption>Tabela 2 — Valores por fase, em reais (EXEMPLO)</caption>
+      <thead><tr><th>Item</th><th class="n">Horas</th><th class="n hide">Valor/hora</th><th class="n">Subtotal</th></tr></thead>
+      <tbody>
+        <tr><td>Descoberta</td><td class="n">24</td><td class="n hide">R$ 150</td><td class="n">R$ 3.600</td></tr>
+        <tr><td>Design</td><td class="n">72</td><td class="n hide">R$ 150</td><td class="n">R$ 10.800</td></tr>
+        <tr><td>Protótipo</td><td class="n">48</td><td class="n hide">R$ 150</td><td class="n">R$ 7.200</td></tr>
+        <tr><td>Entrega</td><td class="n">24</td><td class="n hide">R$ 150</td><td class="n">R$ 3.600</td></tr>
+      </tbody>
+      <tfoot><tr><td>Total</td><td class="n">168</td><td class="n hide"></td><td class="n">R$ 25.200</td></tr></tfoot>
+    </table></div>
+    <h3>Condições (exemplo)</h3>
+    <ul class="check">
+      <li>Pagamento em duas parcelas: 50% no início e 50% na entrega.</li>
+      <li>Uma rodada de ajustes por fase está incluída no valor.</li>
+      <li>Arquivos finais entregues em formato aberto, com tokens documentados.</li>
+    </ul>
+    <h2 style="margin-top:7mm"><span class="nr">5.</span>Próximos passos</h2>
+    <ol class="steps">
+      <li>Revisar esta proposta e anotar dúvidas.</li>
+      <li>Confirmar escopo e data de início.</li>
+      <li>Assinar o aceite abaixo e agendar a reunião de descoberta.</li>
+    </ol>
+    <div class="sign"><div>Aceite do cliente · nome, data (exemplo)</div><div>Responsável pela proposta · nome, data (exemplo)</div></div>
+    <p class="note">Este é um documento de <b>EXEMPLO</b>. Nenhum valor, prazo ou nome aqui representa uma oferta real.</p>
+    <div class="pf"><span>Documento de exemplo — dados fictícios</span><span class="n"></span></div>
+  </article></div>
+</main>
+<script src="pdf.js"></script>
+</body>
+</html>

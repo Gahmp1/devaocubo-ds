@@ -1,0 +1,33 @@
+<!-- SITE MOCK — janela de browser fake (barra de URL + semáforo mac) em volta do conteúdo.
+     Duas variantes:
+       1) Screenshot real: <img src="data:image/jpeg;base64,..."> no lugar do .pw-mock-body.
+          Fica pesado (screenshots reais inflam o HTML — um print de tela cheia facilmente
+          passa de 150KB em base64); só compensa quando o produto real importa mais que o peso do arquivo.
+       2) Mock 100% HTML/CSS (usado aqui) — sem imagem, mais leve, e serve quando o ponto
+          é "a forma da tela" e não o pixel exato. Ajuste pw-mock-line/pw-mock-cards à vontade. -->
+<section class="slide">
+  <div class="slide-inner">
+    <p class="eyebrow">__EYEBROW__</p>
+    <h2 class="slide-title">__O que essa tela mostra__</h2>
+    <p class="lede">__Contexto de uma frase.__</p>
+    <div class="product-window">
+      <div class="pw-titlebar">
+        <div class="term-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+        <div class="pw-url">__app.exemplo.com/rota__</div>
+      </div>
+      <div class="pw-mock-body">
+        <div class="pw-mock-nav"><span>__Aba ativa__</span><span>__Aba__</span><span>__Aba__</span></div>
+        <div class="pw-mock-h"></div>
+        <div class="pw-mock-line w80"></div>
+        <div class="pw-mock-line w60"></div>
+        <div class="pw-mock-line w40"></div>
+        <div class="pw-mock-cards">
+          <div class="pw-mock-card"></div>
+          <div class="pw-mock-card"></div>
+          <div class="pw-mock-card"></div>
+        </div>
+      </div>
+      <div class="pw-caption">__Legenda: o que essa tela é, dados reais se houver.__</div>
+    </div>
+  </div>
+</section>

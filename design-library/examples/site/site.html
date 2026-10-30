@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR" data-product="somma">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Landing de produto</title>
+<meta name="description" content="Mockup de site estático para a skill design-site: landing com troca de produto, orbe, preços e FAQ.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" id="brand" href="#s-hero">Somma</a>
+    <nav class="nav" aria-label="Seções da página">
+      <a href="#s-benef" data-sec="benef">Benefícios</a>
+      <a href="#s-app" data-sec="app">O app</a>
+      <a href="#s-preco" data-sec="preco">Preços</a>
+      <a href="#s-faq" data-sec="faq">FAQ</a>
+    </nav>
+    <div class="switch" role="group" aria-label="Produto do mockup">
+      <button type="button" data-p="somma" aria-pressed="true">Somma</button>
+      <button type="button" data-p="swfitness" aria-pressed="false">SWFitness</button>
+      <button type="button" data-p="trippo" aria-pressed="false">Trippo</button>
+      <button type="button" data-p="systemdesign" aria-pressed="false">SystemDesign</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="s-hero" data-sec="hero">
+    <div class="wrap">
+      <canvas class="orb field" id="orb" aria-hidden="true"></canvas>
+      <div class="in">
+        <span class="eyebrow"><b>●</b> <span id="tag"></span></span>
+        <h1 class="kin" id="h1"></h1>
+        <p class="sub" id="sub"></p>
+        <div class="cta-row">
+          <a class="beam on" id="cta" href="#s-preco"><span class="bb"></span></a>
+          <a class="btn" id="cta2" href="#s-app"></a>
+        </div>
+        <div class="pills" id="pills"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mq-s" id="s-marquee" data-sec="marquee" aria-hidden="true">
+    <div class="marq"><div id="mq"></div></div>
+  </section>
+
+  <section class="s" id="s-benef" data-sec="benef">
+    <div class="wrap">
+      <div class="sh"><span class="eyebrow" id="benef-e"></span><h2 id="benef-h"></h2></div>
+      <div class="cards" id="cards"></div>
+    </div>
+  </section>
+
+  <section class="s" id="s-app" data-sec="app">
+    <div class="wrap">
+      <div class="sh"><span class="eyebrow" id="app-e"></span><h2 id="app-h"></h2></div>
+      <div class="cols">
+        <div class="side">
+          <ol class="stp" id="stp"></ol>
+          <p class="note">As três telas se repetem sozinhas. Clique em um passo para ir direto a ela.</p>
+        </div>
+        <div class="stage" id="stage"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" id="s-preco" data-sec="preco">
+    <div class="wrap">
+      <div class="sh"><span class="eyebrow" id="preco-e"></span><h2 id="preco-h"></h2></div>
+      <div class="bill">
+        <span id="lm" class="on">Mensal</span>
+        <button type="button" class="sw" id="billSw" role="switch" aria-checked="false" aria-label="Cobrança anual"></button>
+        <span id="la">Anual <em class="save">−20%</em></span>
+      </div>
+      <div class="plans" id="plans"></div>
+    </div>
+  </section>
+
+  <section class="s" id="s-faq" data-sec="faq">
+    <div class="wrap">
+      <div class="sh"><span class="eyebrow" id="faq-e"></span><h2 id="faq-h"></h2></div>
+      <div class="faq" id="faq"></div>
+    </div>
+  </section>
+
+  <section class="s ctas" id="s-cta" data-sec="cta">
+    <div class="wrap">
+      <h2 id="fh"></h2>
+      <p class="mut" id="fp"></p>
+      <div class="cta-row"><a class="beam on" id="fc" href="#s-hero"><span class="bb"></span></a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="legal">
+  <div class="wrap">
+    <p>Mockup da skill <b>design-site</b>. Textos, preços e números desta página são exemplos e não representam métricas reais de nenhuma empresa.</p>
+  </div>
+</footer>
+
+<button type="button" class="slots-btn" id="slotsBtn" aria-expanded="false" aria-controls="slots">Slots da skill</button>
+<aside class="slots" id="slots" aria-label="Slots da skill">
+  <div class="sl-h">
+    <div><b>Slots da skill</b><span class="mono mut"> design-site</span></div>
+    <button type="button" id="slotsClose" aria-label="Recolher o painel de slots">Recolher</button>
+  </div>
+  <div class="sl-b">
+    <section>
+      <h4>Produto</h4>
+      <p class="mono" id="slProd"></p>
+    </section>
+    <section>
+      <h4>Tokens</h4>
+      <div class="tk" id="slTk"></div>
+      <dl class="cp" id="slTv"></dl>
+    </section>
+    <section class="tg">
+      <h4>Seções ligáveis</h4>
+      <div id="slSec"></div>
+    </section>
+    <section>
+      <h4>Copy</h4>
+      <dl class="cp" id="slCopy"></dl>
+    </section>
+    <section>
+      <h4>Entrada da skill</h4>
+      <pre class="mono" id="slJson"></pre>
+    </section>
+  </div>
+</aside>
+
+<script src="data.js"></script>
+<script src="site-data.js"></script>
+<script src="orbs.js"></script>
+<script src="site.js"></script>
+</body>
+</html>
