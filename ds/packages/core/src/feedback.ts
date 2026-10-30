@@ -14,7 +14,11 @@ export type HapticSpec = { ios: IosHaptic; android: AndroidHaptic; ms: number[] 
 
 export type FeedbackResult = { haptic?: HapticSpec; sound?: SoundName }
 
-/** Mapa decidido na onda 1 (Task 10b). `useFeedback().play('toggle', false)` troca `Toggle_On` por `Toggle_Off` no Android. */
+/**
+ * Mapa decidido na onda 1 (Task 10b). Estes são os valores de `intensity: 'crisp'`; com `soft` (devaocubo, somma, trippo)
+ * `resolveFeedback` abaixa os impactos só no iOS: `pull-commit` vira `impact-light` e `hold` vira `impact-medium`
+ * (Android e web não mudam). Quem depende de Medium (ex.: PullToRefresh) não deve esperá-lo em temas `soft`.
+ * `useFeedback().play('toggle', false)` troca `Toggle_On` por `Toggle_Off` no Android. */
 export const HAPTICS: Record<FeedbackRole, HapticSpec> = {
   select: { ios: 'selection', android: 'Segment_Tick', ms: [8] },
   toggle: { ios: 'selection', android: 'Toggle_On', ms: [8] },
@@ -74,6 +78,15 @@ export function resolvePrefs(theme: DSTheme, override?: Partial<FeedbackPrefs>):
 /** Volume 0 a 1 do som: nunca acima do que o tema permite. */
 export const soundVolume = (theme: ResolvedTheme, prefs: FeedbackPrefs) =>
   Math.max(0, Math.min(prefs.volume, theme.feedback.sound.volume))
+
+export type SkipReason = 'gap' | 'off' | 'mic' | 'no-sound'
+
+/** Por que `resolveFeedback` deu `null` (mesmos `prefs` e `ctx`): intervalo, tudo desligado, microfone ativo ou papel sem som. */
+export function skipReason(prefs: FeedbackPrefs, ctx: { now: number; last: number; micActive: boolean }): SkipReason {
+  if (ctx.now - ctx.last < FEEDBACK_GAP_MS) return 'gap'
+  if (!prefs.haptics && !prefs.sound) return 'off'
+  return ctx.micActive ? 'mic' : 'no-sound'
+}
 
 /** Implementação de plataforma (haptics e áudio reais), injetada pelo provedor; nunca lança. */
 export type FeedbackPerform = (r: FeedbackResult, o: { volume: number }) => void

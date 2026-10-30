@@ -1,6 +1,6 @@
 import { defaultStrings, DSContext, resolveTheme, useFeedbackValue, type DSContextValue, type DSProviderBaseProps, type InteractionEvent } from '@gahmp1/ds-core'
 import { useCallback, useLayoutEffect, useMemo, useRef, useSyncExternalStore } from 'react'
-import { performFeedback } from './feedback.js'
+import { performFeedback } from '../internal/feedback.js'
 
 function useMedia(query: string): boolean {
   const subscribe = useCallback(

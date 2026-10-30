@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { StyleSheet, useColorScheme } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useReducedMotion } from 'react-native-reanimated'
-import { loadSounds, performFeedback, unloadSounds } from './feedback.js'
+import { acquireSounds, performFeedback } from '../internal/feedback.js'
 
 const fill = StyleSheet.create({ root: { flex: 1 } })
 
@@ -23,12 +23,9 @@ export function DSProvider({ theme, scheme = 'system', reducedMotion = 'system',
   const stringsKey = JSON.stringify(strings ?? null)
   const mergedStrings = useMemo(() => ({ ...defaultStrings, ...strings }), [stringsKey])
   const feedback = useFeedbackValue(theme, feedbackPrefs, performFeedback)
-  // Os players do som só existem enquanto o som está ligado.
+  // Os players do som só existem enquanto o som está ligado e este provedor montado (contagem de usos no módulo).
   const timbre = theme.feedback.sound.timbre
-  useEffect(() => {
-    if (feedback.prefs.sound) loadSounds(timbre)
-    else unloadSounds()
-  }, [feedback.prefs.sound, timbre])
+  useEffect(() => (feedback.prefs.sound ? acquireSounds(timbre) : undefined), [feedback.prefs.sound, timbre])
   const value = useMemo<DSContextValue>(() => ({ theme: resolved, strings: mergedStrings, Icon, emit, feedback }), [resolved, mergedStrings, Icon, emit, feedback])
   return (
     <DSContext.Provider value={value}>

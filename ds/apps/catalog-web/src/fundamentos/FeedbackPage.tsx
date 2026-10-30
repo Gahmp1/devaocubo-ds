@@ -1,6 +1,6 @@
-import { FEEDBACK_GAP_MS, resolveFeedback, useDS, useFeedback, type FeedbackResult, type FeedbackRole } from '@gahmp1/ds-core'
+import { FEEDBACK_GAP_MS, useDS, useFeedback, type FeedbackOutcome, type FeedbackRole } from '@gahmp1/ds-core'
 import { Button, Stack, Text, Toggle } from '@gahmp1/ds-web'
-import { useContext, useRef, useState } from 'react'
+import { useContext, useState } from 'react'
 import { SetFeedbackPrefs } from '../CatalogRoot'
 
 const ROLES: [FeedbackRole, string][] = [
@@ -8,10 +8,12 @@ const ROLES: [FeedbackRole, string][] = [
   ['warn', 'Aviso'], ['error', 'Erro'], ['hold', 'Segurar'], ['voice-start', 'Voz: começar'], ['voice-stop', 'Voz: parar'],
 ]
 
-function describe(role: FeedbackRole, r: FeedbackResult | null, why: string) {
-  if (!r) return `${role}: não tocou (${why})`
-  const h = r.haptic ? `vibra ${r.haptic.ios} · ${r.haptic.android} · ${r.haptic.ms.join('-')} ms` : 'sem vibração'
-  return `${role}: ${h} · ${r.sound ? `som ${r.sound}` : 'sem som'}`
+const WHY = { gap: `menos de ${FEEDBACK_GAP_MS} ms desde o último`, off: 'vibração e som desligados', mic: 'microfone ativo', 'no-sound': 'papel sem som e vibração desligada' }
+
+function describe(role: FeedbackRole, o: FeedbackOutcome) {
+  if ('skipped' in o) return `${role}: não tocou (${WHY[o.skipped]})`
+  const { haptic: h, sound } = o.played
+  return `${role}: ${h ? `vibra ${h.ios} · ${h.android} · ${h.ms.join('-')} ms` : 'sem vibração'} · ${sound ? `som ${sound}` : 'sem som'}`
 }
 
 export function FeedbackPage() {
@@ -20,19 +22,10 @@ export function FeedbackPage() {
   const setPrefs = useContext(SetFeedbackPrefs)
   const [mic, setMic] = useState(false)
   const [log, setLog] = useState('Toque num papel.')
-  const last = useRef(-Infinity)
   const { prefs } = feedback
   const g = theme.color.aiGradient
 
-  const fire = (role: FeedbackRole) => {
-    const now = Date.now()
-    const ctx = { now, last: last.current, micActive: mic }
-    const r = resolveFeedback(theme, prefs, role, ctx)
-    const why = now - last.current < FEEDBACK_GAP_MS ? `menos de ${FEEDBACK_GAP_MS} ms desde o último` : mic ? 'microfone ativo' : !prefs.haptics && !prefs.sound ? 'vibração e som desligados' : 'só o som estava ligado e este papel não tem som'
-    if (r) last.current = now
-    setLog(describe(role, r, why))
-    play(role)
-  }
+  const fire = (role: FeedbackRole) => setLog(describe(role, play(role)))
 
   return (
     <Stack gap="lg" style={{ padding: 24, background: 'var(--ds-color-bg)', minHeight: '100vh' }}>

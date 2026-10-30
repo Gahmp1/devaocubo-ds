@@ -1,7 +1,7 @@
 import { Canvas, LinearGradient, Rect, vec } from '@shopify/react-native-skia'
-import { FEEDBACK_GAP_MS, resolveFeedback, useDS, useFeedback, type FeedbackResult, type FeedbackRole } from '@gahmp1/ds-core'
+import { FEEDBACK_GAP_MS, useDS, useFeedback, type FeedbackOutcome, type FeedbackRole } from '@gahmp1/ds-core'
 import { Button, createStyles, Stack, Text, Toggle } from '@gahmp1/ds-native'
-import { useContext, useRef, useState } from 'react'
+import { useContext, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { SetFeedbackPrefs } from '../CatalogPrefs'
 import type { GalleryEntry } from '../Gallery'
@@ -20,10 +20,12 @@ const useStyles = createStyles((t) => ({
   swatch: { width: 64, height: 32, borderRadius: t.shape.radius.sm, borderWidth: 1, borderColor: t.color.borderMuted },
 }))
 
-function describe(role: FeedbackRole, r: FeedbackResult | null, why: string) {
-  if (!r) return `${role}: não tocou (${why})`
-  const h = r.haptic ? `vibra ${r.haptic.ios} · ${r.haptic.android} · ${r.haptic.ms.join('-')} ms` : 'sem vibração'
-  return `${role}: ${h} · ${r.sound ? `som ${r.sound}` : 'sem som'}`
+const WHY = { gap: `menos de ${FEEDBACK_GAP_MS} ms desde o último`, off: 'vibração e som desligados', mic: 'microfone ativo', 'no-sound': 'papel sem som e vibração desligada' }
+
+function describe(role: FeedbackRole, o: FeedbackOutcome) {
+  if ('skipped' in o) return `${role}: não tocou (${WHY[o.skipped]})`
+  const { haptic: h, sound } = o.played
+  return `${role}: ${h ? `vibra ${h.ios} · ${h.android} · ${h.ms.join('-')} ms` : 'sem vibração'} · ${sound ? `som ${sound}` : 'sem som'}`
 }
 
 function FeedbackScreen() {
@@ -34,18 +36,10 @@ function FeedbackScreen() {
   const [mic, setMic] = useState(false)
   const [log, setLog] = useState('Toque num papel.')
   const [width, setWidth] = useState(0)
-  const last = useRef(-Infinity)
   const { prefs } = feedback
   const g = theme.color.aiGradient
 
-  const fire = (role: FeedbackRole) => {
-    const now = Date.now()
-    const r = resolveFeedback(theme, prefs, role, { now, last: last.current, micActive: mic })
-    const why = now - last.current < FEEDBACK_GAP_MS ? `menos de ${FEEDBACK_GAP_MS} ms desde o último` : mic ? 'microfone ativo' : !prefs.haptics && !prefs.sound ? 'vibração e som desligados' : 'só o som estava ligado e este papel não tem som'
-    if (r) last.current = now
-    setLog(describe(role, r, why))
-    play(role)
-  }
+  const fire = (role: FeedbackRole) => setLog(describe(role, play(role)))
 
   return (
     <ScrollView style={s.scroll} contentContainerStyle={s.content}>

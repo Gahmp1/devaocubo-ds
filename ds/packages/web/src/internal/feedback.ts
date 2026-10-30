@@ -29,8 +29,11 @@ function tone(c: AudioContext, n: Note, volume: number) {
 export const performFeedback: FeedbackPerform = (r, { volume }) => {
   if (r.haptic && typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(r.haptic.ms)
   if (!r.sound || typeof AudioContext === 'undefined') return
-  // criado no primeiro som, que vem de um gesto; resume() cobre o contexto suspenso
+  // criado no primeiro som, que deveria vir de um gesto; suspenso (sem gesto) não agenda nada, senão as notas estouram juntas depois
   ctx ??= new AudioContext()
-  void ctx.resume()
+  if (ctx.state !== 'running') {
+    void ctx.resume()
+    return
+  }
   for (const n of SOUND_RECIPES[r.sound]) tone(ctx, n, volume)
 }

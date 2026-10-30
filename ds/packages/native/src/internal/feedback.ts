@@ -31,30 +31,42 @@ function haptic(h: HapticSpec) {
 }
 
 const players = new Map<SoundName, AudioPlayer>()
+// Quantos provedores usam cada timbre: os players saem quando o último vai embora.
+const users = new Map<Timbre, number>()
 let current: AudioPlayer | null = null
 let modeSet = false
 
-/** Cria os players do timbre (e solta os do outro); chamado quando o som é ligado, não antes. */
-export function loadSounds(timbre: Timbre) {
+/**
+ * Cria os players do timbre no primeiro usuário e devolve a função que o libera; o último a sair solta os players.
+ * Chamado quando o som é ligado, não antes.
+ */
+export function acquireSounds(timbre: Timbre): () => void {
   if (!modeSet) {
     modeSet = true
     // som de interface cala no silencioso do iOS e convive com a música da pessoa
     setAudioModeAsync({ playsInSilentMode: false, interruptionMode: 'mixWithOthers' }).catch(() => {})
   }
-  for (const [name, p] of players) if (!name.endsWith(timbre)) release(name, p)
-  for (const name of Object.keys(FILES) as SoundName[]) if (name.endsWith(timbre) && !players.has(name)) players.set(name, createAudioPlayer(FILES[name]))
+  const n = users.get(timbre) ?? 0
+  users.set(timbre, n + 1)
+  if (n === 0) for (const name of names(timbre)) players.set(name, createAudioPlayer(FILES[name]))
+  let done = false
+  return () => {
+    if (done) return
+    done = true
+    const left = (users.get(timbre) ?? 1) - 1
+    users.set(timbre, left)
+    if (left > 0) return
+    for (const name of names(timbre)) {
+      const p = players.get(name)
+      if (!p) continue
+      if (current === p) current = null
+      players.delete(name)
+      p.remove()
+    }
+  }
 }
 
-function release(name: SoundName, p: AudioPlayer) {
-  if (current === p) current = null
-  players.delete(name)
-  p.remove()
-}
-
-/** Solta todos os players (som desligado). */
-export function unloadSounds() {
-  for (const [name, p] of [...players]) release(name, p)
-}
+const names = (timbre: Timbre) => (Object.keys(FILES) as SoundName[]).filter((n) => n.endsWith(`-${timbre}`))
 
 function sound(name: SoundName, volume: number) {
   const p = players.get(name)

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { devaocubo, parseColor, somma, swfitness, themes, trippo } from '@gahmp1/ds-theme'
-import { HAPTICS, resolveFeedback, resolvePrefs, soundVolume, type FeedbackPrefs, type FeedbackRole } from '../feedback.js'
+import { HAPTICS, resolveFeedback, resolvePrefs, skipReason, soundVolume, type FeedbackPrefs, type FeedbackRole } from '../feedback.js'
 import { SOUND_ATTACK_MS, SOUND_RECIPES, soundMs, type SoundName } from '../sound.js'
 import { resolveTheme } from '../theme.js'
 import type { Check } from './run.js'
@@ -50,6 +50,18 @@ export const checks: Check[] = [
   ['feedback: prefs padrão do tema (som desligado, volume do tema)', () => {
     for (const t of themes) assert.deepEqual(resolvePrefs(t, undefined), { haptics: true, sound: false, volume: t.feedback.sound.volume }, t.name)
     assert.equal(resolvePrefs(devaocubo, { sound: true }).sound, true)
+  }],
+  ['feedback: skipReason explica cada null', () => {
+    const cases: [FeedbackRole, FeedbackPrefs, { now: number; last: number; micActive: boolean }, string][] = [
+      ['confirm', all, { now: 100, last: 0, micActive: false }, 'gap'],
+      ['confirm', { ...all, haptics: false, sound: false }, free, 'off'],
+      ['select', all, { ...free, micActive: true }, 'mic'],
+      ['select', { ...all, haptics: false }, free, 'no-sound'],
+    ]
+    for (const [role, prefs, ctx, why] of cases) {
+      assert.equal(resolveFeedback(dark, prefs, role, ctx), null, why)
+      assert.equal(skipReason(prefs, ctx), why)
+    }
   }],
   ['feedback: volume nunca passa do teto do tema', () => {
     assert.equal(soundVolume(dark, { ...all, volume: 1 }), 0.5)
