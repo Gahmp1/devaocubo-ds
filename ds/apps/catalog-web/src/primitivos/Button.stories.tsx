@@ -72,3 +72,13 @@ export const TituloLongo: StoryObj = {
     </Stack>
   ),
 }
+
+/** O mais estreito suportado: 160px, com o texto muito maior (use o zoom do navegador para simular a fonte grande). */
+export const TituloLongoEstreito: StoryObj = {
+  render: () => (
+    <Stack gap="md" style={{ padding: 24, background: 'var(--ds-color-bg)', width: 208 }}>
+      <Button title="Começar o treino de pernas com a série de aquecimento e alongamento completo" fullWidth onPress={noop} />
+      <Button title="Cancelar e voltar para a tela anterior sem salvar" variant="outline" fullWidth onPress={noop} />
+    </Stack>
+  ),
+}

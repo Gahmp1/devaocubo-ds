@@ -35,7 +35,7 @@ const ICON = { small: 'sm', normal: 'md', large: 'md' } as const
 const MAX_FONT_SCALE = 1.4
 
 const useStyles = createStyles((t) => ({
-  // Zenith: DSButton (padding horizontal xl); título longo quebra em 2 linhas, então a altura é mínima e há respiro vertical.
+  // Zenith: DSButton (padding horizontal xl); título longo quebra sem limite de linhas, então a altura é mínima e há respiro vertical.
   base: { alignItems: 'center', justifyContent: 'center', paddingHorizontal: t.density.space.xl, paddingVertical: t.density.space.xs, borderWidth: t.shape.borderWidth.thin },
   full: { width: '100%' },
   row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: t.density.space.xs },
@@ -73,13 +73,13 @@ export function Button({ title, onPress, variant = 'primary', shape, size = 'nor
       <View style={[s.row, loading && s.hidden]} accessibilityElementsHidden={!!loading} importantForAccessibility={loading ? 'no-hide-descendants' : 'auto'}>
         {icon && <Icon name={icon} size={t.icon.size[ICON[size]]} color={t.color[look.fg]} strokeWidth={t.icon.strokeWidth} />}
         {!iconOnly && (
-          <Text variant="baseMedium" color={look.fg} numberOfLines={2} maxFontSizeMultiplier={MAX_FONT_SCALE} style={s.title}>
+          <Text variant="baseMedium" color={look.fg} maxFontSizeMultiplier={MAX_FONT_SCALE} style={s.title}>
             {title}
           </Text>
         )}
       </View>
       {loading && (
-        <View style={s.spinner}>
+        <View style={s.spinner} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
           <Spinner size="small" tone={look.spinner} />
         </View>
       )}

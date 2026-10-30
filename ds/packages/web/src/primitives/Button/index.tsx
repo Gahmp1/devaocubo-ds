@@ -44,7 +44,7 @@ export function Button({ title, onPress, variant = 'primary', shape, size = 'nor
       )}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
-      aria-label={accessibilityLabel ?? (iconOnly ? title : undefined)}
+      aria-label={accessibilityLabel ?? (iconOnly || loading ? title : undefined)}
       onClick={() => {
         emit({ component: 'Button', kind: 'press', id: interactionId, label: accessibilityLabel ?? title })
         onPress()
@@ -52,10 +52,10 @@ export function Button({ title, onPress, variant = 'primary', shape, size = 'nor
     >
       <span className="ds-button__content" aria-hidden={loading || undefined}>
         {icon && <Icon name={icon} size={theme.icon.size[ICON[size]]} color="currentColor" strokeWidth={theme.icon.strokeWidth} />}
-        {!iconOnly && <Text variant="baseMedium" numberOfLines={2}>{title}</Text>}
+        {!iconOnly && <Text variant="baseMedium">{title}</Text>}
       </span>
       {loading && (
-        <span className="ds-button__spinner">
+        <span className="ds-button__spinner" aria-hidden>
           <Spinner size="small" tone="text" />
         </span>
       )}

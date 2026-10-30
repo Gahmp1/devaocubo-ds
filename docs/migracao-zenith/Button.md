@@ -35,5 +35,5 @@ Desabilitado vem das cores do tema, nunca de opacidade (o `Press` multiplica a o
 | `accessibilityLabel` | igual; padrão `title` |
 | `accessibilityState` | `disabled` sempre; `busy` enquanto carrega |
 
-Título longo: o botão cresce em altura (até 2 linhas, depois reticências); o texto tem `maxFontSizeMultiplier` 1,4 no nativo.
-Toque: opacidade ou escala conforme `motion.press` do tema; alvo mínimo de 44 pt.
+Título longo: o texto quebra sem limite de linhas e o botão cresce em altura; o texto tem `maxFontSizeMultiplier` 1,4 no nativo.
+Toque: opacidade (tempo) ou escala (mola do tema no nativo; no web, transição com duração `base` e curva `enter`) conforme `motion.press`; alvo mínimo de 44 pt.

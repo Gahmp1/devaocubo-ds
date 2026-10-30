@@ -13,7 +13,7 @@
   flex: none;
   min-block-size: var(--ds-button-h);
   margin: 0;
-  /* Zenith: DSButton (padding horizontal xl); título longo quebra em 2 linhas, então há respiro vertical. */
+  /* Zenith: DSButton (padding horizontal xl); título longo quebra sem limite de linhas, então há respiro vertical. */
   padding: var(--ds-space-xs) var(--ds-space-xl);
   border: var(--ds-border-thin) solid var(--ds-button-line);
   border-radius: var(--ds-button-radius);
@@ -153,6 +153,11 @@
 /* Toque do tema: opacidade ou escala (`--ds-press-value`); só habilitado. */
 .ds-button--press-opacity:active:not(:disabled) {
   opacity: var(--ds-press-value);
+}
+
+/* Escala: a mola do tema aproximada por duração `base` e curva `enter`. */
+.ds-button--press-scale {
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-base) var(--ds-ease-enter);
 }
 
 .ds-button--press-scale:active:not(:disabled) {

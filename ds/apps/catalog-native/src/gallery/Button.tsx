@@ -1,5 +1,5 @@
 import { Button, createStyles, Stack, Text } from '@gahmp1/ds-native'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import type { GalleryEntry } from '../Gallery'
 
 const VARIANTS = ['primary', 'outline', 'ghost', 'inverse', 'inverseOutline', 'surface', 'surfaceOutline', 'danger'] as const
@@ -42,6 +42,10 @@ function ButtonScreen() {
       <Button title="Adicionar" icon="plus" variant="outline" onPress={noop} />
       <Text variant="xs" color="textMuted" label>título longo</Text>
       <Button title="Começar o treino de pernas com a série de aquecimento" fullWidth onPress={noop} />
+      <Text variant="xs" color="textMuted" label>título longo, 160 pt (fonte grande: ajuste no aparelho)</Text>
+      <View style={{ width: 160 }}>
+        <Button title="Começar o treino de pernas com a série de aquecimento e alongamento completo" fullWidth onPress={noop} />
+      </View>
     </ScrollView>
   )
 }

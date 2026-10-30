@@ -68,6 +68,11 @@
   opacity: var(--ds-press-value);
 }
 
+/* Escala: a mola do tema aproximada por duração `base` e curva `enter`. */
+.ds-icon-button--press-scale {
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-base) var(--ds-ease-enter);
+}
+
 .ds-icon-button--press-scale:active:not(:disabled) {
   transform: scale(var(--ds-press-value));
 }
