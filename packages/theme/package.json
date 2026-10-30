@@ -8,10 +8,15 @@
     "./css/*": "./dist/css/*"
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
-  "publishConfig": { "registry": "https://npm.pkg.github.com" },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
-    "build": "tsc -b && node dist/scripts/build.js"
+    "build": "tsc -b && node dist/scripts/build.js",
+    "check": "node dist/scripts/check.js"
   },
   "devDependencies": {
     "@types/node": "^24.0.0"
