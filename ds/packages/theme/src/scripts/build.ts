@@ -4,7 +4,7 @@ import { toCssVars, toTailwindTheme } from '../generate/css.js'
 import { toLegacyDefaultsJson, toLegacyTokensCss } from '../generate/legacy.js'
 import { themes } from '../index.js'
 
-const repoRoot = fileURLToPath(new URL('../../../../', import.meta.url))
+const repoRoot = fileURLToPath(new URL('../../../../../', import.meta.url))
 const cssDir = fileURLToPath(new URL('../css/', import.meta.url))
 
 writeFileSync(repoRoot + 'tokens.css', toLegacyTokensCss())

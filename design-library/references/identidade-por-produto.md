@@ -2,7 +2,7 @@
 
 Verificado em 2026-10-30 pela skill design-research (onda 0 do devaocubo-ds), lendo as fontes de marca nos repositórios
 (`git show origin/main:<caminho>`) e abrindo perssua.com no navegador. Alimenta os temas de
-`packages/theme/src/themes/` e os eixos da spec §10.
+`ds/packages/theme/src/themes/` e os eixos da spec §10.
 
 ## Somma: notas de estilo da marca
 - url: somma:design/design-systems/somma/brand/style-notes.md (repositório privado do produto)

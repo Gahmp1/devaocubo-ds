@@ -143,26 +143,28 @@ a RN precisa ser recriada e as três migrações são grandes. Não estimo prazo
 
 **Nova regra do repositório** (substitui "do not add component implementations here"):
 > O pacote raiz `devaocubo-ds` continua só com `tokens.css`, `defaults.json` e `README.md`. Componentes vivem em
-> `packages/*`, publicados como `@gahmp1/ds-*`. Componente de domínio de um produto não entra aqui.
+> `ds/packages/*`, publicados como `@gahmp1/ds-*`. Componente de domínio de um produto não entra aqui.
 
 ## 9. Arquitetura da opção A
 
 ```
 devaocubo-ds/
-  package.json            pacote raiz "devaocubo-ds" (contrato atual intacto) + workspaces
-  tokens.css, defaults.json  passam a ser GERADOS a partir de tokens/ (mesmos nomes e formato)
-  tokens/                 fonte única: base/ (primitivos), semantic/ (papéis claro e escuro), themes/<produto>/
-  packages/
-    theme/   @gahmp1/ds-theme   contrato de tema (tipos), temas dos produtos, geradores (CSS vars, objeto RN,
+  package.json            pacote raiz "devaocubo-ds" (contrato atual intacto, sem workspaces nem script build:
+                          com eles o npm prepara o monorepo inteiro em toda instalação via git)
+  tokens.css, defaults.json  passam a ser GERADOS por ds/packages/theme (mesmos nomes e formato)
+  ds/
+   package.json           raiz dos workspaces (privada)
+   packages/
+     theme/   @gahmp1/ds-theme   contrato de tema (tipos), temas dos produtos, geradores (CSS vars, objeto RN,
                                 @theme do Tailwind 4, preset do Tailwind 3), checagem de contraste
-    core/    @gahmp1/ds-core    comportamento sem UI: regra de espera, máquina de etapas, revelação de texto
+     core/    @gahmp1/ds-core    comportamento sem UI: regra de espera, máquina de etapas, revelação de texto
                                 por palavra, linhas do tempo f(t), estados de dados, hooks React sem DOM e sem RN
-    native/  @gahmp1/ds-native  componentes React Native
-    web/     @gahmp1/ds-web     componentes React para web, com um CSS próprio (variáveis --ds-*, @layer ds)
-    mcp/     ds-mcp             servidor de conformidade (ex-zenith-mcp), regras do DS mais configuração por produto
-  apps/
-    catalog-native/  app Expo com todos os componentes, temas e modos (simulador e emulador)
-    catalog-web/     Storybook web (componentes web e, via react-native-web só no catálogo, os nativos)
+     native/  @gahmp1/ds-native  componentes React Native
+     web/     @gahmp1/ds-web     componentes React para web, com um CSS próprio (variáveis --ds-*, @layer ds)
+     mcp/     ds-mcp             servidor de conformidade (ex-zenith-mcp), regras do DS mais configuração por produto
+   apps/
+     catalog-native/  app Expo com todos os componentes, temas e modos (simulador e emulador)
+     catalog-web/     Storybook web (componentes web e, via react-native-web só no catálogo, os nativos)
   design-library/    como está
 ```
 
@@ -326,10 +328,10 @@ cor, número de layout ou tipografia soltos e componentes interativos crus em te
 
 ## 13. Validação sem testes unitários
 
-- **Catálogo web** (`apps/catalog-web`): seletor de tema × modo × movimento reduzido; cada componente com estados
+- **Catálogo web** (`ds/apps/catalog-web`): seletor de tema × modo × movimento reduzido; cada componente com estados
   principais. Gate de entrega: console limpo, 375 px sem rolagem horizontal, navegação por teclado, foco visível,
   `prefers-reduced-motion` emulado. Conferido no navegador embutido, com capturas.
-- **Catálogo nativo** (`apps/catalog-native`, Expo): os mesmos componentes no simulador iOS e no emulador Android, incluindo
+- **Catálogo nativo** (`ds/apps/catalog-native`, Expo): os mesmos componentes no simulador iOS e no emulador Android, incluindo
   um Android de entrada para orbe e borda luminosa; VoiceOver e TalkBack em amostra.
 - **Tela-modelo de identidade** (seção 10) com os três temas lado a lado.
 - **Checagem de contraste** gerada no build do `ds-theme`: falha se algum par texto/fundo de qualquer tema e modo ficar

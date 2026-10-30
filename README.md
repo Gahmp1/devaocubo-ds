@@ -33,8 +33,8 @@ consumers receive updates when they install or update this git dependency.
    extra wiring.
 
 4. Do not fork or override token values locally "just for this page" — if a
-   value needs to change, change it in `packages/theme/src/legacy/devaocubo.ts`
-   and run `npm run build -w @gahmp1/ds-theme`; every consumer picks it up.
+   value needs to change, change it in `ds/packages/theme/src/legacy/devaocubo.ts`
+   and run `npm run build` in `ds/`; every consumer picks it up.
 
 5. `defaults.json` exports the light and dark default values for generators
    such as ProjectsCLI. Consume it as `devaocubo-ds/defaults.json`; the
@@ -44,10 +44,10 @@ consumers receive updates when they install or update this git dependency.
 
 The monorepo also holds the component packages, separate from this root package (which stays tokens-only):
 
-- `@gahmp1/ds-theme` (`packages/theme`): the nine-axis theme, light and dark, for `devaocubo`, `swfitness`,
+- `@gahmp1/ds-theme` (`ds/packages/theme`): the nine-axis theme, light and dark, for `devaocubo`, `swfitness`,
   `somma` and `trippo`. It generates the per-theme `--ds-*` CSS, the Tailwind 4 mapping and this package's legacy
   files, and checks WCAG contrast.
-- Catalogs: `apps/catalog-web` (Storybook) and `apps/catalog-native` (Expo).
+- Catalogs: `ds/apps/catalog-web` (Storybook) and `ds/apps/catalog-native` (Expo).
 
 `ds-core`, `ds-native`, `ds-web` and `ds-mcp` arrive in wave 1, together with the first GitHub Packages publish.
 Nothing is published in this wave.
