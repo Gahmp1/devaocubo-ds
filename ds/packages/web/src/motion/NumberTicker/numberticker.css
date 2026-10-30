@@ -1,0 +1,12 @@
+/* A casa é uma janela do tamanho de uma linha; a antiga sai (posição absoluta, via popLayout) enquanto a nova entra. */
+.ds-ticker__slot {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.ds-ticker__char {
+  display: inline-block;
+  white-space: pre;
+}
