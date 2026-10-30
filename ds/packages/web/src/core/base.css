@@ -1,0 +1,11 @@
+/* Base do ds-web: movimento reduzido e anel de foco. Só var(--ds-*); sem cor literal. */
+:root[data-reduced-motion="true"] .ds-anim {
+  animation: none !important;
+  transition: none !important;
+}
+
+[class^="ds-"]:focus-visible,
+[class*=" ds-"]:focus-visible {
+  outline: 2px solid var(--ds-color-focus);
+  outline-offset: 2px;
+}

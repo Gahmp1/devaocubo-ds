@@ -1,0 +1,40 @@
+{
+  "name": "@gahmp1/ds-web",
+  "version": "0.0.0",
+  "description": "Componentes React DOM do devaocubo-ds: provedor, CSS em camada, movimento, primitivos e composição.",
+  "type": "module",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./motion": { "types": "./dist/motion.d.ts", "default": "./dist/motion.js" },
+    "./ai": { "types": "./dist/ai.d.ts", "default": "./dist/ai.js" },
+    "./styles.css": "./dist/styles.css"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build": "tsc -b && node scripts/css.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "dependencies": {
+    "@gahmp1/ds-core": "*",
+    "@gahmp1/ds-theme": "*",
+    "motion": "^14.8.0"
+  },
+  "peerDependencies": {
+    "react": ">=19.3",
+    "react-dom": ">=19.3"
+  },
+  "devDependencies": {
+    "@types/react": "~19.3.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  }
+}
