@@ -30,7 +30,7 @@ export default function App() {
   const [choice, setChoice] = useState<SchemeChoice>('system')
   // Deep link ...?theme=somma&scheme=dark abre direto numa combinação (QA reproduzível sem tocar na tela).
   useEffect(() => {
-    const apply = (url: string | null) => {
+    const apply = (url: string | null | undefined) => {
       const q = new URLSearchParams(url?.split('?')[1] ?? '')
       const t = q.get('theme')
       const s = q.get('scheme')
