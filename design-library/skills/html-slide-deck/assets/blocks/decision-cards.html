@@ -1,0 +1,28 @@
+<!-- DECISION / ROADMAP CARDS — cartão com uma tag de status + título + descrição.
+     Use pra "o que falta" / "próximos passos" / decisões de arquitetura.
+     Tags semânticas prontas: tag--missing (vermelho), tag--verify (amarelo), tag--done (verde).
+     Sem classe extra a tag fica neutra (cinza/accent). -->
+<section class="slide">
+  <div class="slide-inner">
+    <p class="eyebrow">__EYEBROW__</p>
+    <h2 class="slide-title">__Título do roadmap/decisão__</h2>
+    <p class="lede">__Contexto de uma frase.__</p>
+    <div class="grid grid-3" style="margin-top:24px;">
+      <div class="card card--decision">
+        <span class="tag tag--missing">Falta</span>
+        <p class="card-title">__O que falta__</p>
+        <p class="card-desc">__Por que falta e o que resolve.__</p>
+      </div>
+      <div class="card card--decision">
+        <span class="tag tag--verify">Verificar</span>
+        <p class="card-title">__O que precisa confirmar__</p>
+        <p class="card-desc">__O que não dá pra assumir sem checar.__</p>
+      </div>
+      <div class="card card--decision">
+        <span class="tag tag--done">Já existe</span>
+        <p class="card-title">__O que já está pronto__</p>
+        <p class="card-desc">__O que já pode ser reaproveitado.__</p>
+      </div>
+    </div>
+  </div>
+</section>

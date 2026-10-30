@@ -1,0 +1,184 @@
+<title>Lab de Design</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+
+<header class="top"><div class="wrap">
+  <span class="brand">Lab de Design<span class="dot">.</span></span>
+  <div class="switch" id="switch" role="group" aria-label="Produto"></div>
+  <nav class="nav" aria-label="Seções"><a href="#espera">Espera</a><a href="#telas">Telas</a><a href="#micro">Gestos</a><a href="#onboarding">Onboarding</a><a href="#marca">Marca</a><a href="#reels">Reels</a><a href="#dna">DNA</a></nav>
+</div></header>
+
+<main class="wrap">
+<section class="hero">
+  <canvas class="field" id="field" aria-hidden="true"></canvas>
+  <div class="in">
+    <span class="eyebrow"><b>Mockups com movimento</b> · tokens reais dos nossos apps</span>
+    <h1 class="kin" id="kin" aria-label="Título">Seu dinheiro, num olhar.</h1>
+    <p class="sub">Os mesmos padrões, vestidos com a identidade de cada produto. Troque o produto lá em cima: fonte, cor, forma e texto mudam juntos.</p>
+    <div class="meta">
+      <div class="pills" id="kin-pills" role="group" aria-label="Animação do título"><button class="pill" data-v="rise" aria-pressed="true">Subida</button><button class="pill" data-v="letters" aria-pressed="false">Letras</button><button class="pill" data-v="scramble" aria-pressed="false">Embaralhar</button></div>
+      <button class="btn" id="kin-replay">Repetir</button>
+    </div>
+    <p class="note">Textos e números são exemplos. Cores e fontes vêm do ds.config.json, do DESIGN.md e das capturas de cada app. A fonte do SWFitness (Gilroy) aparece aqui com a Outfit no lugar.</p>
+  </div>
+</section>
+
+<section class="s" id="espera">
+  <div class="sh"><span class="eyebrow"><b>01</b> · Espera</span><h2>Cada espera diz o que está acontecendo<span class="dot">.</span></h2><p>Um indicador vivo no lugar das mensagens de enchimento. O estado muda com o evento real do agente, o rótulo vem do evento e o cronômetro é verdadeiro.</p></div>
+  <div class="cols">
+    <div class="side">
+      <div class="ctl"><button class="btn pri" id="chat-play">Pausar</button><span class="cur" id="chat-cur">t = 0,0 s</span></div>
+      <input type="range" id="chat-range" min="0" max="1200" value="0" aria-label="Linha do tempo do chat">
+      <div class="states" id="chat-states"></div>
+      <ul class="rules">
+        <li><span><b>Menos de 2 s:</b> nada. Um indicador piscando para uma espera curta só atrapalha.</span></li>
+        <li><span><b>2 s ou mais:</b> indicador com rótulo, dizendo a etapa em andamento.</span></li>
+        <li><span><b>Mais de 3 s:</b> acrescenta o realce que gira na borda do campo de texto.</span></li>
+      </ul>
+      <p class="note">O orb é desenhado em canvas, com pontos e profundidade. No app, a versão em React Native usa Skia e Reanimated, que o SWFitness já tem instalados.</p>
+    </div>
+    <div class="stage"><div class="phone"><div class="screen">
+      <div class="chat-head"><span id="chat-title">Chat</span><span class="mono mut" style="font-size:12px">chat</span></div>
+      <div class="chat-log" id="chat-log"></div>
+      <div style="padding:8px 14px 18px"><div class="beam" id="composer-w"><div class="composer" id="composer"><span>Pergunte algo…</span><button class="go" aria-label="Enviar ou parar"><i></i></button></div></div></div>
+    </div></div></div>
+  </div>
+</section>
+
+<section class="s" id="telas">
+  <div class="sh"><span class="eyebrow"><b>02</b> · Telas</span><h2>Barra de abas que se mexe<span class="dot">.</span></h2><p>A pílula ativa já existe nos nossos apps. Aqui ela desliza com mola, e o conteúdo entra pelo lado da aba escolhida, depois de um esqueleto com brilho.</p></div>
+  <div class="cols">
+    <div class="side">
+      <div class="ctl"><button class="btn pri" id="app-auto">Tocar no fluxo</button></div>
+      <ul class="rules">
+        <li><span><b>Pílula com mola:</b> 420 ms, curva com leve passada do ponto.</span></li>
+        <li><span><b>Conteúdo:</b> entra 26 px pelo lado da aba, em 380 ms, com atraso de 50 ms entre os blocos.</span></li>
+        <li><span><b>Esqueleto:</b> aparece enquanto carrega, com brilho percorrendo a forma do conteúdo final.</span></li>
+        <li><span><b>Números:</b> contam do zero até o valor, em vez de aparecer prontos.</span></li>
+      </ul>
+    </div>
+    <div class="stage"><div class="phone"><div class="screen">
+      <div class="app-head"><h3 id="app-title">Início</h3><span class="chip" id="app-chip">mês</span></div>
+      <div class="app-body" id="app-body"></div>
+      <nav class="tabbar" id="tabbar" role="tablist" aria-label="Abas"></nav>
+    </div></div></div>
+  </div>
+</section>
+
+<section class="s" id="micro">
+  <div class="sh"><span class="eyebrow"><b>03</b> · Gestos</span><h2>Pequenos gestos, mesma linguagem<span class="dot">.</span></h2><p>Oito microinterações para usar em qualquer tela. Todas funcionam aqui: clique, arraste e repita.</p></div>
+  <div class="grid">
+    <div class="mc"><h3>Botão com pressão</h3><p>Encolhe ao toque e solta uma onda na cor do produto.</p><div class="demo"><button class="pressbtn" id="m-press">Salvar</button></div></div>
+    <div class="mc"><h3>Interruptor com mola</h3><p>A bolinha passa um pouco do ponto e assenta.</p><div class="demo"><button class="sw" id="m-sw" role="switch" aria-checked="false" aria-label="Lembretes"></button></div></div>
+    <div class="mc"><h3>Seleção de opções</h3><p>Opção marcada troca para a cor de acento.</p><div class="demo"><div class="chips" id="m-chips"><button class="chip sel">Peito</button><button class="chip">Costas</button><button class="chip">Pernas</button><button class="chip">Ombros</button></div></div></div>
+    <div class="mc"><h3>Esqueleto e carga</h3><p>Brilho enquanto espera, troca suave pelo conteúdo.</p><div class="demo" id="m-sk"></div><div><button class="btn" id="m-sk-btn">Recarregar</button></div></div>
+    <div class="mc"><h3>Arrastar para agir</h3><p>Puxe a linha para a esquerda e solte.</p><div class="demo"><div class="swipe"><div class="under">Arquivar</div><div class="top-r" id="m-swipe">Treino de ontem · 45 min</div></div></div></div>
+    <div class="mc"><h3>Aviso rápido</h3><p>Sobe com mola, some sozinho e permite desfazer.</p><div class="demo"><button class="btn" id="m-toast-btn">Salvar</button><div class="toast" id="m-toast"><span>Salvo</span><button>Desfazer</button></div></div></div>
+    <div class="mc"><h3>Número que conta</h3><p>Valores contam até o destino em 900 ms.</p><div class="demo"><span class="big" id="m-num">R$ 4.328,74</span></div><div><button class="btn" id="m-num-btn">Novo valor</button></div></div>
+    <div class="mc"><h3>Lista em sequência</h3><p>Itens entram um depois do outro, 70 ms de atraso.</p><div class="demo"><div class="stag" id="m-stag"><i style="--i:0;width:100%"></i><i style="--i:1;width:82%"></i><i style="--i:2;width:91%"></i><i style="--i:3;width:64%"></i><i style="--i:4;width:76%"></i></div></div><div><button class="btn" id="m-stag-btn">Repetir</button></div></div>
+  </div>
+</section>
+
+<section class="s" id="onboarding">
+  <div class="sh"><span class="eyebrow"><b>04</b> · Onboarding</span><h2>Três passos, uma ideia por tela<span class="dot">.</span></h2><p>Promessa, uma escolha e a recompensa já pronta. Os elementos entram em sequência, a escolha desenha o tique e os números do fim contam.</p></div>
+  <div class="cols">
+    <div class="side">
+      <div class="ctl"><button class="btn pri" id="ob-auto">Tocar o fluxo</button></div>
+      <ul class="rules">
+        <li><span><b>Passo 1:</b> uma frase com o ponto de acento. É o momento de marca.</span></li>
+        <li><span><b>Passo 2:</b> uma pergunta por tela, no máximo quatro opções.</span></li>
+        <li><span><b>Passo 3:</b> mostra o resultado, não promete. Números reais, botão único.</span></li>
+      </ul>
+    </div>
+    <div class="stage"><div class="phone"><div class="screen" id="ob-root" style="padding-top:0"></div></div></div>
+  </div>
+</section>
+
+<section class="s" id="marca">
+  <div class="sh"><span class="eyebrow"><b>05</b> · Marca</span><h2>Momentos que só esse produto tem<span class="dot">.</span></h2><p>O título lá em cima, o campo de pontos que reage ao ponteiro, o brilho de abertura e a faixa de texto. Tudo troca de fonte e cor com o produto.</p></div>
+  <div class="grid" style="margin-bottom:16px">
+    <div class="mc"><h3>Abertura com brilho</h3><p>Para splash e carregamento de marca.</p><div class="splash"><span class="shim" id="shim">somma</span></div></div>
+    <div class="mc"><h3>Ponto de acento</h3><p>O ponto final na cor do produto vira assinatura. Vem do Somma e vale para todos.</p><div class="splash"><span class="big" style="font-size:34px">Pronto<span class="dot">.</span></span></div></div>
+  </div>
+  <div class="marq" id="marq-in" aria-hidden="true"></div>
+</section>
+
+<section class="s" id="reels">
+  <div class="sh"><span class="eyebrow"><b>06</b> · Reels</span><h2>Estúdio de reels<span class="dot">.</span></h2><p>Cinco modelos de 8 a 15 segundos, tocando aqui com a identidade do produto. Edite o texto, arraste o tempo, ligue as zonas seguras e o pulso da batida.</p></div>
+  <div class="reelcols">
+    <div class="rstage" id="rstage"><div class="safe"><i style="top:0;height:90px">topo: perfil e título do app</i><i style="bottom:0;height:130px">rodapé: legenda do app e botões</i><i style="top:200px;bottom:130px;right:0;left:auto;width:48px">ações</i></div><div class="cap" id="rcap"></div></div>
+    <div class="side" style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:18px">
+      <div class="tl" id="r-tpl" role="group" aria-label="Modelo"></div>
+      <div class="scrub"><button class="btn pri" id="r-play">Pausar</button><input type="range" id="r-range" min="0" max="1500" value="0" aria-label="Tempo do reel"><span class="tm" id="r-time">0,0 s</span></div>
+      <div class="ctl"><button class="btn" id="r-restart">Do início</button><select class="btn" id="r-speed" aria-label="Velocidade"><option value="0.5">0,5×</option><option value="1" selected>1×</option><option value="1.5">1,5×</option></select><button class="pill" id="r-caps" aria-pressed="true">Legendas</button><button class="pill" id="r-beat" aria-pressed="false">Pulso 120 bpm</button><button class="pill" id="r-safe" aria-pressed="false">Zonas seguras</button></div>
+      <label class="fld" for="r-cta">Texto do botão<input id="r-cta" type="text" maxlength="28"></label>
+      <label class="fld" for="r-cap">Legenda<input id="r-cap" type="text" maxlength="90"></label>
+      <ul class="rules">
+        <li><span><b>Gancho em 1,5 s:</b> a primeira frase entra antes de qualquer interface.</span></li>
+        <li><span><b>Uma ideia por cena:</b> de 2 a 5 s cada, corte com varredura na cor de acento.</span></li>
+        <li><span><b>Movimento na batida:</b> entradas e cortes caem nos múltiplos de 0,5 s.</span></li>
+        <li><span><b>Fora das zonas:</b> texto e botões longe do topo e do rodapé que o Instagram cobre.</span></li>
+        <li><span><b>Fecho parado:</b> o último quadro segura 1,5 s com marca, frase e uma ação.</span></li>
+      </ul>
+      <p class="note">Para virar MP4: cada modelo é uma função do tempo, então vira uma composição Remotion quase direta. O MP4 sai pela linha de comando, no mesmo tema do produto. Aqui é só a prévia.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="dna">
+  <div class="sh"><span class="eyebrow"><b>07</b> · O que já temos</span><h2>O DNA dos nossos apps<span class="dot">.</span></h2><p>Levantado dos arquivos de design e das capturas de loja. É daqui que as ideias abaixo partem.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Produto</th><th>Fonte</th><th>Acento</th><th>Fundo</th><th>Formas</th><th>Assinatura</th></tr></thead>
+    <tbody>
+      <tr><td><b>Somma</b></td><td>IBM Plex Mono</td><td><i class="sw-c" style="background:#2fe3a3"></i>menta</td><td>preto</td><td>cards de borda fina, barra de abas flutuante</td><td>título grande em mono com ponto de acento</td></tr>
+      <tr><td><b>SWFitness</b></td><td>Gilroy</td><td><i class="sw-c" style="background:#b6fb2d"></i>lima #B6FB2D</td><td>#0E0E11</td><td>raio de 20 px</td><td>lima sobre quase-preto</td></tr>
+      <tr><td><b>Trippo</b></td><td>sans do sistema (site: Geist)</td><td><i class="sw-c" style="background:#18181b;border:1px solid #888"></i>neutro, verde só em status</td><td>off-white quente</td><td>cards de 24 px, barra de abas flutuante com pílula escura</td><td>calma e muito espaço</td></tr>
+      <tr><td><b>SystemDesign</b></td><td>IBM Plex Mono</td><td><i class="sw-c" style="background:#eea84f"></i>âmbar</td><td>#0E0F11</td><td>raio de 9 px</td><td>laboratório de sistemas, o canvas é a marca</td></tr>
+      <tr><td><b>Liora</b></td><td>sans do sistema (sites: Fraunces e Figtree)</td><td>neutros</td><td>zinc claro e escuro</td><td>raio de 16 px</td><td>sóbrio, clínico</td></tr>
+      <tr><td><b>devaocubo-ds</b></td><td>sans do sistema</td><td>monocromático</td><td>zinc</td><td>raio de 0,6 rem</td><td>base compartilhada de tokens</td></tr>
+    </tbody>
+  </table></div>
+  <div class="cols" style="margin-top:40px">
+    <div class="side">
+      <h3 style="font-size:24px">O que se repete</h3>
+      <ul class="rules">
+        <li><span><b>Um acento por produto.</b> É a identidade. Vale manter.</span></li>
+        <li><span><b>Pílulas e cards de borda fina</b> em todos os apps.</span></li>
+        <li><span><b>Barra de abas flutuante</b> com pílula ativa, no Somma e no Trippo.</span></li>
+        <li><span><b>Rótulos em mono e caixa alta</b> no Somma e no SystemDesign.</span></li>
+      </ul>
+    </div>
+    <div class="side">
+      <h3 style="font-size:24px">O que falta</h3>
+      <ul class="rules">
+        <li><span><b>Movimento.</b> Só o onboarding e o brilho do logo do SWFitness se mexem.</span></li>
+        <li><span><b>Arte de loja do SWFitness</b> em azul-petróleo e coral, longe do app em lima sobre preto.</span></li>
+        <li><span><b>Espera do chat</b> ainda é texto, em vez de estado.</span></li>
+      </ul>
+    </div>
+  </div>
+  <h3 style="font-size:24px;margin:48px 0 16px">Oito ideias em cima do que a gente já faz</h3>
+  <ul class="ideas">
+    <li><b>Espera viva por produto</b><span>O orb com o acento de cada app, ligado aos eventos do Chat SDK.</span></li>
+    <li><b>Pílula que desliza</b><span>A pílula ativa já existe no Somma e no Trippo. Falta o movimento.</span></li>
+    <li><b>Ponto de acento em todo título</b><span>A assinatura do Somma vira padrão nos outros apps.</span></li>
+    <li><b>Números que contam</b><span>Saldo, sequência, lugares: tudo conta até o valor.</span></li>
+    <li><b>Esqueleto padrão</b><span>Um único esqueleto com brilho, usado em toda lista.</span></li>
+    <li><b>Onboarding escalonado</b><span>Entrada em sequência e escolha com tique desenhado.</span></li>
+    <li><b>Reels com o kit de cenas</b><span>Cinco modelos, cada app com seu acento e sua fonte.</span></li>
+    <li><b>Arte de loja e reel do mesmo tema</b><span>O ds.config.json gera as capturas, a arte e os reels.</span></li>
+  </ul>
+</section>
+</main>
+
+<footer><div class="wrap">Mockups ilustrativos para validar direção. Nada foi criado nos repositórios.</div></footer>
+
+<script src="data.js"></script>
+<script src="orbs.js"></script>
+<script src="marca.js"></script>
+<script src="chat.js"></script>
+<script src="screens.js"></script>
+<script src="onboarding.js"></script>
+<script src="reel.js"></script>
+<script src="app.js"></script>

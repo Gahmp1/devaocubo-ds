@@ -1,0 +1,33 @@
+<!-- TERMINAL ANIMADO — o comando é digitado caractere a caractere (velocidade aleatória,
+     realista), depois cada .term-line aparece em sequência. O botão replay refaz a animação.
+     Toca automaticamente quando o slide entra em foco pela primeira vez.
+     Classes de linha de output: ok (✓ verde), warn (! amarelo), err (✗ vermelho), muted (cinza, sem marca).
+     Use data-cmd (não o texto interno) para o comando — o JS lê esse atributo. -->
+<section class="slide">
+  <div class="slide-inner">
+    <p class="eyebrow">__EYEBROW · cena N/M__</p>
+    <h2 class="slide-title">__O que esse comando prova__</h2>
+    <p class="lede">__Contexto: por que rodar isso, o que esperar.__</p>
+    <div class="terminal" data-terminal>
+      <div class="term-titlebar">
+        <div class="term-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+        <div class="term-title">__nome-do-projeto — zsh__</div>
+        <button class="term-replay" data-replay type="button">↻ replay</button>
+      </div>
+      <div class="term-body">
+        <div class="term-row term-prompt">
+          <span class="term-ps">__projeto $__</span><span class="term-cmd" data-cmd="__comando real, sem placeholder__"></span><span class="term-caret"></span>
+        </div>
+        <div class="term-output" data-output aria-live="polite">
+          <div class="term-line ok" data-line><span class="mark">✓</span>__linha de sucesso__</div>
+          <div class="term-line warn" data-line><span class="mark">!</span>__linha de aviso (opcional)__</div>
+          <div class="term-line err" data-line><span class="mark">✗</span>__linha de erro (opcional — só em demo de falha)__</div>
+          <div class="term-line muted" data-line>__linha neutra/explicativa__</div>
+        </div>
+        <div class="term-row term-prompt term-next" data-next hidden>
+          <span class="term-ps">__projeto $__</span><span class="term-caret"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
