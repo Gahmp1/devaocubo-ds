@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { View, type LayoutChangeEvent } from 'react-native'
 import Animated, { cancelAnimation, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated'
 import { createStyles } from '../../core/createStyles.js'
+import { useLoopActive } from '../../core/useLoopActive.js'
 import { useThemeMotion } from '../../core/useThemeMotion.js'
 
 export type ProgressBarTone = 'accent' | 'success' | 'danger'
@@ -13,6 +14,11 @@ export type ProgressBarProps = {
   tone?: ProgressBarTone
   /** Padrão: `strings.loading`. */
   accessibilityLabel?: string
+  /**
+   * Para o loop sem desmontar. Fora da tela numa lista a virtualização já cobre; telas que seguem montadas
+   * mas escondidas (abas, pilha) passam `paused`. O loop também para com o app em segundo plano.
+   */
+  paused?: boolean
 }
 
 // Zenith: atoms/IndeterminateBar/IndeterminateBar.tsx (segmento 35% do track, espessura `thick * 2`).
@@ -33,7 +39,7 @@ const useStyles = createStyles(({ color, shape }) => {
   }
 })
 
-export function ProgressBar({ value, tone = 'accent', accessibilityLabel }: ProgressBarProps) {
+export function ProgressBar({ value, tone = 'accent', accessibilityLabel, paused }: ProgressBarProps) {
   const s = useStyles()
   const { strings } = useDS()
   const { duration, easing, reduced } = useThemeMotion()
@@ -49,7 +55,8 @@ export function ProgressBar({ value, tone = 'accent', accessibilityLabel }: Prog
     return () => cancelAnimation(progress)
   }, [determinate, target, reduced, progress, duration.base, easing.standard])
 
-  const running = !determinate && !reduced
+  const loopActive = useLoopActive({ paused })
+  const running = !determinate && loopActive
   useEffect(() => {
     if (determinate) return
     if (!running) {
@@ -63,7 +70,8 @@ export function ProgressBar({ value, tone = 'accent', accessibilityLabel }: Prog
 
   const seg = track * SEGMENT
   const fillStyle = useAnimatedStyle(() =>
-    determinate ? { width: `${progress.value * 100}%` } : { width: seg, transform: [{ translateX: -seg + progress.value * (track + seg) }] },
+    // Sempre devolve `transform`: sem ele o Reanimated manteria o translateX da indeterminada ao virar determinada.
+    determinate ? { width: `${progress.value * 100}%`, transform: [{ translateX: 0 }] } : { width: seg, transform: [{ translateX: -seg + progress.value * (track + seg) }] },
   )
   const onLayout = (e: LayoutChangeEvent) => setTrack(e.nativeEvent.layout.width)
 

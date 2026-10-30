@@ -15,6 +15,10 @@
   animation: ds-shimmer-sweep calc(var(--ds-duration-slow) * 5) var(--ds-ease-standard) infinite;
 }
 
+.ds-shimmer--paused .ds-shimmer__band {
+  animation-play-state: paused;
+}
+
 @keyframes ds-shimmer-sweep {
   to {
     transform: translateX(166.67%);

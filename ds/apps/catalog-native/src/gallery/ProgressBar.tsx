@@ -12,6 +12,7 @@ const useStyles = createStyles((t) => ({
 function ProgressBarScreen() {
   const s = useStyles()
   const [v, setV] = useState(0.2)
+  const [swap, setSwap] = useState<number | undefined>(undefined)
   return (
     <ScrollView style={s.scroll} contentContainerStyle={s.content}>
       <Text variant="xs" color="textMuted">Movimento reduzido: botão no topo do catálogo (segmento parado, valor sem transição).</Text>
@@ -28,6 +29,13 @@ function ProgressBarScreen() {
         <ProgressBar value={1} />
         <ProgressBar value={0.4} tone="success" />
         <ProgressBar value={0.4} tone="danger" />
+      </Stack>
+      <Stack gap="sm">
+        <Text variant="xs" color="textMuted" label>indeterminada para valor</Text>
+        <ProgressBar value={swap} />
+        <Press component="Catalog" interactionId="alternar" accessibilityRole="button" style={s.button} onPress={() => setSwap((x) => (x === undefined ? 0.6 : undefined))}>
+          <Text>{swap === undefined ? 'definir valor 0,6' : 'voltar a indeterminada'}</Text>
+        </Press>
       </Stack>
       <Stack gap="sm">
         <Text variant="xs" color="textMuted" label>mudança animada</Text>

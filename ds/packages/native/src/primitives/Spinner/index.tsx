@@ -5,6 +5,7 @@ import { useEffect, useMemo } from 'react'
 import { View } from 'react-native'
 import Animated, { cancelAnimation, useAnimatedStyle, useDerivedValue, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated'
 import { useTheme } from '../../core/DSProvider.js'
+import { useAppActive, useLoopActive } from '../../core/useLoopActive.js'
 import { useThemeMotion } from '../../core/useThemeMotion.js'
 import { FLUID_SPINNER_SOURCE } from './shader.js'
 
@@ -17,6 +18,11 @@ export type SpinnerProps = {
   tone?: SpinnerTone
   /** Padrão: `strings.loading`. */
   accessibilityLabel?: string
+  /**
+   * Para o loop sem desmontar. Fora da tela numa lista a virtualização já cobre; telas que seguem montadas
+   * mas escondidas (abas, pilha) passam `paused`. O loop também para com o app em segundo plano.
+   */
+  paused?: boolean
 }
 
 const SIZE: Record<SpinnerSize, number> = { small: 20, medium: 32, large: 48 }
@@ -46,6 +52,7 @@ function palette(t: ResolvedTheme, tone: SpinnerTone) {
 
 type Colors = ReturnType<typeof palette>
 type Layer = { px: number; colors: Colors }
+type PulseLayer = Layer & { pulse: boolean }
 
 function Rotating({ px, colors }: Layer) {
   const source = useMemo(() => Skia.RuntimeEffect.Make(FLUID_SPINNER_SOURCE), [])
@@ -64,17 +71,19 @@ function Rotating({ px, colors }: Layer) {
   )
 }
 
-/** Movimento reduzido: arco parado que só pulsa em opacidade, devagar. */
-function Pulsing({ px, colors }: Layer) {
+/** Quadro parado do arco (relógio do Skia desmontado). Com `pulse` (movimento reduzido), pulsa em opacidade, devagar. */
+function Pulsing({ px, colors, pulse }: PulseLayer) {
   const source = useMemo(() => Skia.RuntimeEffect.Make(FLUID_SPINNER_SOURCE), [])
   const { duration } = useThemeMotion()
   const opacity = useSharedValue(1)
   useEffect(() => {
+    if (!pulse) return
     opacity.value = withRepeat(withTiming(PULSE_MIN, { duration: duration.slow * PULSE_FACTOR }), -1, true)
     return () => {
       cancelAnimation(opacity)
+      opacity.value = 1
     }
-  }, [opacity, duration.slow])
+  }, [opacity, duration.slow, pulse])
   const style = useAnimatedStyle(() => ({ opacity: opacity.value }))
   const uniforms = {
     resolution: [px, px], time: STATIC_TIME, thickness: THICKNESS, softness: SOFTNESS, opacity: OPACITY,
@@ -91,15 +100,16 @@ function Pulsing({ px, colors }: Layer) {
   )
 }
 
-export function Spinner({ size = 'medium', tone = 'accent', accessibilityLabel }: SpinnerProps) {
+export function Spinner({ size = 'medium', tone = 'accent', accessibilityLabel, paused }: SpinnerProps) {
   const theme = useTheme()
   const { strings } = useDS()
   const px = SIZE[size]
   const colors = useMemo(() => palette(theme, tone), [theme, tone])
-  const Inner = theme.motion.reduced ? Pulsing : Rotating
+  const active = useLoopActive({ paused })
+  const appActive = useAppActive()
   return (
     <View accessibilityRole="progressbar" accessibilityLabel={accessibilityLabel ?? strings.loading} style={{ width: px, height: px }}>
-      <Inner px={px} colors={colors} />
+      {active ? <Rotating px={px} colors={colors} /> : <Pulsing px={px} colors={colors} pulse={theme.motion.reduced && appActive && !paused} />}
     </View>
   )
 }

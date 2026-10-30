@@ -29,6 +29,10 @@
   animation: ds-progress-sweep calc(var(--ds-duration-slow) * 4) var(--ds-ease-standard) infinite;
 }
 
+.ds-progress--paused .ds-progress__fill {
+  animation-play-state: paused;
+}
+
 /* Movimento reduzido: o `.ds-anim` já cancela a animação; o segmento fica parado no meio da trilha. */
 :root[data-reduced-motion="true"] .ds-progress--indeterminate .ds-progress__fill {
   transform: translateX(92.86%);

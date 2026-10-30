@@ -40,6 +40,10 @@
   animation: ds-spinner-pulse calc(var(--ds-duration-slow) * 5) ease-in-out infinite alternate;
 }
 
+.ds-spinner--paused .ds-spinner__arc {
+  animation-play-state: paused;
+}
+
 @keyframes ds-spinner-rotate {
   to {
     transform: rotate(1turn);

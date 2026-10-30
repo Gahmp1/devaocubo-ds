@@ -9,11 +9,16 @@ export type ProgressBarProps = {
   tone?: ProgressBarTone
   /** Padrão: `strings.loading`. */
   accessibilityLabel?: string
+  /**
+   * Para o loop sem desmontar (`animation-play-state: paused`). Fora da tela numa lista a virtualização já
+   * cobre; telas que seguem montadas mas escondidas (abas, pilha) passam `paused`.
+   */
+  paused?: boolean
 }
 
 const clamp = (v: number) => Math.min(1, Math.max(0, v))
 
-export function ProgressBar({ value, tone = 'accent', accessibilityLabel }: ProgressBarProps) {
+export function ProgressBar({ value, tone = 'accent', accessibilityLabel, paused }: ProgressBarProps) {
   const { strings } = useDS()
   const determinate = value !== undefined
   const pct = determinate ? Math.round(clamp(value) * 100) : undefined
@@ -24,7 +29,7 @@ export function ProgressBar({ value, tone = 'accent', accessibilityLabel }: Prog
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={pct}
-      className={cx('ds-progress', `ds-progress--${tone}`, !determinate && 'ds-progress--indeterminate')}
+      className={cx('ds-progress', `ds-progress--${tone}`, !determinate && 'ds-progress--indeterminate', paused && 'ds-progress--paused')}
     >
       <div className="ds-progress__fill ds-anim" style={determinate ? { width: `${clamp(value) * 100}%` } : undefined} />
     </div>

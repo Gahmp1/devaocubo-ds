@@ -30,6 +30,18 @@ export const Valores: StoryObj = {
   ),
 }
 
+export const IndeterminadaParaValor: StoryObj = {
+  render: function Render() {
+    const [v, setV] = useState<number | undefined>(undefined)
+    return (
+      <Stack gap="md" style={{ padding: 24, maxWidth: 360 }}>
+        <ProgressBar value={v} />
+        <button onClick={() => setV((x) => (x === undefined ? 0.6 : undefined))}>{v === undefined ? 'definir valor 0,6' : 'voltar a indeterminada'}</button>
+      </Stack>
+    )
+  },
+}
+
 export const MudancaAnimada: StoryObj = {
   render: function Render() {
     const [v, setV] = useState(0.2)

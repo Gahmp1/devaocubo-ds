@@ -13,6 +13,11 @@ export type SkeletonProps = {
   radius?: RadiusStep
   /** Linhas de texto empilhadas (a última mais curta). Sem `lines`, um bloco. */
   lines?: number
+  /**
+   * Para o loop sem desmontar. Fora da tela numa lista a virtualização já cobre; telas que seguem montadas
+   * mas escondidas (abas, pilha) passam `paused`. O loop também para com o app em segundo plano.
+   */
+  paused?: boolean
   /** Só layout (flex, margem). */
   style?: StyleProp<ViewStyle>
 }
@@ -24,26 +29,26 @@ const useStyles = createStyles((t) => ({
   fill: { alignSelf: 'stretch', backgroundColor: t.color.surface2 },
 }))
 
-function Bar({ width, height, radius }: { width?: DimensionValue; height: number; radius: RadiusStep }) {
+function Bar({ width, height, radius, paused }: { width?: DimensionValue; height: number; radius: RadiusStep; paused?: boolean }) {
   const s = useStyles()
   const r = useTheme().shape.radius[radius]
   return (
-    <Shimmer radius={radius} style={{ width }}>
+    <Shimmer radius={radius} paused={paused} style={{ width }}>
       <View style={[s.fill, { height, borderRadius: r }]} />
     </Shimmer>
   )
 }
 
 /** Marcador de conteúdo a carregar; decorativo para leitores de tela (o contêiner anuncia a espera). */
-export function Skeleton({ width, height, radius = 'sm', lines, style }: SkeletonProps) {
+export function Skeleton({ width, height, radius = 'sm', lines, paused, style }: SkeletonProps) {
   const { density } = useTheme()
   const h = height ?? density.space.md
   return (
     <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={[{ gap: density.space.xs }, width !== undefined && { width }, style]}>
       {lines === undefined ? (
-        <Bar height={h} radius={radius} />
+        <Bar height={h} radius={radius} paused={paused} />
       ) : (
-        Array.from({ length: lines }, (_, i) => <Bar key={i} height={h} radius={radius} width={i === lines - 1 && lines > 1 ? `${LAST_LINE * 100}%` : undefined} />)
+        Array.from({ length: lines }, (_, i) => <Bar key={i} height={h} radius={radius} paused={paused} width={i === lines - 1 && lines > 1 ? `${LAST_LINE * 100}%` : undefined} />)
       )}
     </View>
   )

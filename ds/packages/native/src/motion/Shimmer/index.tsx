@@ -5,6 +5,7 @@ import { StyleSheet, View, type LayoutChangeEvent, type StyleProp, type ViewStyl
 import Animated, { cancelAnimation, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated'
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg'
 import { useTheme } from '../../core/DSProvider.js'
+import { useLoopActive } from '../../core/useLoopActive.js'
 import { useThemeMotion } from '../../core/useThemeMotion.js'
 
 export type ShimmerProps = {
@@ -12,6 +13,11 @@ export type ShimmerProps = {
   active?: boolean
   /** Raio do recorte da faixa; combine com o raio do conteúdo. */
   radius?: RadiusStep
+  /**
+   * Para o loop sem desmontar. Fora da tela numa lista a virtualização já cobre; telas que seguem montadas
+   * mas escondidas (abas, pilha) passam `paused`. O loop também para com o app em segundo plano.
+   */
+  paused?: boolean
   /** Só layout (flex, tamanho). */
   style?: StyleProp<ViewStyle>
   /** A faixa passa por cima do conteúdo, recortada pelo contorno do Shimmer. */
@@ -23,12 +29,13 @@ const BAND = 0.6
 const PEAK_ALPHA = 0.18
 const SWEEP_FACTOR = 5
 
-export function Shimmer({ active = true, radius, style, children }: ShimmerProps) {
+export function Shimmer({ active = true, radius, paused, style, children }: ShimmerProps) {
   const { color, shape } = useTheme()
-  const { duration, easing, reduced } = useThemeMotion()
+  const { duration, easing } = useThemeMotion()
+  const loopActive = useLoopActive({ paused })
   const [width, setWidth] = useState(0)
   const progress = useSharedValue(0)
-  const running = active && !reduced && width > 0
+  const running = active && loopActive && width > 0
   const band = width * BAND
 
   useEffect(() => {
