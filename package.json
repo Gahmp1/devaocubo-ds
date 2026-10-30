@@ -12,7 +12,17 @@
     "./tokens.css": "./tokens.css",
     "./defaults.json": "./defaults.json"
   },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "build": "npm run build --workspaces --if-present",
+    "check": "npm run check --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.0",
+    "typescript": "~6.0.3"
   }
 }
