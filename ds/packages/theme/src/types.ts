@@ -47,6 +47,7 @@ export interface DSTheme {
     personality: 'calm' | 'snappy'
     press: { kind: 'opacity' | 'scale'; value: number }
   }
+  icon: { strokeWidth: number; size: { sm: number; md: number; lg: number } }
   ai: { orb: 'dots' | 'fluid' | 'ring'; beamPeriodMs: number; steps: 'list' | 'timeline'; revealMsPerWord: number }
   components: {
     button: { shape: 'pill' | 'rounded' | 'square' }

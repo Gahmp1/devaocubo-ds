@@ -67,6 +67,7 @@ export const trippo: DSTheme = {
     },
   },
   density: { space: { xxs: 2, xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 40, xxxl: 48, huge: 64 }, control: { sm: 36, md: 44, lg: 52 } },
+  icon: { strokeWidth: 1.5, size: { sm: 16, md: 20, lg: 24 } }, // sem fonte: inferência
   motion: {
     duration: { fast: 150, base: 200, slow: 300 },
     easing: { standard: [0.4, 0, 0.2, 1], enter: [0, 0, 0.2, 1], exit: [0.4, 0, 1, 1] },

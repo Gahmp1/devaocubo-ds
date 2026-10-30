@@ -53,7 +53,9 @@ export const swfitness: DSTheme = {
   },
   shape: { radius: { sm: 8, md: 16, lg: 20, xl: 24, xxl: 40, full: 9999 }, control: 'pill', borderWidth: { hairline: 0.4, thin: 1, thick: 2 } },
   depth: { light: { model: 'glow', card: none, overlay: none }, dark: { model: 'glow', card: none, overlay: none } },
-  density: { space: { xxs: 4, xs: 8, sm: 12, md: 16, lg: 20, xl: 24, xxl: 28, xxxl: 32, huge: 40 }, control: { sm: 44, md: 48, lg: 56 } },
+  density: { space: { xxs: 4, xs: 8, sm: 12, md: 16, lg: 20, xl: 24, xxl: 28, xxxl: 32, huge: 40 }, control: { sm: 40, md: 44, lg: 56 } }, // alturas reais do DSButton (Zenith): small 40, normal 44, large 56
+  // Zenith: icons.ts (stroke 2) e DynamicImage (16/24/32)
+  icon: { strokeWidth: 2, size: { sm: 16, md: 24, lg: 32 } },
   motion: {
     duration: { fast: 200, base: 250, slow: 300 },
     easing: { standard: [0.42, 0, 0.58, 1], enter: [0.33, 1, 0.68, 1], exit: [0.32, 0, 0.67, 0] },

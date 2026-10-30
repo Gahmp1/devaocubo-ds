@@ -50,6 +50,7 @@ export const somma: DSTheme = {
   shape: { radius: { sm: 6, md: 8, lg: 12, xl: 16, xxl: 24, full: 9999 }, control: 'pill', borderWidth: { hairline: 1, thin: 1, thick: 2 } },
   depth: { light: { model: 'flat', card: none, overlay: none }, dark: { model: 'flat', card: none, overlay: none } },
   density: { space: { xxs: 2, xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32, xxxl: 40, huge: 48 }, control: { sm: 36, md: 44, lg: 52 } },
+  icon: { strokeWidth: 1.5, size: { sm: 16, md: 20, lg: 24 } }, // sem fonte: inferência
   motion: {
     duration: { fast: 150, base: 250, slow: 400 },
     easing: { standard: [0.4, 0, 0.2, 1], enter: [0, 0, 0.2, 1], exit: [0.4, 0, 1, 1] },

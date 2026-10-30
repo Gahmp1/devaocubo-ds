@@ -49,6 +49,10 @@
   --ds-control-sm: 36px;
   --ds-control-md: 40px;
   --ds-control-lg: 48px;
+  --ds-icon-stroke: 1.5;
+  --ds-icon-sm: 16px;
+  --ds-icon-md: 20px;
+  --ds-icon-lg: 24px;
   --ds-duration-fast: 150ms;
   --ds-duration-base: 200ms;
   --ds-duration-slow: 300ms;
@@ -206,9 +210,13 @@
   --ds-space-xxl: 28px;
   --ds-space-xxxl: 32px;
   --ds-space-huge: 40px;
-  --ds-control-sm: 44px;
-  --ds-control-md: 48px;
+  --ds-control-sm: 40px;
+  --ds-control-md: 44px;
   --ds-control-lg: 56px;
+  --ds-icon-stroke: 2;
+  --ds-icon-sm: 16px;
+  --ds-icon-md: 24px;
+  --ds-icon-lg: 32px;
   --ds-duration-fast: 200ms;
   --ds-duration-base: 250ms;
   --ds-duration-slow: 300ms;
@@ -369,6 +377,10 @@
   --ds-control-sm: 36px;
   --ds-control-md: 44px;
   --ds-control-lg: 52px;
+  --ds-icon-stroke: 1.5;
+  --ds-icon-sm: 16px;
+  --ds-icon-md: 20px;
+  --ds-icon-lg: 24px;
   --ds-duration-fast: 150ms;
   --ds-duration-base: 250ms;
   --ds-duration-slow: 400ms;
@@ -529,6 +541,10 @@
   --ds-control-sm: 36px;
   --ds-control-md: 44px;
   --ds-control-lg: 52px;
+  --ds-icon-stroke: 1.5;
+  --ds-icon-sm: 16px;
+  --ds-icon-md: 20px;
+  --ds-icon-lg: 24px;
   --ds-duration-fast: 150ms;
   --ds-duration-base: 200ms;
   --ds-duration-slow: 300ms;

@@ -15,7 +15,7 @@ function schemeVars(t: DSTheme, scheme: Scheme): string[] {
 }
 
 function staticVars(t: DSTheme): string[] {
-  const { type, shape, density, motion, ai } = t
+  const { type, shape, density, motion, ai, icon } = t
   const out: string[] = []
   for (const [k, f] of Object.entries(type.family)) out.push(`--ds-font-${k}: ${f.web};`)
   for (const [k, s] of Object.entries(type.scale)) out.push(`--ds-text-${k}-size: ${s.size}px;`, `--ds-text-${k}-line: ${s.lineHeight}px;`)
@@ -27,6 +27,8 @@ function staticVars(t: DSTheme): string[] {
   for (const [k, v] of Object.entries(shape.borderWidth)) out.push(`--ds-border-${k}: ${v}px;`)
   for (const [k, v] of Object.entries(density.space)) out.push(`--ds-space-${k}: ${v}px;`)
   for (const [k, v] of Object.entries(density.control)) out.push(`--ds-control-${k}: ${v}px;`)
+  out.push(`--ds-icon-stroke: ${icon.strokeWidth};`)
+  for (const [k, v] of Object.entries(icon.size)) out.push(`--ds-icon-${k}: ${v}px;`)
   for (const [k, v] of Object.entries(motion.duration)) out.push(`--ds-duration-${k}: ${v}ms;`)
   for (const [k, v] of Object.entries(motion.easing)) out.push(`--ds-ease-${k}: cubic-bezier(${v.join(', ')});`)
   out.push(`--ds-ai-beam-period: ${ai.beamPeriodMs}ms;`, `--ds-ai-reveal-per-word: ${ai.revealMsPerWord}ms;`)
