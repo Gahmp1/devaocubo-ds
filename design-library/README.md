@@ -19,6 +19,7 @@ desta pasta chega aos consumidores. É material de referência para agentes e pe
 | Skill | Responde a | Mockup de referência |
 |---|---|---|
 | `design-chat` | Estados de espera da IA (pensando, buscando, resolvendo), orbes, borda luminosa, etapas | `examples/lab-apps`, `examples/lab-swfitness` |
+| `design-feedback` (rascunho) | Haptics por papel e som de interface opcional, com parcimônia | `examples/feedback-sensorial` |
 | `design-onboarding` | Fluxos de entrada com passos, escolhas e plano final | `examples/lab-apps` |
 | `design-screens` | Estrutura de telas, barra de abas, esqueletos, microinterações | `examples/lab-apps` |
 | `design-site` | Sites estáticos e landing pages por produto | `examples/site` |
