@@ -17,8 +17,8 @@ acessibilidade; os sites de referência dão estrutura, estado e movimento.
 **Tech Stack** (versões atuais em 2026-10-30, lidas no npm; o conjunto nativo é o que o Expo SDK 58 fixa em
 `expo@58.0.21/bundledNativeModules.json`): npm workspaces em `ds/`, TypeScript ~6.0.3; Expo ~58.0.21, RN 0.88.1,
 React 19.3.0, Reanimated 4.7.1, worklets 0.13.0, `@shopify/react-native-skia` 2.14.0, `react-native-svg` 15.16.0,
-`react-native-safe-area-context` ~5.10.1, `react-native-gesture-handler` ~3.3.0; web com React DOM 19.3.0,
-`radix-ui` ^1.8.1, Storybook ^10.6.5, Vite ^8.3.5, `react-native-web` ~0.21.4; `@changesets/cli` ^3.0.3;
+`react-native-safe-area-context` ~5.10.1, `react-native-gesture-handler` ~3.3.0, `expo-blur` ~58.0.5,
+`@shopify/flash-list` 2.3.2; web com React DOM 19.3.0, `radix-ui` ^1.8.1, `motion` ^14.8.0, Storybook ^10.6.5, Vite ^8.3.5, `react-native-web` ~0.21.4; `@changesets/cli` ^3.0.3;
 `@modelcontextprotocol/sdk` ^1.32.2 no `ds-mcp`.
 
 **Spec:** `docs/superpowers/specs/2026-10-30-componentes-devaocubo-ds-design.md`. Leia as seções 6, 7, 9, 9b, 10, 11, 13,
@@ -45,10 +45,12 @@ React 19.3.0, Reanimated 4.7.1, worklets 0.13.0, `@shopify/react-native-skia` 2.
   (precisa imprimir `iOS Bundled`). Na raiz do repo: `npm test` verde e `git diff --exit-code tokens.css defaults.json`.
 - **Peers de `ds-native`** = o conjunto do Expo SDK 58 (os apps sobem para o SDK 58 nas ondas 2, 4 e 5): `react >=19.3`,
   `react-native >=0.88`, `react-native-reanimated >=4.7`, `react-native-worklets >=0.13`, `react-native-svg >=15.16`,
-  `@shopify/react-native-skia >=2.14`, `react-native-safe-area-context >=5.10`, `react-native-gesture-handler >=3.3`.
-  Nenhum outro módulo nativo (sem `expo-blur`, sem FlashList): desfoque com Skia, listas com `FlatList`.
-- **`ds-web`**: React DOM, `radix-ui@^1.8.1` (o Trippo sobe junto na onda 4) só em Sheet, Dialog, Select e Menu; sem Tailwind,
-  sem `motion` nesta onda (CSS e Web Animations bastam; chamada do plano, ver Desvios). CSS só com `var(--ds-*)`: a
+  `@shopify/react-native-skia >=2.14`, `react-native-safe-area-context >=5.10`, `react-native-gesture-handler >=3.3`,
+  `expo-blur >=58`, `@shopify/flash-list >=2.3` (só JS na v2: o pacote 2.3.2 não traz código nativo). Nenhum outro
+  módulo nativo.
+- **`ds-web`**: React DOM, `radix-ui@^1.8.1` (o Trippo sobe junto na onda 4) só em Sheet, Dialog, Select e Menu; sem Tailwind;
+  `motion` ^14.8.0 para molas e layout animado (pílula da `TabBar`, polegar do `Toggle`, `Reveal`, `Sheet`), lendo a mola
+  de `useThemeMotion()` do web para casar com o Reanimated do RN; transições simples continuam em CSS. CSS só com `var(--ds-*)`: a
   autochecagem do `ds-web` reprova cor literal (`#`, `rgb(`, `hsl(`) em `src/**/*.css`.
 - **Tema em tempo de execução, nunca em módulo**: estilo RN sai de `createStyles((t: ResolvedTheme) => ...)`; nada de
   `StyleSheet.create` com valor de tema no escopo do módulo. Constantes de geometria copiadas do Zenith (ex.: checkbox
@@ -83,12 +85,17 @@ React 19.3.0, Reanimated 4.7.1, worklets 0.13.0, `@shopify/react-native-skia` 2.
   mesmo vale para Somma e Trippo nas ondas 5 e 4.
 - **`react-native-gesture-handler` entra como peer** (a spec §15 dizia "sem dependência nativa nova"): como a subida de
   SDK já exige build nativa, o custo extra é zero, e o gesto do `Sheet` e o deslizar do `Toast` rodam na thread de UI
-  com Reanimated, em vez do `PanResponder` do Zenith (thread de JS). Se o João preferir sem ele, volta o `PanResponder`
-  só na Task 18 e na Task 19.
+  com Reanimated, em vez do `PanResponder` do Zenith (thread de JS). Confirmado pelo João em 2026-10-30 ("se é melhor, o
+  momento é agora").
+- **`expo-blur` no lugar do desfoque em Skia**: o `BackdropBlur` do Skia só desfoca o que é desenhado no próprio
+  canvas, não as views do RN que estão atrás; a `TabBar` `glass` e o `Blur` precisam desfocar o conteúdo rolando por
+  baixo, que é o que o `BlurView` nativo faz. Web segue com `backdrop-filter`.
+- **FlashList v2 na `MessageList`** em vez de `FlatList` invertida: reciclagem de células, ancoragem no fim
+  (`maintainVisibleContentPosition`) sem inverter a lista; a v2 é só JS.
 - **TypeScript fica em ~6.0.3**, não no 7.0.2: o pacote `typescript@7` exporta só a versão (a API do compilador ficou em
   `typescript/unstable/*`) e o template do Expo SDK 58 ainda usa ~6.0.3.
-- Sem a biblioteca `motion` no web nesta onda: CSS (transições, keyframes, `@property`) e Web Animations cobrem os
-  primitivos da fatia; entra quando um componente precisar de mola real no web.
+- **`motion` no web** (a spec deixava em aberto): uma mola única por tema nas duas plataformas, em vez de aproximar
+  mola com `cubic-bezier`.
 - `catalog-web` mostra só os componentes `ds-web`. Renderizar `ds-native` por react-native-web exigiria Skia no web
   (CanvasKit, 2,9 MB) e Reanimated web; os nativos são conferidos no catálogo nativo.
 - `Select` nativo é uma lista de opções dentro do `Sheet` (cobre o `SheetRow` do Zenith); a roda (`OptionSelector`) não
@@ -257,8 +264,8 @@ que os usa na onda 2, sempre recriados no DS (nunca cópia local no app):
 - Catálogo: `App.tsx` com o seletor de tema × esquema × movimento reduzido no topo e a lista da galeria; cada tela de
   galeria é `export default { id: string, title: string, group: 'fundação' | 'primitivos' | 'movimento' | 'composição' | 'ai', Screen: ComponentType }`;
   deep link `?theme=&scheme=&reduced=&screen=<id>` (estende o da onda 0).
-- Dependências do catálogo por `npx expo install @shopify/react-native-skia react-native-svg react-native-gesture-handler react-native-safe-area-context`
-  (o SDK 58 fixa 2.14.0, 15.16.0, ~3.3.0 e ~5.10.1) e `npm i lucide-react-native -w catalog-native`.
+- Dependências do catálogo por `npx expo install @shopify/react-native-skia react-native-svg react-native-gesture-handler react-native-safe-area-context expo-blur @shopify/flash-list`
+  (o SDK 58 fixa 2.14.0, 15.16.0, ~3.3.0, ~5.10.1, ~58.0.5 e 2.3.2) e `npm i lucide-react-native -w catalog-native`.
 
 - [ ] **Step 1:** escrever `Gallery.tsx` e `gallery/Tokens.tsx` importando `DSProvider`, `useTheme` de `@gahmp1/ds-native`.
   Rodar os portões. Expected: FAIL ("Cannot find module '@gahmp1/ds-native'").
@@ -282,6 +289,8 @@ que os usa na onda 2, sempre recriados no DS (nunca cópia local no app):
     `document.documentElement` `data-theme` (só quando o esquema é explícito) e `data-reduced-motion="true|false"`;
     não injeta CSS de tema (o app importa o CSS do tema uma vez).
   - `useTheme(): ResolvedTheme`; `cx(...names: (string | false | undefined)[]): string`.
+  - `useThemeMotion(): { duration; easing: { standard; enter; exit } /* strings cubic-bezier */; spring: { stiffness: number; damping: number; mass: number } /* formato do `motion` */; reduced: boolean }`
+    (mesmos números do `useThemeMotion` nativo; o `motion` entra como dependência do `ds-web`).
   - Convenção: componente `Nome` renderiza a classe raiz `ds-nome` (kebab) e modificadores `ds-nome--variante`;
     CSS em `src/<grupo>/<Nome>/<nome>.css`.
   - `scripts/css.mjs` concatena `src/core/base.css` e `src/**/*.css` (ordem alfabética por caminho) dentro de
@@ -424,7 +433,7 @@ Lógica: `ds-core/logic/ticker.ts` com `digitsOf(value, format)` (autochecagem: 
 |---|---|---|---|
 | `Glow` | `strength?: number` (0–1); `color?: 'aiGlow' \| 'accent'`; `size?: number`; `pulse?: boolean` | parado, pulsando, 3 forças | libraries.dev voice-glow (MIT): três camadas (traço, luz interna, bloom); RN em Skia (`RadialGradient` + `Blur`), web em `radial-gradient` + `filter: blur` |
 | `GlowScene` | `preset?: 'focus' \| 'ambient' \| 'success'`; `children` | 3 presets × 4 temas | Zenith `GlowScene` sem PNG e sem hex: presets em cima de `aiGlow`, `accent`, `bg` |
-| `Blur` | `intensity?: number`; `children` | sobre conteúdo | Zenith `Blur` sem PNG: Skia `BackdropBlur` no RN, `backdrop-filter` no web |
+| `Blur` | `intensity?: number`; `tint?: 'surface' \| 'bg'`; `children` | sobre lista rolando | Zenith `Blur` sem PNG: `BlurView` do `expo-blur` no RN (tinta do tema por cima, `withAlpha`), `backdrop-filter` no web |
 | `Celebration` | `active: boolean`; `onDone?` | uma execução | Zenith `SuccessBackground` (`GlowScene success`) + confete leve (Skia/Canvas), uma vez por ativação; reduzido: só o fundo |
 
 `depth.model` decide quanto brilho aparece (`flat` desliga o bloom, `glow` liga as três camadas). Skia e canvas
@@ -564,7 +573,7 @@ Reduzido: texto inteiro de uma vez.
 | Componente | API (props) | Estados no catálogo | Base |
 |---|---|---|---|
 | `MessageBubble` | `role: 'user' \| 'assistant' \| 'system'`; `children` (slot de conteúdo: texto, cartões, widgets); `time?: Date`; `voice?: { durationMs: number }`; `status?: 'sending' \| 'sent' \| 'error'`; `onRetry?` | 3 papéis, voz, erro com tentar de novo, conteúdo longo com "ver mais" | Zenith `ChatBubble` + `formatClock` (migrado para `ds-core/logic/clock.ts`); beUI Native message-bubble |
-| `MessageList` | `messages: { id: string; node: ReactNode }[]`; `connection?: 'online' \| 'reconnecting'`; `onEndReached?`; `footer?: ReactNode` (espera, composer) | 30 mensagens, seguindo o fim, usuário rolou para cima (botão `strings.scrollToBottom`), reconectando | agent-chat `message-list.tsx` (banner de reconexão, anúncio); beUI Native message-scroller (segue a saída e solta ao rolar); RN com `FlatList` invertida (sem FlashList) |
+| `MessageList` | `messages: { id: string; node: ReactNode }[]`; `connection?: 'online' \| 'reconnecting'`; `onEndReached?`; `footer?: ReactNode` (espera, composer) | 30 mensagens, seguindo o fim, usuário rolou para cima (botão `strings.scrollToBottom`), reconectando | agent-chat `message-list.tsx` (banner de reconexão, anúncio); beUI Native message-scroller (segue a saída e solta ao rolar); RN com `FlashList` v2 (`maintainVisibleContentPosition` com `startRenderingFromBottom` e `autoscrollToBottomThreshold`) |
 
 Autochecagem de `formatClock(65000) === '1:05'`.
 
