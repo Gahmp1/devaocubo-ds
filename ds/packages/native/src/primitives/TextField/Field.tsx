@@ -63,6 +63,8 @@ const useStyles = createStyles((t) => {
     ring: { ...StyleSheet.absoluteFill, borderRadius: shape.radius.md },
     trailing: { flexDirection: 'row', alignItems: 'center', gap: d.space.xs },
     message: { marginTop: d.space.xxs },
+    stackedLabel: { marginBottom: d.space.xxs },
+    measure: { position: 'absolute', opacity: 0 },
   }
 })
 
@@ -72,8 +74,12 @@ export function Field({ value, onChangeText, label, placeholder, helper, error, 
   const s = useStyles()
   const { fontScale } = useWindowDimensions()
   const [focused, setFocused] = useState(false)
+  // Rótulo que não cabe numa linha (medido em repouso) ou fonte grande: o rótulo fica acima do campo e quebra linha, sem cortar.
+  const [frameW, setFrameW] = useState(0)
+  const [trailW, setTrailW] = useState(0)
+  const [overflow, setOverflow] = useState(false)
   const filled = variant === 'filled'
-  const stacked = !!label && fontScale > STACK_SCALE
+  const stacked = !!label && (fontScale > STACK_SCALE || overflow)
   const floating = !!label && !stacked
   const floated = focused || value.length > 0
 
@@ -92,15 +98,17 @@ export function Field({ value, onChangeText, label, placeholder, helper, error, 
   const labelColor: TextColor = error ? 'danger' : disabled ? 'textDisabled' : focused ? 'accent' : 'textMuted'
   const m = useFieldMotion({ floated, focused, error, filled, rise, idle, active, widths: [t.shape.borderWidth.thin, t.shape.borderWidth.thick] })
   const hint = error ?? helper
+  const edge = filled ? space.md : 0
+  const labelW = frameW - 2 * edge - (trailing ? trailW : 0)
 
   return (
     <View>
       {stacked && (
-        <Text variant="sm" color={labelColor} style={s.message}>
+        <Text variant="sm" color={labelColor} style={s.stackedLabel}>
           {label}
         </Text>
       )}
-      <Animated.View style={[s.frame, filled && s.filled, filled && disabled && s.filledOff, m.shake]}>
+      <Animated.View style={[s.frame, filled && s.filled, filled && disabled && s.filledOff, m.shake]} onLayout={(e) => setFrameW(e.nativeEvent.layout.width)}>
         <TextInput
           {...input}
           ref={inputRef}
@@ -122,27 +130,32 @@ export function Field({ value, onChangeText, label, placeholder, helper, error, 
           accessibilityState={{ disabled: !!disabled }}
           style={[s.input, disabled && s.inputOff, rows && s.multiline, { minHeight, paddingTop: padTop, paddingBottom: padBottom, paddingHorizontal: 0 }, rows && { maxHeight: padTop + rows.max * lh + padBottom }]}
         />
-        {trailing ? <View style={s.trailing}>{trailing}</View> : null}
+        {trailing ? <View style={s.trailing} onLayout={(e) => setTrailW(e.nativeEvent.layout.width)}>{trailing}</View> : null}
         {floating && (
-          <Animated.View style={[s.label, { top: restCenter - lh / 2, left: filled ? space.md : 0, right: filled ? space.md : 0 }, m.label]} pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
-            <Text variant="base" color={labelColor} numberOfLines={1} maxFontSizeMultiplier={MAX_SCALE}>
+          <Animated.View style={[s.label, { top: restCenter - lh / 2, left: edge, right: edge + (trailing ? trailW : 0) }, m.label]} pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+            <Text variant="base" color={labelColor} maxFontSizeMultiplier={MAX_SCALE}>
               {label}
             </Text>
           </Animated.View>
         )}
         {filled ? <Animated.View style={[s.ring, m.line]} pointerEvents="none" /> : <Animated.View style={[s.underline, m.line]} />}
+        {label && labelW > 0 && (
+          // Medida invisível do rótulo no tamanho de repouso, na largura que o rótulo flutuante teria.
+          <View style={[s.measure, { width: labelW }]} pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+            <Text variant="base" maxFontSizeMultiplier={MAX_SCALE} onTextLayout={(e) => setOverflow(e.nativeEvent.lines.length > 1)}>
+              {label}
+            </Text>
+          </View>
+        )}
       </Animated.View>
-      {hint ? (
-        <Text
-          variant="xs"
-          color={error ? 'danger' : disabled ? 'textDisabled' : 'textMuted'}
-          style={s.message}
-          accessibilityRole={error ? 'alert' : undefined}
-          accessibilityLiveRegion={error ? 'polite' : undefined}
-        >
-          {hint}
-        </Text>
-      ) : null}
+      {/* A região viva fica montada o tempo todo (vazia sem mensagem): o Android só anuncia mudança de conteúdo dentro dela. */}
+      <View accessibilityLiveRegion="polite">
+        {hint ? (
+          <Text variant="xs" color={error ? 'danger' : disabled ? 'textDisabled' : 'textMuted'} style={s.message} accessibilityRole={error ? 'alert' : undefined}>
+            {hint}
+          </Text>
+        ) : null}
+      </View>
     </View>
   )
 }

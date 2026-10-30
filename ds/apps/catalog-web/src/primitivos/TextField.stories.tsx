@@ -58,3 +58,13 @@ export const SemRotulo: StoryObj = {
     </Stack>
   ),
 }
+
+/** Rótulo que não cabe numa linha na largura estreita: empilha acima do campo e quebra linha, sem cortar nem sobrepor. */
+export const RotuloLongo: StoryObj = {
+  render: () => (
+    <Stack gap="lg" style={{ ...frame, maxWidth: 240 }}>
+      <Field label="Como você prefere que a equipe entre em contato com você?" placeholder="E-mail ou telefone" helper="Responda como achar melhor." />
+      <Field label="Como você prefere que a equipe entre em contato com você?" initial="ana@exemplo.com" variant="filled" error="Informe um contato válido." />
+    </Stack>
+  ),
+}

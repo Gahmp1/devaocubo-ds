@@ -13,6 +13,7 @@ function Field({ initial = '', ...props }: { initial?: string } & Omit<TextField
 
 const useStyles = createStyles((t) => ({
   scroll: { backgroundColor: t.color.bg },
+  narrow: { width: 240 },
   content: { padding: t.density.space.md, gap: t.density.space.xl, paddingBottom: t.density.space.huge * 4 },
 }))
 
@@ -39,6 +40,11 @@ function TextFieldScreen() {
         <Text variant="xs" color="textMuted" label>sem rótulo</Text>
         <Field placeholder="Buscar exercício" />
         <Field placeholder="Buscar exercício" variant="filled" />
+      </Stack>
+      <Stack gap="lg" style={s.narrow}>
+        <Text variant="xs" color="textMuted" label>rótulo longo (largura estreita: empilha)</Text>
+        <Field label="Como você prefere que a equipe entre em contato com você?" placeholder="E-mail ou telefone" helper="Responda como achar melhor." />
+        <Field label="Como você prefere que a equipe entre em contato com você?" initial="ana@exemplo.com" variant="filled" error="Informe um contato válido." />
       </Stack>
     </ScrollView>
   )

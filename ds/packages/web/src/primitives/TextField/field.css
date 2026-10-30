@@ -179,3 +179,28 @@ textarea.ds-field__input {
 .ds-field--error .ds-field__frame {
   animation: ds-field-shake var(--ds-duration-slow) var(--ds-ease-standard);
 }
+
+/* Medida invisível do rótulo na largura do campo: se quebrar linha, o campo empilha o rótulo (`ds-field__stack-label`). */
+.ds-field__measure {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.ds-field__measure .ds-text {
+  display: block;
+}
+
+.ds-field__stack-label {
+  margin-block-end: var(--ds-space-xxs);
+}
+
+.ds-field__stack-label .ds-text {
+  display: block;
+}
+
+.ds-field:not(.ds-field--error, .ds-field--off):focus-within .ds-field__stack-label .ds-text {
+  color: var(--ds-color-accent);
+}

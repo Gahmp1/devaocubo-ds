@@ -1,5 +1,5 @@
 import { useDS } from '@gahmp1/ds-core'
-import { useId, type ChangeEvent, type CSSProperties, type ReactNode } from 'react'
+import { useId, useLayoutEffect, useRef, useState, type ChangeEvent, type CSSProperties, type ReactNode } from 'react'
 import { cx } from '../../core/cx.js'
 import { IconButton } from '../IconButton/index.js'
 import { Text, type TextColor } from '../Text/index.js'
@@ -67,6 +67,19 @@ export function Field({ value, onChangeText, label, placeholder, helper, error, 
   const { strings } = useDS()
   const id = useId()
   const hint = error ?? helper
+  // Rótulo que não cabe numa linha: sai do campo e fica acima dele, quebrando linha (medido numa cópia invisível).
+  const measure = useRef<HTMLDivElement>(null)
+  const [stacked, setStacked] = useState(false)
+  useLayoutEffect(() => {
+    const el = measure.current
+    if (!el) return
+    const check = () => setStacked(el.scrollHeight > parseFloat(getComputedStyle(el.firstElementChild ?? el).lineHeight) * 1.5)
+    check()
+    const ro = new ResizeObserver(check)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [label])
+  const floating = !!label && !stacked
   const labelColor: TextColor = error ? 'danger' : disabled ? 'textDisabled' : 'textMuted'
   const attrs: ControlAttrs = {
     id,
@@ -88,13 +101,25 @@ export function Field({ value, onChangeText, label, placeholder, helper, error, 
   }
   return (
     <div
-      className={cx('ds-field', `ds-field--${variant}`, label && 'ds-field--label', value.length > 0 && 'ds-field--value', error && 'ds-field--error', disabled && 'ds-field--off', rows && 'ds-field--multi')}
+      className={cx('ds-field', `ds-field--${variant}`, floating && 'ds-field--label', value.length > 0 && 'ds-field--value', error && 'ds-field--error', disabled && 'ds-field--off', rows && 'ds-field--multi')}
       style={rows ? ({ '--ds-field-rows-min': rows.min, '--ds-field-rows-max': rows.max } as CSSProperties) : undefined}
     >
+      {label && stacked && (
+        <div className="ds-field__stack-label">
+          <Text as="label" htmlFor={id} variant="sm" color={labelColor}>
+            {label}
+          </Text>
+        </div>
+      )}
       <div className="ds-field__frame ds-anim">
         <div className="ds-field__control">
           {children(attrs)}
           {label && (
+            <div ref={measure} className="ds-field__measure" aria-hidden>
+              <Text variant="base">{label}</Text>
+            </div>
+          )}
+          {floating && (
             <div className="ds-field__label ds-anim">
               <Text as="label" htmlFor={id} variant="base" color={labelColor}>
                 {label}
