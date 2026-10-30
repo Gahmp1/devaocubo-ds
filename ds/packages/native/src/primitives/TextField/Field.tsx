@@ -149,7 +149,8 @@ export function Field({ value, onChangeText, label, placeholder, helper, error, 
         )}
       </Animated.View>
       {/* A região viva fica montada o tempo todo (vazia sem mensagem): o Android só anuncia mudança de conteúdo dentro dela. */}
-      <View accessibilityLiveRegion="polite">
+      {/* `collapsable={false}`: sem isso o Android achata esta View vazia e a região viva some. */}
+      <View accessibilityLiveRegion="polite" collapsable={false}>
         {hint ? (
           <Text variant="xs" color={error ? 'danger' : disabled ? 'textDisabled' : 'textMuted'} style={s.message} accessibilityRole={error ? 'alert' : undefined}>
             {hint}
