@@ -2,6 +2,8 @@
 import { SOUND_ATTACK_MS, SOUND_FILTER_HZ, SOUND_RECIPES, type FeedbackPerform, type Note } from '@gahmp1/ds-core'
 
 const FLOOR = 0.0001 // o "zero" do envelope exponencial
+// Tempo máximo para o contexto voltar a rodar; depois disso o som está velho e é descartado.
+const RESUME_MAX_MS = 150
 let ctx: AudioContext | undefined
 
 function tone(c: AudioContext, n: Note, volume: number) {
@@ -28,12 +30,14 @@ function tone(c: AudioContext, n: Note, volume: number) {
 /** Vibra com `navigator.vibrate` quando existe (não existe no Safari do iPhone) e toca a receita com Web Audio. */
 export const performFeedback: FeedbackPerform = (r, { volume }) => {
   if (r.haptic && typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(r.haptic.ms)
-  if (!r.sound || typeof AudioContext === 'undefined') return
-  // criado no primeiro som, que deveria vir de um gesto; suspenso (sem gesto) não agenda nada, senão as notas estouram juntas depois
-  ctx ??= new AudioContext()
-  if (ctx.state !== 'running') {
-    void ctx.resume()
-    return
-  }
-  for (const n of SOUND_RECIPES[r.sound]) tone(ctx, n, volume)
+  const sound = r.sound
+  if (!sound || typeof AudioContext === 'undefined') return
+  // criado no primeiro som, que deveria vir de um gesto; suspenso, retoma e toca só se voltar a tempo (sem fila: notas atrasadas estouram juntas)
+  const c = (ctx ??= new AudioContext())
+  const play = () => SOUND_RECIPES[sound].forEach((n) => tone(c, n, volume))
+  if (c.state === 'running') return play()
+  const t0 = performance.now()
+  c.resume().then(() => {
+    if (c.state === 'running' && performance.now() - t0 <= RESUME_MAX_MS) play()
+  }, () => {})
 }
