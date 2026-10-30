@@ -1,0 +1,130 @@
+/* Cores em custom properties: o chip transiciona fundo, borda e cor (que os filhos herdam, ver `.ds-text` abaixo). */
+.ds-chip {
+  --ds-chip-bg: transparent;
+  --ds-chip-fg: var(--ds-color-text);
+  --ds-chip-line: var(--ds-color-border);
+  --ds-chip-gap: var(--ds-space-xxs);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  box-sizing: border-box;
+  min-block-size: var(--ds-control-sm);
+  border: var(--ds-border-thin) solid var(--ds-chip-line);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-chip-bg);
+  color: var(--ds-chip-fg);
+  transition: background-color var(--ds-duration-base) var(--ds-ease-standard), border-color var(--ds-duration-base) var(--ds-ease-standard), color var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+/* `Text` fixa a cor por classe; dentro do chip ela segue a do chip (e transiciona com ele). */
+.ds-chip .ds-text {
+  color: inherit;
+}
+
+.ds-chip--selected {
+  --ds-chip-bg: var(--ds-color-accent);
+  --ds-chip-fg: var(--ds-color-on-accent);
+  --ds-chip-line: var(--ds-color-accent);
+}
+
+.ds-chip--off {
+  --ds-chip-fg: var(--ds-color-text-disabled);
+  --ds-chip-line: var(--ds-color-border-muted);
+}
+
+.ds-chip--off.ds-chip--selected {
+  --ds-chip-bg: var(--ds-color-text-disabled);
+  --ds-chip-fg: var(--ds-color-bg);
+  --ds-chip-line: var(--ds-color-text-disabled);
+}
+
+.ds-chip__body,
+.ds-chip__remove {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button.ds-chip__body,
+button.ds-chip__remove {
+  cursor: pointer;
+  appearance: none;
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-fast) var(--ds-ease-standard);
+}
+
+button.ds-chip__body:disabled,
+button.ds-chip__remove:disabled {
+  cursor: default;
+}
+
+.ds-chip__body {
+  padding: 0 var(--ds-space-md);
+}
+
+.ds-chip--removable .ds-chip__body {
+  padding-inline-end: var(--ds-space-xs);
+}
+
+.ds-chip__remove {
+  padding: 0 var(--ds-space-sm) 0 var(--ds-space-xs);
+}
+
+/* Alvo de toque mínimo de 44px nas duas dimensões (spec 14); o remover é depois do corpo no DOM e por isso ganha a sobreposição. */
+button.ds-chip__body::after,
+button.ds-chip__remove::after {
+  content: "";
+  position: absolute;
+  inset: min(0px, calc((100% - 44px) / 2));
+}
+
+/* O anel de foco vai no chip inteiro quando o foco está no corpo. */
+.ds-chip__body:focus-visible {
+  outline: none;
+}
+
+.ds-chip:has(.ds-chip__body:focus-visible) {
+  outline: 2px solid var(--ds-color-focus);
+  outline-offset: 2px;
+}
+
+.ds-chip__inner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-chip-gap);
+}
+
+/* ✓ do FilterChip: abre de largura 0 (sem deixar o vão do gap) ao selecionar. */
+.ds-chip__check {
+  display: inline-flex;
+  overflow: hidden;
+  max-inline-size: 0;
+  margin-inline-end: calc(var(--ds-chip-gap) * -1);
+  opacity: 0;
+  transition: max-inline-size var(--ds-duration-base) var(--ds-ease-standard), margin-inline-end var(--ds-duration-base) var(--ds-ease-standard), opacity var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+.ds-chip--selected .ds-chip__check {
+  max-inline-size: var(--ds-icon-sm);
+  margin-inline-end: 0;
+  opacity: 1;
+}
+
+.ds-chip--press-opacity button.ds-chip__body:active:not(:disabled),
+.ds-chip--press-opacity button.ds-chip__remove:active:not(:disabled) {
+  opacity: var(--ds-press-value);
+}
+
+.ds-chip--press-scale button.ds-chip__body:active:not(:disabled),
+.ds-chip--press-scale button.ds-chip__remove:active:not(:disabled) {
+  transform: scale(var(--ds-press-value));
+}

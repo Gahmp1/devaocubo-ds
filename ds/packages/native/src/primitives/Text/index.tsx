@@ -3,7 +3,7 @@ import { Platform, Text as RNText, type StyleProp, type TextProps as RNTextProps
 import { createStyles } from '../../core/createStyles.js'
 
 export type TextVariant = TypeStep | `${TypeStep}Medium`
-export type TextColor = Extract<keyof ColorRoles, 'text' | 'textMuted' | 'textSubtle' | 'textDisabled' | 'bg' | 'accent' | 'onAccent' | 'danger' | 'onDanger' | 'warning' | 'success' | 'info'>
+export type TextColor = Extract<keyof ColorRoles, 'text' | 'textMuted' | 'textSubtle' | 'textDisabled' | 'bg' | 'accent' | 'onAccent' | 'danger' | 'onDanger' | 'warning' | 'onWarning' | 'success' | 'onSuccess' | 'info' | 'onInfo'>
 
 /** Só layout: cor, fonte, tamanho e caixa vêm do tema. */
 export type TextLayoutStyle = Pick<TextStyle, 'flex' | 'flexGrow' | 'flexShrink' | 'flexBasis' | 'alignSelf' | 'margin' | 'marginHorizontal' | 'marginVertical' | 'marginTop' | 'marginBottom' | 'marginLeft' | 'marginRight' | 'textAlign'>

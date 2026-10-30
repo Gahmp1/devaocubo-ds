@@ -117,3 +117,15 @@
   line-clamp: var(--ds-text-lines);
   overflow: hidden;
 }
+
+.ds-text--color-on-warning {
+  color: var(--ds-color-on-warning);
+}
+
+.ds-text--color-on-success {
+  color: var(--ds-color-on-success);
+}
+
+.ds-text--color-on-info {
+  color: var(--ds-color-on-info);
+}
