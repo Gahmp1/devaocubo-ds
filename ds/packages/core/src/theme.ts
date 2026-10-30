@@ -20,3 +20,8 @@ export function resolveTheme(theme: DSTheme, scheme: Scheme, reducedMotion: bool
     motion: { ...motion, reduced: reducedMotion },
   }
 }
+
+/** Degrau de espaçamento do tema (`density.space`). */
+export type SpaceStep = keyof DSTheme['density']['space']
+/** Degrau de raio do tema (`shape.radius`). */
+export type RadiusStep = keyof DSTheme['shape']['radius']
