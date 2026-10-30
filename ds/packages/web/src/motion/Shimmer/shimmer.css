@@ -1,0 +1,22 @@
+.ds-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Faixa de 60% da largura; a varredura vai de fora à esquerda até fora à direita (100% / 0.6). */
+.ds-shimmer__band {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 60%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ds-color-text) 18%, transparent), transparent);
+  transform: translateX(-100%);
+  animation: ds-shimmer-sweep calc(var(--ds-duration-slow) * 5) var(--ds-ease-standard) infinite;
+}
+
+@keyframes ds-shimmer-sweep {
+  to {
+    transform: translateX(166.67%);
+  }
+}

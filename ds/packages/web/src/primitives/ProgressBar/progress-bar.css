@@ -1,0 +1,41 @@
+.ds-progress {
+  --ds-progress-color: var(--ds-color-accent);
+  align-self: stretch;
+  overflow: hidden;
+  height: calc(var(--ds-border-thick) * 2);
+  border-radius: var(--ds-radius-full);
+  background-color: var(--ds-color-surface2);
+}
+
+.ds-progress--success {
+  --ds-progress-color: var(--ds-color-success);
+}
+
+.ds-progress--danger {
+  --ds-progress-color: var(--ds-color-danger);
+}
+
+.ds-progress__fill {
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--ds-progress-color);
+  transition: width var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+/* Segmento de 35% que varre de fora à esquerda até fora à direita (100% / 0.35). */
+.ds-progress--indeterminate .ds-progress__fill {
+  width: 35%;
+  transform: translateX(-100%);
+  animation: ds-progress-sweep calc(var(--ds-duration-slow) * 4) var(--ds-ease-standard) infinite;
+}
+
+/* Movimento reduzido: o `.ds-anim` já cancela a animação; o segmento fica parado no meio da trilha. */
+:root[data-reduced-motion="true"] .ds-progress--indeterminate .ds-progress__fill {
+  transform: translateX(92.86%);
+}
+
+@keyframes ds-progress-sweep {
+  to {
+    transform: translateX(285.71%);
+  }
+}
