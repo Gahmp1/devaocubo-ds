@@ -27,10 +27,10 @@ export const Pulsando: StoryObj = {
 
 export const TresForcas: StoryObj = {
   render: () => (
-    <Stack direction="row" gap="xxxl" style={pad}>
+    <Stack direction="row" gap="xxl" style={{ padding: 32 }}>
       {[0.2, 0.6, 1].map((strength) => (
         <Stack key={strength} gap="md" align="center">
-          <Glow strength={strength} />
+          <Glow strength={strength} size={72} />
           <Text variant="xs" color="textMuted">{strength}</Text>
         </Stack>
       ))}
