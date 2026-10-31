@@ -1,0 +1,108 @@
+/* Barra de abas: três variantes; a pílula ativa (motion `layoutId`) desliza por trás do conteúdo da aba. */
+.ds-tab-bar {
+  position: relative;
+  display: flex;
+  gap: var(--ds-space-xxs);
+  box-sizing: border-box;
+  padding: var(--ds-space-xxs);
+  overflow: hidden;
+  color: var(--ds-color-text-muted);
+}
+
+.ds-tab-bar--floating {
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  margin-inline: auto;
+  border: var(--ds-border-thin) solid var(--ds-color-border-muted);
+  border-radius: var(--ds-radius-control);
+  background: var(--ds-color-surface1);
+}
+
+/* Só o modelo de profundidade `shadow` leva sombra; nos demais fica o traço. */
+.ds-tab-bar--shadow {
+  box-shadow: var(--ds-shadow-overlay);
+}
+
+/* Largura toda, colada na borda: o fundo desfocado (`Blur`) ou a superfície sólida. */
+.ds-tab-bar--glass,
+.ds-tab-bar--solid {
+  inline-size: 100%;
+  border-block-start: var(--ds-border-thin) solid var(--ds-color-border-muted);
+}
+
+.ds-tab-bar--solid {
+  background: var(--ds-color-surface1);
+}
+
+.ds-tab-bar__tab {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-xxs);
+  box-sizing: border-box;
+  min-inline-size: 64px;
+  min-block-size: 44px;
+  margin: 0;
+  padding: var(--ds-space-xs) var(--ds-space-sm);
+  border: 0;
+  /* Raio da barra menos o respiro: a pílula acompanha a curva de dentro. */
+  border-radius: max(0px, calc(var(--ds-radius-control) - var(--ds-space-xxs)));
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--ds-duration-base) var(--ds-ease-standard), opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-fast) var(--ds-ease-standard);
+}
+
+.ds-tab-bar__tab--active {
+  color: var(--ds-color-text);
+}
+
+.ds-tab-bar__tab--active .ds-tab-bar__icon {
+  color: var(--ds-color-accent);
+}
+
+.ds-tab-bar__tab--press-opacity:active {
+  opacity: var(--ds-press-value);
+}
+
+/* Escala: a mola do tema aproximada por duração `base` e curva `enter`. */
+.ds-tab-bar__tab--press-scale {
+  transition: color var(--ds-duration-base) var(--ds-ease-standard), opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-base) var(--ds-ease-enter);
+}
+
+.ds-tab-bar__tab--press-scale:active {
+  transform: scale(var(--ds-press-value));
+}
+
+.ds-tab-bar__pill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--ds-color-surface3);
+}
+
+.ds-tab-bar__icon,
+.ds-tab-bar__label {
+  position: relative;
+}
+
+.ds-tab-bar__icon {
+  display: inline-flex;
+}
+
+.ds-tab-bar__label {
+  max-inline-size: 100%;
+  overflow: hidden;
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-text-xs-size);
+  font-weight: var(--ds-weight-medium);
+  line-height: var(--ds-text-xs-line);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

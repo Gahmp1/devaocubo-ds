@@ -1,0 +1,32 @@
+.ds-page {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  block-size: 100%;
+  min-block-size: 0;
+  background: var(--ds-color-bg);
+  color: var(--ds-color-text);
+}
+
+.ds-page--top {
+  padding-block-start: env(safe-area-inset-top, 0px);
+}
+
+.ds-page--bottom {
+  padding-block-end: env(safe-area-inset-bottom, 0px);
+}
+
+.ds-page__header,
+.ds-page__footer {
+  flex: none;
+}
+
+.ds-page__main {
+  flex: 1 1 auto;
+  min-block-size: 0;
+}
+
+.ds-page__main--scroll {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
