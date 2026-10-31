@@ -17,6 +17,11 @@ Falta uma referência na biblioteca, uma regra precisa ser confirmada em fonte o
 5. **Salvar**: crie ou atualize a entrada seguindo `references/catalog-schema.md`.
 6. **Mockup**: quando o padrão for visual, gere um exemplo em `examples/` antes de recomendar.
 
+## Tipografia
+Para a categoria `tipografia` (`references/tipografia.md`): confirme a licença no arquivo `OFL.txt` ou equivalente do
+repositório oficial e os pesos nos metadados do Google Fonts; cite a URL. Fonte proprietária entra com a licença que o
+dono confirmou e a data, e o que não foi conferido fica "a verificar". Não copie arquivo de fonte.
+
 ## Rótulos de evidência (obrigatórios no relatório)
 - **Fato de fonte oficial**: com URL da página.
 - **Observação de criador ou análise**: com URL; diga que é opinião.

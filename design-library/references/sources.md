@@ -11,6 +11,7 @@ Só entra aqui o que a pesquisa leu na fonte (as páginas da Meta foram lidas po
 | bencho.dev (2026-10-30) | Blocos de interação e 24 sons de interface sintetizados em Web Audio | Repositório público MIT (© 2026 Lorenzo Cabra, `LICENSE` lido; exclui marca e fotos); Pro pago: preço a verificar. Ver `componentes-de-referencia.md` |
 | libraries.dev/voice (voice-glow) | Brilho que sobe com a voz (nível 0–1, envelope attack/release) | MIT (`LICENSE` do pacote lido, npm 0.3.0); React Native "em breve"; estado "processing" é Pro |
 | docs.swmansion.com/pulsar | Presets e compositores de haptics (iOS, Android, RN, Web) | MIT (`LICENSE` lido, GitHub e npm `react-native-pulsar` 1.7.0, `pulsar-haptics` 0.2.0); preço do Studio e do app: a verificar |
+| Tipografia (2026-10-31) | Licença e pesos de Geist, Geist Mono, IBM Plex Mono, Outfit, JetBrains Mono, Inter, Space Grotesk, Instrument Serif e Fraunces | `OFL.txt` ou `LICENSE.txt` de cada repositório oficial (todos SIL OFL 1.1) e https://fonts.google.com/metadata/fonts. Gilroy: licença do dono, sem fonte oficial conferida. Ver `tipografia.md` |
 
 ## Regras de plataforma confirmadas em fonte oficial (Meta)
 

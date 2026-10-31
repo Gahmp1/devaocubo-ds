@@ -16,8 +16,9 @@ Antes de desenhar algo, para achar o que já existe: referência, padrão, mocku
 4. Se nada servir, proponha rodar `design-research`; não busque na web por conta própria.
 
 ## Categorias
-orbes e loaders de IA · chat e interfaces de IA · tipografia e movimento · landing pages · decks e apresentações ·
+orbes e loaders de IA · chat e interfaces de IA · tipografia · tipografia e movimento · landing pages · decks e apresentações ·
 motion e vídeo · dataviz · design systems. Ajuste conforme o catálogo crescer.
+`tipografia` (famílias de fonte para os temas) vive em `references/tipografia.md`; "tipografia e movimento" é outra categoria (texto animado).
 
 ## Armadilhas
 - A biblioteca é pequena e curada: ausência de resultado não prova que não existe, só que não foi catalogado.

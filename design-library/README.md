@@ -11,7 +11,7 @@ desta pasta chega aos consumidores. É material de referência para agentes e pe
 | Pasta | Conteúdo |
 |---|---|
 | `skills/` | Uma skill por frente, cada uma pequena e com uma responsabilidade. Instale por link simbólico (abaixo). |
-| `references/` | Esquema do catálogo, categorias e fontes já verificadas. Só texto. |
+| `references/` | Esquema do catálogo, categorias e fontes já verificadas. Só texto. Inclui `tipografia.md` (famílias de fonte por tema, licença e uso nos produtos). |
 | `examples/` | Mockups em HTML puro (estados de espera do chat, telas, onboarding, site, deck, PDF, biblioteca). Servem de referência visual e de código para copiar. Só texto, sem imagem. |
 
 ## Skills
