@@ -176,8 +176,8 @@
 /* swfitness: gerado por @gahmp1/ds-theme; não editar */
 
 [data-product="swfitness"] {
-  --ds-font-display: 'Gilroy', 'Outfit', system-ui, sans-serif;
-  --ds-font-body: 'Gilroy', 'Outfit', system-ui, sans-serif;
+  --ds-font-display: 'Gilroy', system-ui, sans-serif;
+  --ds-font-body: 'Gilroy', system-ui, sans-serif;
   --ds-font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   --ds-text-xs-size: 12px;
   --ds-text-xs-line: 16px;
@@ -349,9 +349,9 @@
 /* somma: gerado por @gahmp1/ds-theme; não editar */
 
 [data-product="somma"] {
-  --ds-font-display: 'IBM Plex Mono', ui-monospace, monospace;
-  --ds-font-body: 'IBM Plex Mono', ui-monospace, monospace;
-  --ds-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --ds-font-display: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ds-font-body: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ds-font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --ds-text-xs-size: 12px;
   --ds-text-xs-line: 16px;
   --ds-text-sm-size: 13px;
@@ -524,7 +524,7 @@
 [data-product="trippo"] {
   --ds-font-display: 'Geist', system-ui, sans-serif;
   --ds-font-body: 'Geist', system-ui, sans-serif;
-  --ds-font-mono: 'Geist Mono', ui-monospace, monospace;
+  --ds-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --ds-text-xs-size: 12px;
   --ds-text-xs-line: 16px;
   --ds-text-sm-size: 14px;

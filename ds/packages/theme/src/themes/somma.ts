@@ -1,10 +1,11 @@
+import { fontFamily } from '@gahmp1/ds-fonts'
 import type { DSTheme, Shadow } from '../types.js'
 
 // Provisório nos dois esquemas: somma:packages/tokens/src/index.ts (dark/light, income/expense/warning/info, lightSemantic).
 const black = '#050505'
 const paper = '#F7F7F2'
 const none: Shadow = { color: 'rgba(0, 0, 0, 0)', x: 0, y: 0, blur: 0, spread: 0, elevation: 0 }
-const plex = { web: "'IBM Plex Mono', ui-monospace, monospace", native: { 400: 'IBMPlexMono_400Regular', 600: 'IBMPlexMono_600SemiBold', 700: 'IBMPlexMono_700Bold' } }
+const plex = fontFamily('ibm-plex-mono')
 
 export const somma: DSTheme = {
   name: 'somma',

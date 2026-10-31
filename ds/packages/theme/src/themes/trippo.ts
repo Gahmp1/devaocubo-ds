@@ -1,8 +1,9 @@
+import { fontFamily } from '@gahmp1/ds-fonts'
 import type { DSTheme } from '../types.js'
 
 // Provisório nos dois esquemas: trippo:packages/shared/src/tokens.js (lightTokens/darkTokens). Sem acento de marca
 // ainda: accent = primary (tinta). Acento e fonte do mobile ficam para a onda do Trippo, com o João e o designer.
-const geist = { web: "'Geist', system-ui, sans-serif", native: {} }
+const geist = fontFamily('geist')
 
 export const trippo: DSTheme = {
   name: 'trippo',
@@ -47,7 +48,7 @@ export const trippo: DSTheme = {
     },
   },
   type: {
-    family: { display: geist, body: geist, mono: { web: "'Geist Mono', ui-monospace, monospace", native: {} } },
+    family: { display: geist, body: geist, mono: fontFamily('geist-mono') },
     scale: {
       xs: { size: 12, lineHeight: 16 }, sm: { size: 14, lineHeight: 20 }, base: { size: 16, lineHeight: 24 },
       lg: { size: 18, lineHeight: 28 }, xl: { size: 24, lineHeight: 32 }, display: { size: 36, lineHeight: 40 },

@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@gahmp1/ds-core": "*",
+    "@gahmp1/ds-fonts": "*",
     "@gahmp1/ds-theme": "*"
   },
   "peerDependencies": {
@@ -28,6 +29,7 @@
     "@shopify/react-native-skia": ">=2.14",
     "expo-audio": ">=58",
     "expo-blur": ">=58",
+    "expo-font": ">=58",
     "expo-haptics": ">=58",
     "react": ">=19.3",
     "react-native": ">=0.88",
@@ -43,6 +45,7 @@
     "@types/react": "~19.3.0",
     "expo-audio": "~58.0.10",
     "expo-blur": "~58.0.5",
+    "expo-font": "~58.0.11",
     "expo-haptics": "~58.0.7",
     "react": "19.3.0",
     "react-native": "0.88.1",

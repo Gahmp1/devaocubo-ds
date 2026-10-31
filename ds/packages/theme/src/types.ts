@@ -1,7 +1,7 @@
 export type Scheme = 'light' | 'dark'
 export type FontWeight = 400 | 500 | 600 | 700
-/** native: nome da fonte carregada por peso (ex.: 'Gilroy-Medium'); ausente = fonte do sistema. */
-export interface FontFamily { web: string; native: Partial<Record<FontWeight, string>> }
+/** id: família em @gahmp1/ds-fonts (arquivos e registro); ausente = fonte do sistema. native: nome registrado por peso (ex.: 'Gilroy-Medium'). */
+export interface FontFamily { id?: string; web: string; native: Partial<Record<FontWeight, string>> }
 
 export interface ColorRoles {
   bg: string; surface1: string; surface2: string; surface3: string; scrim: string

@@ -1,3 +1,4 @@
+import { fontFamily } from '@gahmp1/ds-fonts'
 import type { DSTheme, Shadow } from '../types.js'
 
 // Escuro definitivo: valores do Zenith (swfitness:apps/mobile/src/components/zenith/tokens.json).
@@ -5,7 +6,7 @@ import type { DSTheme, Shadow } from '../types.js'
 const ink = '#0E0E11'
 const lime = '#B6FB2D'
 const none: Shadow = { color: 'rgba(0, 0, 0, 0)', x: 0, y: 0, blur: 0, spread: 0, elevation: 0 }
-const gilroy = { web: "'Gilroy', 'Outfit', system-ui, sans-serif", native: { 400: 'Gilroy-Regular', 500: 'Gilroy-Medium', 600: 'Gilroy-SemiBold' } }
+const gilroy = fontFamily('gilroy')
 
 export const swfitness: DSTheme = {
   name: 'swfitness',

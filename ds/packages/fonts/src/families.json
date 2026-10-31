@@ -1,0 +1,10 @@
+[
+  { "id": "gilroy", "name": "Gilroy", "role": "sans", "license": "proprietary", "faces": { "400": "Gilroy-Regular.ttf", "500": "Gilroy-Medium.ttf", "600": "Gilroy-SemiBold.ttf" } },
+  { "id": "geist", "name": "Geist", "role": "sans", "license": "OFL-1.1", "faces": { "400": "Geist_400Regular.ttf", "500": "Geist_500Medium.ttf", "600": "Geist_600SemiBold.ttf", "700": "Geist_700Bold.ttf" } },
+  { "id": "geist-mono", "name": "Geist Mono", "role": "mono", "license": "OFL-1.1", "faces": { "400": "GeistMono_400Regular.ttf", "500": "GeistMono_500Medium.ttf", "600": "GeistMono_600SemiBold.ttf", "700": "GeistMono_700Bold.ttf" } },
+  { "id": "ibm-plex-mono", "name": "IBM Plex Mono", "role": "mono", "license": "OFL-1.1", "faces": { "400": "IBMPlexMono_400Regular.ttf", "500": "IBMPlexMono_500Medium.ttf", "600": "IBMPlexMono_600SemiBold.ttf", "700": "IBMPlexMono_700Bold.ttf" } },
+  { "id": "jetbrains-mono", "name": "JetBrains Mono", "role": "mono", "license": "OFL-1.1", "faces": { "400": "JetBrainsMono_400Regular.ttf", "500": "JetBrainsMono_500Medium.ttf", "600": "JetBrainsMono_600SemiBold.ttf", "700": "JetBrainsMono_700Bold.ttf" } },
+  { "id": "outfit", "name": "Outfit", "role": "sans", "license": "OFL-1.1", "faces": { "400": "Outfit_400Regular.ttf", "500": "Outfit_500Medium.ttf", "600": "Outfit_600SemiBold.ttf", "700": "Outfit_700Bold.ttf" } },
+  { "id": "inter", "name": "Inter", "role": "sans", "license": "OFL-1.1", "faces": { "400": "Inter_400Regular.ttf", "500": "Inter_500Medium.ttf", "600": "Inter_600SemiBold.ttf", "700": "Inter_700Bold.ttf" } },
+  { "id": "space-grotesk", "name": "Space Grotesk", "role": "sans", "license": "OFL-1.1", "faces": { "400": "SpaceGrotesk_400Regular.ttf", "500": "SpaceGrotesk_500Medium.ttf", "600": "SpaceGrotesk_600SemiBold.ttf", "700": "SpaceGrotesk_700Bold.ttf" } }
+]

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@gahmp1/ds-core": "*",
+    "@gahmp1/ds-fonts": "*",
     "@gahmp1/ds-theme": "*",
     "@gahmp1/ds-web": "*",
     "lucide-react": "^1.65.0",

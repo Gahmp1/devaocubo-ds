@@ -1,0 +1,2 @@
+Gilroy: fonte proprietária. Licença para uso nos produtos devaocubo confirmada pelo dono em 2026-10-31.
+O pacote @gahmp1/ds-fonts é privado (GitHub Packages); não redistribua estes arquivos fora dele.
