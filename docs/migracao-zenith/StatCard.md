@@ -11,6 +11,6 @@ Destino: `StatCard` de `@gahmp1/ds-native` e `@gahmp1/ds-web`, mesma API. É um 
 | `type` `fill/outline` | removido: usa o `components.card.type` do tema |
 | `testID` | removido (deixa de ser obrigatório) |
 | (novo) `delta?: { value, direction }` | `up` = `success`, `down` = `danger`, `flat` = `textMuted`; a direção também é ícone (seta para cima, para baixo ou traço), nunca só cor. Quem chama põe o sinal em `value` ("+12%") |
-| (novo) `chart?: ReactNode` | minigráfico abaixo do valor; o DS não traz gráfico, a acessibilidade dele é de quem passa |
+| (novo) `chart?: ReactNode` | minigráfico abaixo do valor; pode ser um `LineChart` ou qualquer SVG; a acessibilidade dele é de quem passa |
 
 Não interativo. A organização (rótulo, valor, delta, minigráfico) segue a descrição da biblioteca de referências (BoardUI, beUI Web); nenhum código dessas fontes foi lido.

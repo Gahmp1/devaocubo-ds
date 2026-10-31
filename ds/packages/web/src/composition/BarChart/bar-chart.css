@@ -1,0 +1,33 @@
+.ds-bar-chart {
+  box-sizing: border-box;
+  inline-size: 100%;
+}
+
+.ds-bar-chart > svg {
+  display: block;
+}
+
+.ds-bar-chart__base {
+  stroke: var(--ds-color-border-muted);
+  stroke-width: var(--ds-border-hairline);
+}
+
+.ds-bar-chart__bar {
+  fill: var(--ds-color-accent);
+  transition: opacity var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+.ds-bar-chart__bar--dim {
+  opacity: 0.4;
+}
+
+.ds-bar-chart__text {
+  fill: var(--ds-color-text-muted);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-text-xs-size);
+  font-variant-numeric: var(--ds-numeric);
+}
+
+.ds-bar-chart__text--active {
+  fill: var(--ds-color-text);
+}

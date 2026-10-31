@@ -6,7 +6,7 @@ import { useTheme } from '../../core/DSProvider.js'
 import { Press } from '../../core/Press.js'
 import { Skeleton } from '../../primitives/Skeleton/index.js'
 import { Text } from '../../primitives/Text/index.js'
-import { ProgressRing } from './ProgressRing.js'
+import { CircularProgress } from '../CircularProgress/index.js'
 
 /** Linha comum de `ListItem` e `DetailedListItem`; cada um expõe só as props da sua API. */
 export type RowProps = {
@@ -26,6 +26,9 @@ export type RowProps = {
 }
 
 const MIN_HEIGHT = 44 // pt, spec §14
+const RING = 44 // pt, anel de progresso
+const RING_THICKNESS = 4 // pt
+const RING_MAX_FONT_SCALE = 1.2 // o número precisa caber dentro do anel
 
 const useStyles = createStyles((t) => ({
   row: { flexDirection: 'row', alignItems: 'center', gap: t.density.space.md, minHeight: MIN_HEIGHT, paddingHorizontal: t.density.space.lg, paddingVertical: t.density.space.md },
@@ -59,7 +62,11 @@ export function Row({ component, title, subtitle, description, leading, media, p
         {subtitle && <Text variant="sm" color="textMuted">{subtitle}</Text>}
         {description && <Text variant="sm" color="textMuted">{description}</Text>}
       </View>
-      {progress !== undefined && <ProgressRing value={progress} />}
+      {progress !== undefined && (
+        <CircularProgress value={progress} size={RING} thickness={RING_THICKNESS}>
+          <Text variant="xs" tabular maxFontSizeMultiplier={RING_MAX_FONT_SCALE}>{`${Math.round(Math.min(1, Math.max(0, progress)) * 100)}%`}</Text>
+        </CircularProgress>
+      )}
       {trailing === 'chevron' ? <Icon name="chevron-right" size={icon} color={t.color.textMuted} strokeWidth={t.icon.strokeWidth} /> : trailing}
       {selected !== undefined && (
         <View style={s.check}>{selected && <Icon name="check" size={icon} color={t.color.accent} strokeWidth={t.icon.strokeWidth} />}</View>

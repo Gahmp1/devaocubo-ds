@@ -1,0 +1,49 @@
+.ds-line-chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: 100%;
+}
+
+.ds-line-chart > svg {
+  display: block;
+  flex: none;
+}
+
+.ds-line-chart__grid {
+  stroke: var(--ds-color-border-muted);
+  stroke-width: var(--ds-border-hairline);
+}
+
+.ds-line-chart__line,
+.ds-line-chart__area {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-line-chart__line {
+  fill: none;
+  stroke: var(--ds-color-accent);
+  stroke-width: calc(var(--ds-border-thick) * 1.5);
+}
+
+.ds-line-chart__area {
+  fill: var(--ds-color-accent);
+  stroke: none;
+  fill-opacity: 0.16;
+}
+
+/* Espera: a opacidade pulsa no ritmo lento do tema; reduzido (`.ds-anim`) fica parada. */
+.ds-line-chart--loading {
+  animation: ds-line-chart-breathe calc(var(--ds-duration-slow) * 4) var(--ds-ease-standard) infinite alternate;
+}
+
+@keyframes ds-line-chart-breathe {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}

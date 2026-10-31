@@ -1,11 +1,11 @@
-// Referência: Zenith ListItem, DetailedListItem e SheetRow (SWFitness), molecules/; o anel de progresso é o `CircularProgress` do Zenith, simplificado.
+// Referência: Zenith ListItem, DetailedListItem e SheetRow (SWFitness), molecules/; o anel de progresso é o `CircularProgress`.
 import { useDS } from '@gahmp1/ds-core'
 import type { CSSProperties, ReactNode } from 'react'
 import { cx } from '../../core/cx.js'
 import { useTheme } from '../../core/useTheme.js'
 import { Skeleton } from '../../primitives/Skeleton/index.js'
 import { Text } from '../../primitives/Text/index.js'
-import { ProgressRing } from './ProgressRing.js'
+import { CircularProgress } from '../CircularProgress/index.js'
 
 export type ListItemProps = {
   title: string
@@ -34,6 +34,8 @@ type ListRowProps = DetailedListItemProps & { component: 'ListItem' | 'DetailedL
 
 // Lado da mídia do detalhado, em px (é o mesmo do esqueleto).
 const MEDIA = 56
+const RING = 44 // px, anel de progresso
+const RING_THICKNESS = 4 // px
 
 export function ListRow({ component, title, subtitle, description, leading, media, trailing, progress, selected, onPress, loading, interactionId }: ListRowProps) {
   const theme = useTheme()
@@ -62,7 +64,11 @@ export function ListRow({ component, title, subtitle, description, leading, medi
         {subtitle && <Text variant="sm" color="textMuted">{subtitle}</Text>}
         {description && <Text variant="sm" color="textMuted">{description}</Text>}
       </span>
-      {progress !== undefined && <ProgressRing value={progress} />}
+      {progress !== undefined && (
+        <CircularProgress value={progress} size={RING} thickness={RING_THICKNESS}>
+          <Text variant="xs">{Math.round(Math.min(1, Math.max(0, progress)) * 100)}%</Text>
+        </CircularProgress>
+      )}
       {trailing && <span className="ds-list-item__trailing">{trailing === 'chevron' ? <Icon name="chevron-right" {...icon} /> : trailing}</span>}
       {selected !== undefined && (
         <span className={cx('ds-list-item__check', !selected && 'ds-list-item__check--off')} aria-hidden>

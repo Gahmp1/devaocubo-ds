@@ -16,4 +16,4 @@ Destino: `DetailedListItem` de `@gahmp1/ds-native` e `@gahmp1/ds-web`, mesma API
 | (novo) `media?: ReactNode` | quadrado de 56 com `radius.md` e corte, antes do `leading` |
 | (novo) `subtitle`, `leading`, `trailing`, `selected` | os do `ListItem` |
 
-Anel: círculo SVG interno ao componente (`stroke-dasharray` com `pathLength` 100); a Task 20 o troca pelo `CircularProgress`. Decorativo para leitor de tela: o percentual visível é lido junto do título. Trilha `borderMuted`, progresso `accent`.
+Anel: o `CircularProgress` (ver `CircularProgress.md`) no tamanho e na espessura padrão, com o percentual `xs` no centro. Para leitor de tela vira um `progressbar` com o valor de 0 a 100; o nome é `strings.loading`, pois o `CircularProgress` não tem rótulo próprio. Trilha `borderMuted`, progresso `accent`.
