@@ -1,0 +1,89 @@
+/* Recipiente que rola na horizontal; a tabela tem largura mínima do conteúdo para não espremer as colunas em 375 px. */
+.ds-table-scroll {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border: var(--ds-border-thin) solid var(--ds-color-border-muted);
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-color-surface1);
+}
+
+.ds-table {
+  inline-size: 100%;
+  min-inline-size: max-content;
+  border-collapse: collapse;
+  color: var(--ds-color-text);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-text-base-size);
+  line-height: var(--ds-text-base-line);
+  font-variant-numeric: var(--ds-numeric);
+}
+
+.ds-table thead {
+  background: var(--ds-color-surface2);
+}
+
+.ds-table__cell {
+  padding: var(--ds-space-sm) var(--ds-space-md);
+  border-block-end: var(--ds-border-thin) solid var(--ds-color-border-muted);
+  vertical-align: middle;
+}
+
+.ds-table tbody tr:last-child .ds-table__cell {
+  border-block-end: 0;
+}
+
+.ds-table__cell--start {
+  text-align: start;
+}
+
+.ds-table__cell--end {
+  text-align: end;
+}
+
+.ds-table__empty {
+  padding: var(--ds-space-xl) var(--ds-space-md);
+  color: var(--ds-color-text-muted);
+  text-align: center;
+}
+
+/* Botão do cabeçalho: alvo de 44px; o texto e a seta ficam do lado da coluna (start ou end). */
+.ds-table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-xs);
+  box-sizing: border-box;
+  min-block-size: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ds-color-text-muted);
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ds-table__cell--end .ds-table__sort {
+  flex-direction: row-reverse;
+}
+
+.ds-table__sort--active {
+  color: var(--ds-color-text);
+}
+
+/* A seta só chama atenção na coluna ordenada; nas outras fica esmaecida como convite ao toque. */
+.ds-table__arrow {
+  display: inline-flex;
+  opacity: 0.4;
+  transition: transform var(--ds-duration-fast) var(--ds-ease-standard), opacity var(--ds-duration-fast) var(--ds-ease-standard);
+}
+
+.ds-table__sort--active .ds-table__arrow {
+  opacity: 1;
+}
+
+.ds-table__arrow--asc {
+  transform: rotate(180deg);
+}

@@ -1,0 +1,26 @@
+.ds-glow-scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ds-color-bg);
+}
+
+.ds-glow-scene__lights {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Cada mancha é centrada no ponto (left, top) e vai de alfa máximo no centro a ~0 na borda. */
+.ds-glow-scene__blob {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.ds-glow-scene__content {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}

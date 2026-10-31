@@ -1,0 +1,52 @@
+.ds-feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-space-sm);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Tela: ocupa a altura do pai e centraliza o bloco. */
+.ds-feedback--screen {
+  justify-content: center;
+  min-block-size: 100%;
+  padding: var(--ds-space-xl);
+}
+
+.ds-feedback--inline {
+  padding: var(--ds-space-lg);
+}
+
+.ds-feedback__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-block-end: var(--ds-space-xs);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-surface2);
+  color: var(--ds-color-text-muted);
+}
+
+/* Zenith: círculo de 56 (tela); 40 no embutido. */
+.ds-feedback--screen .ds-feedback__icon {
+  inline-size: 56px;
+  block-size: 56px;
+}
+
+.ds-feedback--inline .ds-feedback__icon {
+  inline-size: 40px;
+  block-size: 40px;
+}
+
+.ds-feedback--success .ds-feedback__icon {
+  color: var(--ds-color-success);
+}
+
+.ds-feedback--error .ds-feedback__icon {
+  color: var(--ds-color-danger);
+}
+
+.ds-feedback .ds-button {
+  margin-block-start: var(--ds-space-sm);
+}

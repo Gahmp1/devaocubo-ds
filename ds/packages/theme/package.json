@@ -20,5 +20,8 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.0"
+  },
+  "dependencies": {
+    "@gahmp1/ds-fonts": "*"
   }
 }

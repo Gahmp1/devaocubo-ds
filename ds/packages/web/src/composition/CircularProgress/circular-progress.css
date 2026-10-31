@@ -1,0 +1,38 @@
+.ds-circular-progress {
+  --ds-circular-color: var(--ds-color-accent);
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-circular-progress--success {
+  --ds-circular-color: var(--ds-color-success);
+}
+
+.ds-circular-progress--danger {
+  --ds-circular-color: var(--ds-color-danger);
+}
+
+.ds-circular-progress__svg {
+  position: absolute;
+  inset: 0;
+}
+
+.ds-circular-progress__track,
+.ds-circular-progress__bar {
+  fill: none;
+}
+
+.ds-circular-progress__track {
+  stroke: var(--ds-color-border-muted);
+}
+
+.ds-circular-progress__bar {
+  stroke: var(--ds-circular-color);
+}
+
+.ds-circular-progress__center {
+  position: relative;
+}

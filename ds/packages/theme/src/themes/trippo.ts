@@ -1,8 +1,9 @@
+import { fontFamily } from '@gahmp1/ds-fonts'
 import type { DSTheme } from '../types.js'
 
 // Provisório nos dois esquemas: trippo:packages/shared/src/tokens.js (lightTokens/darkTokens). Sem acento de marca
 // ainda: accent = primary (tinta). Acento e fonte do mobile ficam para a onda do Trippo, com o João e o designer.
-const geist = { web: "'Geist', system-ui, sans-serif", native: {} }
+const geist = fontFamily('geist')
 
 export const trippo: DSTheme = {
   name: 'trippo',
@@ -25,6 +26,8 @@ export const trippo: DSTheme = {
       border: '#d2d1ce', borderMuted: '#ebeae6', focus: '#71717a',
       // apps/web/BRAND.md: Ash #B8B6AE é o brilho e os pontos de rota (decorativo, fora da checagem de texto)
       aiOrb: '#18181b', aiGlow: '#B8B6AE', aiBeam: '#B8B6AE',
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#18181B', '#1F418D', '#1A1A1B'],
     },
     dark: {
       bg: '#0a0a09', surface1: '#18181b', surface2: '#27272a', surface3: '#27272a',
@@ -40,10 +43,12 @@ export const trippo: DSTheme = {
       // rgba(255,255,255,0.15) e accent rgba(255,255,255,0.10) compostos sobre o bg
       border: '#2f2f2e', borderMuted: '#232322', focus: '#71717a',
       aiOrb: '#f7f6f2', aiGlow: '#B8B6AE', aiBeam: '#B8B6AE',
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#FFFFFF', '#87A9F4', '#FBFBF9'],
     },
   },
   type: {
-    family: { display: geist, body: geist, mono: { web: "'Geist Mono', ui-monospace, monospace", native: {} } },
+    family: { display: geist, body: geist, mono: fontFamily('geist-mono') },
     scale: {
       xs: { size: 12, lineHeight: 16 }, sm: { size: 14, lineHeight: 20 }, base: { size: 16, lineHeight: 24 },
       lg: { size: 18, lineHeight: 28 }, xl: { size: 24, lineHeight: 32 }, display: { size: 36, lineHeight: 40 },
@@ -67,6 +72,7 @@ export const trippo: DSTheme = {
     },
   },
   density: { space: { xxs: 2, xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 40, xxxl: 48, huge: 64 }, control: { sm: 36, md: 44, lg: 52 } },
+  icon: { strokeWidth: 1.5, size: { sm: 16, md: 20, lg: 24 } }, // sem fonte: inferência
   motion: {
     duration: { fast: 150, base: 200, slow: 300 },
     easing: { standard: [0.4, 0, 0.2, 1], enter: [0, 0, 0.2, 1], exit: [0.4, 0, 1, 1] },
@@ -75,5 +81,7 @@ export const trippo: DSTheme = {
     press: { kind: 'scale', value: 0.97 },
   },
   ai: { orb: 'dots', beamPeriodMs: 3000, steps: 'list', revealMsPerWord: 50 },
+  // som desligado até a pessoa ligar (som-e-haptics.md); timbre acompanha a personalidade do movimento
+  feedback: { haptics: { default: 'on', intensity: 'soft' }, sound: { default: 'off', timbre: 'soft', volume: 0.4 } },
   components: { button: { shape: 'rounded' }, card: { type: 'fill' }, tabBar: 'floating', header: 'large' },
 }

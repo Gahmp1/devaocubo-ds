@@ -49,6 +49,10 @@
   --ds-control-sm: 36px;
   --ds-control-md: 40px;
   --ds-control-lg: 48px;
+  --ds-icon-stroke: 1.5;
+  --ds-icon-sm: 16px;
+  --ds-icon-md: 20px;
+  --ds-icon-lg: 24px;
   --ds-duration-fast: 150ms;
   --ds-duration-base: 200ms;
   --ds-duration-slow: 300ms;
@@ -90,6 +94,9 @@
   --ds-color-ai-orb: hsl(240 5% 9%);
   --ds-color-ai-glow: hsl(240 5% 9%);
   --ds-color-ai-beam: hsl(240 5% 9%);
+  --ds-ai-gradient-1: #161618;
+  --ds-ai-gradient-2: #161618;
+  --ds-ai-gradient-3: #101012;
   --ds-depth-model: hairline;
   --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
   --ds-shadow-overlay: 0px 8px 24px 0px rgba(0, 0, 0, 0.12);
@@ -121,6 +128,9 @@
   --ds-color-ai-orb: hsl(220 9% 96%);
   --ds-color-ai-glow: hsl(220 9% 96%);
   --ds-color-ai-beam: hsl(220 9% 96%);
+  --ds-ai-gradient-1: #F4F4F6;
+  --ds-ai-gradient-2: #F4F4F6;
+  --ds-ai-gradient-3: #F4F4F6;
   --ds-depth-model: hairline;
   --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
   --ds-shadow-overlay: 0px 8px 24px 0px rgba(0, 0, 0, 0.5);
@@ -153,6 +163,9 @@
     --ds-color-ai-orb: hsl(220 9% 96%);
     --ds-color-ai-glow: hsl(220 9% 96%);
     --ds-color-ai-beam: hsl(220 9% 96%);
+    --ds-ai-gradient-1: #F4F4F6;
+    --ds-ai-gradient-2: #F4F4F6;
+    --ds-ai-gradient-3: #F4F4F6;
     --ds-depth-model: hairline;
     --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
     --ds-shadow-overlay: 0px 8px 24px 0px rgba(0, 0, 0, 0.5);
@@ -163,8 +176,8 @@
 /* swfitness: gerado por @gahmp1/ds-theme; não editar */
 
 [data-product="swfitness"] {
-  --ds-font-display: 'Gilroy', 'Outfit', system-ui, sans-serif;
-  --ds-font-body: 'Gilroy', 'Outfit', system-ui, sans-serif;
+  --ds-font-display: 'Gilroy', system-ui, sans-serif;
+  --ds-font-body: 'Gilroy', system-ui, sans-serif;
   --ds-font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   --ds-text-xs-size: 12px;
   --ds-text-xs-line: 16px;
@@ -206,9 +219,13 @@
   --ds-space-xxl: 28px;
   --ds-space-xxxl: 32px;
   --ds-space-huge: 40px;
-  --ds-control-sm: 44px;
-  --ds-control-md: 48px;
+  --ds-control-sm: 40px;
+  --ds-control-md: 44px;
   --ds-control-lg: 56px;
+  --ds-icon-stroke: 2;
+  --ds-icon-sm: 16px;
+  --ds-icon-md: 24px;
+  --ds-icon-lg: 32px;
   --ds-duration-fast: 200ms;
   --ds-duration-base: 250ms;
   --ds-duration-slow: 300ms;
@@ -250,6 +267,9 @@
   --ds-color-ai-orb: hsl(80 96% 31%);
   --ds-color-ai-glow: #B6FB2D;
   --ds-color-ai-beam: hsl(80 96% 31%);
+  --ds-ai-gradient-1: #689B03;
+  --ds-ai-gradient-2: #2F898E;
+  --ds-ai-gradient-3: #405C09;
   --ds-depth-model: glow;
   --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
   --ds-shadow-overlay: 0px 0px 0px 0px rgba(0, 0, 0, 0);
@@ -281,6 +301,9 @@
   --ds-color-ai-orb: #B6FB2D;
   --ds-color-ai-glow: #B6FB2D;
   --ds-color-ai-beam: #B6FB2D;
+  --ds-ai-gradient-1: #B6FB2D;
+  --ds-ai-gradient-2: #52B4A1;
+  --ds-ai-gradient-3: #D7FD8C;
   --ds-depth-model: glow;
   --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
   --ds-shadow-overlay: 0px 0px 0px 0px rgba(0, 0, 0, 0);
@@ -313,6 +336,9 @@
     --ds-color-ai-orb: #B6FB2D;
     --ds-color-ai-glow: #B6FB2D;
     --ds-color-ai-beam: #B6FB2D;
+    --ds-ai-gradient-1: #B6FB2D;
+    --ds-ai-gradient-2: #52B4A1;
+    --ds-ai-gradient-3: #D7FD8C;
     --ds-depth-model: glow;
     --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
     --ds-shadow-overlay: 0px 0px 0px 0px rgba(0, 0, 0, 0);
@@ -323,9 +349,9 @@
 /* somma: gerado por @gahmp1/ds-theme; não editar */
 
 [data-product="somma"] {
-  --ds-font-display: 'IBM Plex Mono', ui-monospace, monospace;
-  --ds-font-body: 'IBM Plex Mono', ui-monospace, monospace;
-  --ds-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --ds-font-display: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ds-font-body: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ds-font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --ds-text-xs-size: 12px;
   --ds-text-xs-line: 16px;
   --ds-text-sm-size: 13px;
@@ -369,6 +395,10 @@
   --ds-control-sm: 36px;
   --ds-control-md: 44px;
   --ds-control-lg: 52px;
+  --ds-icon-stroke: 1.5;
+  --ds-icon-sm: 16px;
+  --ds-icon-md: 20px;
+  --ds-icon-lg: 24px;
   --ds-duration-fast: 150ms;
   --ds-duration-base: 250ms;
   --ds-duration-slow: 400ms;
@@ -410,6 +440,9 @@
   --ds-color-ai-orb: #0E6D66;
   --ds-color-ai-glow: #34D399;
   --ds-color-ai-beam: #0E6D66;
+  --ds-ai-gradient-1: #0E6D66;
+  --ds-ai-gradient-2: #116486;
+  --ds-ai-gradient-3: #144844;
   --ds-depth-model: flat;
   --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
   --ds-shadow-overlay: 0px 0px 0px 0px rgba(0, 0, 0, 0);
@@ -441,6 +474,9 @@
   --ds-color-ai-orb: #34D399;
   --ds-color-ai-glow: #34D399;
   --ds-color-ai-beam: #34D399;
+  --ds-ai-gradient-1: #34D399;
+  --ds-ai-gradient-2: #2AB1CB;
+  --ds-ai-gradient-3: #8CE3C1;
   --ds-depth-model: flat;
   --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
   --ds-shadow-overlay: 0px 0px 0px 0px rgba(0, 0, 0, 0);
@@ -473,6 +509,9 @@
     --ds-color-ai-orb: #34D399;
     --ds-color-ai-glow: #34D399;
     --ds-color-ai-beam: #34D399;
+    --ds-ai-gradient-1: #34D399;
+    --ds-ai-gradient-2: #2AB1CB;
+    --ds-ai-gradient-3: #8CE3C1;
     --ds-depth-model: flat;
     --ds-shadow-card: 0px 0px 0px 0px rgba(0, 0, 0, 0);
     --ds-shadow-overlay: 0px 0px 0px 0px rgba(0, 0, 0, 0);
@@ -485,7 +524,7 @@
 [data-product="trippo"] {
   --ds-font-display: 'Geist', system-ui, sans-serif;
   --ds-font-body: 'Geist', system-ui, sans-serif;
-  --ds-font-mono: 'Geist Mono', ui-monospace, monospace;
+  --ds-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --ds-text-xs-size: 12px;
   --ds-text-xs-line: 16px;
   --ds-text-sm-size: 14px;
@@ -529,6 +568,10 @@
   --ds-control-sm: 36px;
   --ds-control-md: 44px;
   --ds-control-lg: 52px;
+  --ds-icon-stroke: 1.5;
+  --ds-icon-sm: 16px;
+  --ds-icon-md: 20px;
+  --ds-icon-lg: 24px;
   --ds-duration-fast: 150ms;
   --ds-duration-base: 200ms;
   --ds-duration-slow: 300ms;
@@ -570,6 +613,9 @@
   --ds-color-ai-orb: #18181b;
   --ds-color-ai-glow: #B8B6AE;
   --ds-color-ai-beam: #B8B6AE;
+  --ds-ai-gradient-1: #18181B;
+  --ds-ai-gradient-2: #1F418D;
+  --ds-ai-gradient-3: #1A1A1B;
   --ds-depth-model: shadow;
   --ds-shadow-card: 0px 1px 3px 0px rgba(0, 0, 0, 0.06);
   --ds-shadow-overlay: 0px 8px 24px 0px rgba(0, 0, 0, 0.12);
@@ -601,6 +647,9 @@
   --ds-color-ai-orb: #f7f6f2;
   --ds-color-ai-glow: #B8B6AE;
   --ds-color-ai-beam: #B8B6AE;
+  --ds-ai-gradient-1: #FFFFFF;
+  --ds-ai-gradient-2: #87A9F4;
+  --ds-ai-gradient-3: #FBFBF9;
   --ds-depth-model: shadow;
   --ds-shadow-card: 0px 1px 3px 0px rgba(0, 0, 0, 0.4);
   --ds-shadow-overlay: 0px 8px 24px 0px rgba(0, 0, 0, 0.6);
@@ -633,6 +682,9 @@
     --ds-color-ai-orb: #f7f6f2;
     --ds-color-ai-glow: #B8B6AE;
     --ds-color-ai-beam: #B8B6AE;
+    --ds-ai-gradient-1: #FFFFFF;
+    --ds-ai-gradient-2: #87A9F4;
+    --ds-ai-gradient-3: #FBFBF9;
     --ds-depth-model: shadow;
     --ds-shadow-card: 0px 1px 3px 0px rgba(0, 0, 0, 0.4);
     --ds-shadow-overlay: 0px 8px 24px 0px rgba(0, 0, 0, 0.6);

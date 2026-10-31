@@ -1,0 +1,18 @@
+/* A máscara só usa o alfa: o opaco é qualquer cor do tema. As alturas dos degradês vêm do componente, pelo scroll. */
+.ds-scrollfade {
+  --ds-fade-top: 0px;
+  --ds-fade-bottom: 0px;
+  overflow-y: auto;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    var(--ds-color-text) var(--ds-fade-top),
+    var(--ds-color-text) calc(100% - var(--ds-fade-bottom)),
+    transparent
+  );
+}
+
+/* A máscara cortaria o anel de foco fora da caixa; recuado, ele fica dentro da área visível. */
+.ds-scrollfade:focus-visible {
+  outline-offset: -2px;
+}

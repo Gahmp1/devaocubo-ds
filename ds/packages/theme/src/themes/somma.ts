@@ -1,10 +1,11 @@
+import { fontFamily } from '@gahmp1/ds-fonts'
 import type { DSTheme, Shadow } from '../types.js'
 
 // Provisório nos dois esquemas: somma:packages/tokens/src/index.ts (dark/light, income/expense/warning/info, lightSemantic).
 const black = '#050505'
 const paper = '#F7F7F2'
 const none: Shadow = { color: 'rgba(0, 0, 0, 0)', x: 0, y: 0, blur: 0, spread: 0, elevation: 0 }
-const plex = { web: "'IBM Plex Mono', ui-monospace, monospace", native: { 400: 'IBMPlexMono_400Regular', 600: 'IBMPlexMono_600SemiBold', 700: 'IBMPlexMono_700Bold' } }
+const plex = fontFamily('ibm-plex-mono')
 
 export const somma: DSTheme = {
   name: 'somma',
@@ -21,6 +22,8 @@ export const somma: DSTheme = {
       info: '#2196F3', onInfo: black,
       border: '#5D5D5B', borderMuted: '#313130', focus: '#34D399',
       aiOrb: '#34D399', aiGlow: '#34D399', aiBeam: '#34D399',
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#34D399', '#2AB1CB', '#8CE3C1'],
     },
     light: {
       bg: '#E1E1DC', surface1: paper, surface2: paper, surface3: paper,
@@ -31,6 +34,8 @@ export const somma: DSTheme = {
       success: '#0E6D66', onSuccess: paper, info: '#145DA0', onInfo: paper,
       border: '#B5B5B1', borderMuted: '#CBCBC7', focus: '#0E6D66',
       aiOrb: '#0E6D66', aiGlow: '#34D399', aiBeam: '#0E6D66',
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#0E6D66', '#116486', '#144844'],
     },
   },
   type: {
@@ -50,6 +55,7 @@ export const somma: DSTheme = {
   shape: { radius: { sm: 6, md: 8, lg: 12, xl: 16, xxl: 24, full: 9999 }, control: 'pill', borderWidth: { hairline: 1, thin: 1, thick: 2 } },
   depth: { light: { model: 'flat', card: none, overlay: none }, dark: { model: 'flat', card: none, overlay: none } },
   density: { space: { xxs: 2, xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32, xxxl: 40, huge: 48 }, control: { sm: 36, md: 44, lg: 52 } },
+  icon: { strokeWidth: 1.5, size: { sm: 16, md: 20, lg: 24 } }, // sem fonte: inferência
   motion: {
     duration: { fast: 150, base: 250, slow: 400 },
     easing: { standard: [0.4, 0, 0.2, 1], enter: [0, 0, 0.2, 1], exit: [0.4, 0, 1, 1] },
@@ -59,5 +65,7 @@ export const somma: DSTheme = {
     press: { kind: 'opacity', value: 0.9 },
   },
   ai: { orb: 'ring', beamPeriodMs: 4000, steps: 'timeline', revealMsPerWord: 60 },
+  // som desligado até a pessoa ligar (som-e-haptics.md); timbre acompanha a personalidade do movimento
+  feedback: { haptics: { default: 'on', intensity: 'soft' }, sound: { default: 'off', timbre: 'soft', volume: 0.4 } },
   components: { button: { shape: 'pill' }, card: { type: 'outline' }, tabBar: 'solid', header: 'compact' },
 }

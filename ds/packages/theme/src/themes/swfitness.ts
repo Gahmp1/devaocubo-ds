@@ -1,3 +1,4 @@
+import { fontFamily } from '@gahmp1/ds-fonts'
 import type { DSTheme, Shadow } from '../types.js'
 
 // Escuro definitivo: valores do Zenith (swfitness:apps/mobile/src/components/zenith/tokens.json).
@@ -5,7 +6,7 @@ import type { DSTheme, Shadow } from '../types.js'
 const ink = '#0E0E11'
 const lime = '#B6FB2D'
 const none: Shadow = { color: 'rgba(0, 0, 0, 0)', x: 0, y: 0, blur: 0, spread: 0, elevation: 0 }
-const gilroy = { web: "'Gilroy', 'Outfit', system-ui, sans-serif", native: { 400: 'Gilroy-Regular', 500: 'Gilroy-Medium', 600: 'Gilroy-SemiBold' } }
+const gilroy = fontFamily('gilroy')
 
 export const swfitness: DSTheme = {
   name: 'swfitness',
@@ -20,6 +21,8 @@ export const swfitness: DSTheme = {
       success: lime, onSuccess: ink, info: '#007AFF', onInfo: ink,
       border: '#646161', borderMuted: '#454649', focus: lime,
       aiOrb: lime, aiGlow: lime, aiBeam: lime,
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#B6FB2D', '#52B4A1', '#D7FD8C'],
     },
     light: {
       bg: 'hsl(0 0% 98%)', surface1: '#FFFFFF', surface2: 'hsl(240 5% 95%)', surface3: 'hsl(240 5% 95%)',
@@ -37,6 +40,8 @@ export const swfitness: DSTheme = {
       border: 'hsl(240 5% 90%)', borderMuted: 'hsl(240 5% 90%)',
       focus: 'hsl(80 96% 31%)',
       aiOrb: 'hsl(80 96% 31%)', aiGlow: lime, aiBeam: 'hsl(80 96% 31%)',
+      // provisório: acento, mistura com info 55% e com texto 45%; aguarda designer
+      aiGradient: ['#689B03', '#2F898E', '#405C09'],
     },
   },
   type: {
@@ -53,7 +58,9 @@ export const swfitness: DSTheme = {
   },
   shape: { radius: { sm: 8, md: 16, lg: 20, xl: 24, xxl: 40, full: 9999 }, control: 'pill', borderWidth: { hairline: 0.4, thin: 1, thick: 2 } },
   depth: { light: { model: 'glow', card: none, overlay: none }, dark: { model: 'glow', card: none, overlay: none } },
-  density: { space: { xxs: 4, xs: 8, sm: 12, md: 16, lg: 20, xl: 24, xxl: 28, xxxl: 32, huge: 40 }, control: { sm: 44, md: 48, lg: 56 } },
+  density: { space: { xxs: 4, xs: 8, sm: 12, md: 16, lg: 20, xl: 24, xxl: 28, xxxl: 32, huge: 40 }, control: { sm: 40, md: 44, lg: 56 } }, // alturas reais do DSButton (Zenith): small 40, normal 44, large 56
+  // Zenith: icons.ts (stroke 2) e DynamicImage (16/24/32)
+  icon: { strokeWidth: 2, size: { sm: 16, md: 24, lg: 32 } },
   motion: {
     duration: { fast: 200, base: 250, slow: 300 },
     easing: { standard: [0.42, 0, 0.58, 1], enter: [0.33, 1, 0.68, 1], exit: [0.32, 0, 0.67, 0] },
@@ -64,5 +71,7 @@ export const swfitness: DSTheme = {
   },
   // beam: animation 3s em design-library/examples/lab-swfitness/styles.css
   ai: { orb: 'dots', beamPeriodMs: 3000, steps: 'list', revealMsPerWord: 50 },
+  // som desligado até a pessoa ligar (som-e-haptics.md); timbre acompanha a personalidade do movimento
+  feedback: { haptics: { default: 'on', intensity: 'crisp' }, sound: { default: 'off', timbre: 'crisp', volume: 0.5 } },
   components: { button: { shape: 'pill' }, card: { type: 'fill' }, tabBar: 'glass', header: 'large' },
 }

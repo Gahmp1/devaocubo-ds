@@ -1,0 +1,98 @@
+/* Ocupa 100% da altura do pai e rola por dentro. A trilha desliza com o puxão; o indicador fica acima dela e aparece ao descer. */
+.ds-ptr {
+  position: relative;
+  block-size: 100%;
+  overflow: hidden;
+}
+
+.ds-ptr__track {
+  position: relative;
+  block-size: 100%;
+}
+
+.ds-ptr__scroll {
+  block-size: 100%;
+  overflow-y: auto;
+  /* Segura a rolagem encadeada e o "puxar para atualizar" do próprio navegador. */
+  overscroll-behavior-y: contain;
+}
+
+.ds-ptr[data-state="pulling"] .ds-ptr__scroll,
+.ds-ptr[data-state="armed"] .ds-ptr__scroll {
+  user-select: none;
+}
+
+.ds-ptr__indicator {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: calc(-1 * var(--ds-ptr-height));
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--ds-ptr-height);
+  pointer-events: none;
+}
+
+.ds-ptr__badge {
+  display: inline-flex;
+  padding: var(--ds-space-xs);
+  border: var(--ds-border-thin) solid var(--ds-color-border-muted);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-surface2);
+  transition: border-color var(--ds-duration-fast) var(--ds-ease-standard);
+}
+
+/* Limiar cruzado: o traço de acento avisa que soltar agora atualiza. */
+.ds-ptr[data-state="armed"] .ds-ptr__badge,
+.ds-ptr[data-state="refreshing"] .ds-ptr__badge {
+  border-color: var(--ds-color-accent);
+}
+
+/* Reduzido: nada desliza; o indicador surge no topo, por cima da lista, e some. */
+.ds-ptr--reduced .ds-ptr__indicator {
+  inset-block-start: var(--ds-space-sm);
+  block-size: auto;
+  opacity: 0;
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard);
+}
+
+.ds-ptr--reduced:not([data-state="idle"]) .ds-ptr__indicator {
+  opacity: 1;
+}
+
+/* Botão "Atualizar": fora da tela para o olho, mas na ordem de tabulação; aparece só com o foco do teclado. */
+.ds-ptr__action {
+  position: absolute;
+  inset-block-start: var(--ds-space-sm);
+  inset-inline-start: var(--ds-space-sm);
+  z-index: 2;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  font: inherit;
+  appearance: none;
+}
+
+.ds-ptr__action:focus-visible {
+  inline-size: auto;
+  block-size: auto;
+  min-block-size: 44px;
+  padding: var(--ds-space-xs) var(--ds-space-md);
+  border: var(--ds-border-thin) solid var(--ds-color-border);
+  border-radius: var(--ds-radius-control);
+  background: var(--ds-color-surface2);
+  color: var(--ds-color-text);
+  clip-path: none;
+  cursor: pointer;
+}
+
+.ds-ptr__action[aria-disabled="true"] {
+  color: var(--ds-color-text-disabled);
+  cursor: not-allowed;
+}

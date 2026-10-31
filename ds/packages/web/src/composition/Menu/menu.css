@@ -1,0 +1,23 @@
+/* Gatilho do menu: botão sem aparência própria, alvo mínimo 44; o popup é o `.ds-popup` compartilhado. */
+.ds-menu__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-xs);
+  box-sizing: border-box;
+  min-block-size: 44px;
+  min-inline-size: 44px;
+  margin: 0;
+  padding: 0 var(--ds-space-xs);
+  border: 0;
+  border-radius: var(--ds-radius-control);
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ds-menu__content {
+  min-inline-size: 180px;
+}

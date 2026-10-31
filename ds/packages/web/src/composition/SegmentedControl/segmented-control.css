@@ -1,0 +1,73 @@
+/* Trilho com opções de largura igual; o indicador (motion `layoutId`) desliza por trás do rótulo ativo. */
+.ds-segmented {
+  display: flex;
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding: var(--ds-space-xxs);
+  border-radius: var(--ds-radius-control);
+  background: var(--ds-color-surface2);
+  color: var(--ds-color-text-muted);
+  container-type: inline-size;
+}
+
+.ds-segmented__option {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  min-block-size: max(44px, var(--ds-control-md));
+  margin: 0;
+  padding: var(--ds-space-xs) var(--ds-space-sm);
+  border: 0;
+  /* Raio do trilho menos o respiro: o indicador acompanha a curva de dentro. */
+  border-radius: max(0px, calc(var(--ds-radius-control) - var(--ds-space-xxs)));
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+.ds-segmented__option--active {
+  color: var(--ds-color-on-accent);
+}
+
+/* Pequeno: visual menor, alvo de toque de 44px (spec 14) pela área invisível. */
+.ds-segmented--small .ds-segmented__option {
+  min-block-size: var(--ds-control-sm);
+  padding-block: var(--ds-space-xxs);
+}
+
+.ds-segmented--small .ds-segmented__option::after {
+  content: "";
+  position: absolute;
+  inset: min(0px, calc((100% - 44px) / 2)) 0;
+}
+
+.ds-segmented__pill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--ds-color-accent);
+}
+
+.ds-segmented__label {
+  position: relative;
+  font-family: var(--ds-font-body);
+  /* Largura de uma opção dividida pelo maior rótulo (≈ 0,6 em por letra), entre 0,7 e 1 do tamanho base. */
+  font-size: clamp(calc(var(--ds-text-base-size) * 0.7), calc(100cqi / var(--ds-seg-count) / var(--ds-seg-chars) / 0.6), var(--ds-text-base-size));
+  font-weight: var(--ds-weight-medium);
+  line-height: var(--ds-text-base-line);
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.ds-segmented--small .ds-segmented__label {
+  font-size: clamp(calc(var(--ds-text-sm-size) * 0.7), calc(100cqi / var(--ds-seg-count) / var(--ds-seg-chars) / 0.6), var(--ds-text-sm-size));
+  line-height: var(--ds-text-sm-line);
+}

@@ -1,0 +1,70 @@
+/* Ângulo do brilho animável: sem @property o navegador não interpola o ângulo do conic-gradient. */
+@property --ds-beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.ds-glow-border {
+  --ds-beam-period: var(--ds-ai-beam-period);
+  position: relative;
+  border-radius: var(--ds-beam-radius);
+}
+
+.ds-glow-border__beam {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--ds-beam-radius);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--ds-duration-base) var(--ds-ease-standard);
+  /* Contorno de um anel só: o gradiente aparece onde a máscara de borda deixa. */
+  background: conic-gradient(
+    from var(--ds-beam-angle),
+    transparent 0%,
+    transparent 70%,
+    var(--ds-color-ai-beam) 95%,
+    transparent 100%
+  );
+  padding: var(--ds-border-thick);
+  mask:
+    linear-gradient(currentColor 0 0) content-box exclude,
+    linear-gradient(currentColor 0 0);
+  animation: ds-beam-spin var(--ds-beam-period) linear infinite;
+}
+
+.ds-glow-border__bloom {
+  filter: blur(calc(var(--ds-border-thick) * 3));
+  padding: calc(var(--ds-border-thick) * 2);
+}
+
+.ds-glow-border--active .ds-glow-border__trace {
+  opacity: 1;
+}
+
+.ds-glow-border--active .ds-glow-border__bloom {
+  opacity: var(--ds-beam-bloom);
+}
+
+.ds-glow-border--paused .ds-glow-border__beam {
+  animation-play-state: paused;
+}
+
+/* Movimento reduzido: borda estática na cor aiBeam, sem giro nem bloom. */
+:root[data-reduced-motion="true"] .ds-glow-border__beam {
+  background: var(--ds-color-ai-beam);
+}
+
+:root[data-reduced-motion="true"] .ds-glow-border--active .ds-glow-border__trace {
+  opacity: 0.7;
+}
+
+:root[data-reduced-motion="true"] .ds-glow-border__bloom {
+  display: none;
+}
+
+@keyframes ds-beam-spin {
+  to {
+    --ds-beam-angle: 360deg;
+  }
+}

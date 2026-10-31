@@ -1,0 +1,17 @@
+.ds-divider {
+  flex: none;
+  align-self: stretch;
+  background-color: var(--ds-color-border);
+}
+
+.ds-divider--muted {
+  background-color: var(--ds-color-border-muted);
+}
+
+.ds-divider--horizontal {
+  height: var(--ds-border-thin);
+}
+
+.ds-divider--vertical {
+  width: var(--ds-border-thin);
+}

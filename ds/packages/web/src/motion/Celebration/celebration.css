@@ -1,0 +1,24 @@
+.ds-celebration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* O fundo entra com um fade; com movimento reduzido a animação cai (base.css) e ele já aparece inteiro. */
+.ds-celebration__scene {
+  height: 100%;
+  animation: ds-celebration-in var(--ds-duration-slow) var(--ds-ease-enter) both;
+}
+
+.ds-celebration__confetti {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes ds-celebration-in {
+  from {
+    opacity: 0;
+  }
+}

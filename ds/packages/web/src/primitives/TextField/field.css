@@ -1,0 +1,206 @@
+/* Medidas em variáveis: o rótulo flutuante e a altura do campo saem do mesmo cálculo (espelha o nativo). */
+.ds-field {
+  --ds-field-lh: var(--ds-text-base-line);
+  --ds-field-pad-top: var(--ds-space-xs);
+  --ds-field-pad-bottom: var(--ds-space-xs);
+  --ds-field-min: max(var(--ds-control-md), calc(var(--ds-field-pad-top) + var(--ds-field-lh) + var(--ds-field-pad-bottom)));
+  --ds-field-rest-top: calc(var(--ds-field-pad-top) + (var(--ds-field-min) - var(--ds-field-pad-top) - var(--ds-field-pad-bottom) - var(--ds-field-lh)) / 2);
+  --ds-field-line: var(--ds-color-border);
+  --ds-field-line-size: var(--ds-border-thin);
+  --ds-field-tint: var(--ds-color-accent);
+  display: block;
+  inline-size: 100%;
+}
+
+/* Zenith: label sobe e vai a 0.75 da escala; o espaço do rótulo entra no padding de cima. */
+.ds-field--label {
+  --ds-field-pad-top: calc(var(--ds-field-lh) * 0.75 + var(--ds-space-xxs));
+}
+
+.ds-field--multi {
+  --ds-field-min: calc(var(--ds-field-pad-top) + var(--ds-field-rows-min) * var(--ds-field-lh) + var(--ds-field-pad-bottom));
+  --ds-field-rest-top: var(--ds-field-pad-top);
+}
+
+.ds-field--error {
+  --ds-field-line: var(--ds-color-danger);
+  --ds-field-tint: var(--ds-color-danger);
+}
+
+.ds-field--off {
+  --ds-field-line: var(--ds-color-border-muted);
+}
+
+.ds-field__frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.ds-field--filled .ds-field__frame {
+  padding-inline: var(--ds-space-md);
+  border: var(--ds-border-thin) solid var(--ds-field-line);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-color-surface2);
+  transition: border-color var(--ds-duration-base) var(--ds-ease-standard), box-shadow var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+.ds-field--filled.ds-field--off .ds-field__frame {
+  background: var(--ds-color-surface1);
+}
+
+.ds-field--filled:focus-within .ds-field__frame,
+.ds-field--filled.ds-field--error .ds-field__frame {
+  border-color: var(--ds-field-tint);
+}
+
+.ds-field--filled:focus-within .ds-field__frame {
+  box-shadow: inset 0 0 0 calc(var(--ds-border-thick) - var(--ds-border-thin)) var(--ds-field-tint);
+}
+
+/* Sublinhado: `thin` em repouso, `thick` e cor de foco/erro no foco. */
+.ds-field__line {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: var(--ds-field-line-size);
+  background: var(--ds-field-line);
+  transition: block-size var(--ds-duration-base) var(--ds-ease-standard), background-color var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+.ds-field--filled .ds-field__line {
+  display: none;
+}
+
+.ds-field--underline:focus-within .ds-field__line {
+  --ds-field-line-size: var(--ds-border-thick);
+  --ds-field-line: var(--ds-field-tint);
+}
+
+.ds-field__control {
+  position: relative;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.ds-field__input {
+  display: block;
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: var(--ds-field-min);
+  margin: 0;
+  padding: var(--ds-field-pad-top) 0 var(--ds-field-pad-bottom);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ds-color-text);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-text-base-size);
+  font-weight: var(--ds-weight-regular);
+  line-height: var(--ds-field-lh);
+  appearance: none;
+}
+
+/* O foco é desenhado pelo traço do campo (sublinhado ou contorno), não por um anel em volta do input. */
+.ds-field__input:focus-visible {
+  outline: none;
+}
+
+.ds-field__input::placeholder {
+  color: var(--ds-color-text-subtle);
+  opacity: 1;
+}
+
+.ds-field__input:disabled {
+  color: var(--ds-color-text-disabled);
+}
+
+/* Com rótulo parado sobre o campo, o placeholder só aparece com o rótulo já no alto. */
+.ds-field--label:not(:focus-within, .ds-field--value) .ds-field__input::placeholder {
+  color: transparent;
+}
+
+textarea.ds-field__input {
+  resize: none;
+  overflow-y: auto;
+  max-block-size: calc(var(--ds-field-pad-top) + var(--ds-field-rows-max) * var(--ds-field-lh) + var(--ds-field-pad-bottom));
+}
+
+.ds-field__label {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: var(--ds-field-rest-top);
+  transform-origin: left top;
+  pointer-events: none;
+  user-select: none;
+  transition: transform var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+.ds-field__label .ds-text {
+  display: block;
+}
+
+.ds-field--label:is(:focus-within, .ds-field--value) .ds-field__label {
+  transform: translateY(calc(var(--ds-space-xxs) - var(--ds-field-rest-top))) scale(0.75);
+}
+
+.ds-field--label:not(.ds-field--error, .ds-field--off):focus-within .ds-field__label .ds-text {
+  color: var(--ds-color-accent);
+}
+
+.ds-field__trailing {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--ds-space-xs);
+  margin-inline-start: var(--ds-space-xs);
+}
+
+.ds-field__hint {
+  margin-block-start: var(--ds-space-xxs);
+}
+
+.ds-field__hint:empty {
+  display: none;
+}
+
+/* Erro: tremor curto ao aparecer (beUI Native, keyframes -6 6 -4 4 -2 0 pt); `.ds-anim` o corta com movimento reduzido. */
+@keyframes ds-field-shake {
+  0% { transform: translateX(0); }
+  17% { transform: translateX(-6px); }
+  33% { transform: translateX(6px); }
+  50% { transform: translateX(-4px); }
+  67% { transform: translateX(4px); }
+  83% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
+.ds-field--error .ds-field__frame {
+  animation: ds-field-shake var(--ds-duration-slow) var(--ds-ease-standard);
+}
+
+/* Medida invisível do rótulo na largura do campo: se quebrar linha, o campo empilha o rótulo (`ds-field__stack-label`). */
+.ds-field__measure {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.ds-field__measure .ds-text {
+  display: block;
+}
+
+.ds-field__stack-label {
+  margin-block-end: var(--ds-space-xxs);
+}
+
+.ds-field__stack-label .ds-text {
+  display: block;
+}
+
+.ds-field:not(.ds-field--error, .ds-field--off):focus-within .ds-field__stack-label .ds-text {
+  color: var(--ds-color-accent);
+}

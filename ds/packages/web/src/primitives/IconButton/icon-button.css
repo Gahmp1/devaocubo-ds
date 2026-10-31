@@ -1,0 +1,78 @@
+.ds-icon-button {
+  --ds-icon-button-box: var(--ds-control-md);
+  --ds-icon-button-fg: var(--ds-color-text);
+  --ds-icon-button-bg: transparent;
+  --ds-icon-button-line: transparent;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex: none;
+  margin: 0;
+  padding: var(--ds-space-xs);
+  border: var(--ds-border-thin) solid var(--ds-icon-button-line);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-icon-button-bg);
+  color: var(--ds-icon-button-fg);
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-fast) var(--ds-ease-standard);
+}
+
+/* Alvo de toque mínimo de 44px (spec 14) quando o botão é menor. */
+.ds-icon-button::after {
+  content: "";
+  position: absolute;
+  inset: min(0px, calc((100% - 44px) / 2));
+}
+
+.ds-icon-button:disabled {
+  cursor: default;
+}
+
+.ds-icon-button--small {
+  --ds-icon-button-box: var(--ds-control-sm);
+}
+
+.ds-icon-button--large {
+  --ds-icon-button-box: var(--ds-control-lg);
+}
+
+/* `plain` fica do tamanho do ícone; as redondas ocupam a altura `control`. */
+.ds-icon-button--filled,
+.ds-icon-button--outline {
+  inline-size: var(--ds-icon-button-box);
+  block-size: var(--ds-icon-button-box);
+  padding: 0;
+}
+
+.ds-icon-button--filled {
+  --ds-icon-button-bg: var(--ds-color-surface2);
+}
+
+.ds-icon-button--outline {
+  --ds-icon-button-line: var(--ds-color-border);
+}
+
+.ds-icon-button--off {
+  --ds-icon-button-fg: var(--ds-color-text-disabled);
+}
+
+.ds-icon-button--outline.ds-icon-button--off {
+  --ds-icon-button-line: var(--ds-color-border-muted);
+}
+
+.ds-icon-button--press-opacity:active:not(:disabled) {
+  opacity: var(--ds-press-value);
+}
+
+/* Escala: a mola do tema aproximada por duração `base` e curva `enter`. */
+.ds-icon-button--press-scale {
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-base) var(--ds-ease-enter);
+}
+
+.ds-icon-button--press-scale:active:not(:disabled) {
+  transform: scale(var(--ds-press-value));
+}

@@ -1,0 +1,10 @@
+.ds-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-xs);
+}
+
+.ds-skeleton__bar {
+  background-color: var(--ds-color-surface2);
+  border-radius: inherit;
+}

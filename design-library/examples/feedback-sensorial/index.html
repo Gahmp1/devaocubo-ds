@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Feedback sensorial</title>
+<link rel="stylesheet" href="../identidades/themes.css" />
+<style>
+  /* Proposta, nada decidido. Só var(--ds-*) de identidades/themes.css; as cores do gradiente saem de color-mix desses tokens. */
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:var(--ds-color-bg);color:var(--ds-color-text);font-family:var(--ds-font-body);padding:var(--ds-space-md)}
+  .wrap{max-width:960px;margin:0 auto;display:grid;gap:var(--ds-space-lg)}
+  h1{font-size:var(--ds-text-xl-size);line-height:var(--ds-text-xl-line);margin:0;letter-spacing:var(--ds-tracking-tight)}
+  p{margin:0;color:var(--ds-color-text-muted);font-size:var(--ds-text-sm-size);line-height:var(--ds-text-sm-line)}
+  .bar{display:flex;flex-wrap:wrap;gap:var(--ds-space-sm);align-items:center}
+  button,label.sw{font:inherit;color:inherit;border:var(--ds-border-thin) solid var(--ds-color-border);background:var(--ds-color-surface1);border-radius:var(--ds-radius-full);padding:var(--ds-space-sm) var(--ds-space-md);min-height:var(--ds-control-md);cursor:pointer;display:inline-flex;align-items:center;gap:var(--ds-space-sm)}
+  button[aria-pressed="true"],button[aria-checked="true"]{background:var(--ds-color-accent);color:var(--ds-color-on-accent);border-color:var(--ds-color-accent)}
+  :focus-visible{outline:2px solid var(--ds-color-focus);outline-offset:2px}
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--ds-space-lg)}
+  .phone{background:var(--ds-color-surface1);border:var(--ds-border-thin) solid var(--ds-color-border-muted);border-radius:var(--ds-radius-xxl);height:420px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+  .phone h2{margin:0;padding:var(--ds-space-md);font-size:var(--ds-text-lg-size);line-height:var(--ds-text-lg-line);letter-spacing:var(--ds-tracking-tight)}
+  .hint{height:0;display:flex;align-items:center;justify-content:center;font-size:var(--ds-text-xs-size);color:var(--ds-color-text-muted);overflow:hidden}
+  .list{flex:1;touch-action:pan-x;padding:0 var(--ds-space-md) var(--ds-space-md);display:grid;gap:var(--ds-space-sm);align-content:start;will-change:transform}
+  .row{background:var(--ds-color-surface2);border-radius:var(--ds-radius-lg);padding:var(--ds-space-md);display:flex;justify-content:space-between}
+  .row b{font-weight:var(--ds-weight-semibold)}
+  .spin{width:14px;height:14px;border-radius:50%;border:2px solid var(--ds-color-border);border-top-color:var(--ds-color-accent);margin-right:8px;animation:r .8s linear infinite}
+  @keyframes r{to{transform:rotate(360deg)}}
+  .voice{--g1:var(--ds-color-accent);--g2:color-mix(in srgb,var(--ds-color-accent) 55%,var(--ds-color-info));--g3:color-mix(in srgb,var(--ds-color-accent) 55%,var(--ds-color-text));--lvl:0;--pos:0%}
+  .stage{flex:1;position:relative;padding:var(--ds-space-md);display:grid;place-items:center;text-align:center}
+  .glow{position:absolute;left:0;right:0;bottom:0;height:200px;pointer-events:none;overflow:hidden}
+  .glow i{position:absolute;left:-10%;right:-10%;bottom:0;height:100%;transform-origin:bottom;background:linear-gradient(90deg,var(--g1),var(--g2),var(--g3),var(--g2),var(--g1));background-size:200% 100%;background-position:var(--pos) 0;
+    -webkit-mask-image:radial-gradient(ellipse 55% 100% at 50% 100%,#000,transparent 72%);mask-image:radial-gradient(ellipse 55% 100% at 50% 100%,#000,transparent 72%)}
+  .glow .bloom{filter:blur(22px);opacity:calc(var(--lvl)*var(--lvl));transform:scaleY(calc(.15 + var(--lvl)*.95))}
+  .glow .core{opacity:calc(.25 + var(--lvl)*.75);transform:scaleY(calc(.08 + var(--lvl)*.8))}
+  .log{font-family:var(--ds-font-mono);font-size:var(--ds-text-xs-size);color:var(--ds-color-text-muted);min-height:3.2em}
+  .tag{font-size:var(--ds-text-xs-size);color:var(--ds-color-text-subtle)}
+  @media (prefers-reduced-motion: reduce){.spin{animation:none}}
+</style>
+</head>
+<body data-product="swfitness" data-theme="dark">
+<div class="wrap">
+  <header style="display:grid;gap:var(--ds-space-sm)">
+    <h1>Feedback sensorial</h1>
+    <p>Proposta para discussão. Puxe a lista para atualizar (som e vibração só se você ligar abaixo; ambos começam desligados) e fale com o botão simulado para ver a voz com gradiente. Nada aqui é decisão.</p>
+  </header>
+
+  <div class="bar" role="group" aria-label="Tema">
+    <button data-p="swfitness" aria-pressed="true">SWFitness</button>
+    <button data-p="somma" aria-pressed="false">Somma</button>
+    <button data-p="trippo" aria-pressed="false">Trippo</button>
+    <button data-p="devaocubo" aria-pressed="false">devaocubo</button>
+  </div>
+  <div class="bar" role="group" aria-label="Preferências de feedback">
+    <button id="tg-haptic" role="switch" aria-checked="false">Vibração: desligada</button>
+    <button id="tg-sound" role="switch" aria-checked="false">Som: desligado</button>
+    <span class="tag" id="sup"></span>
+  </div>
+
+  <div class="cols">
+    <section aria-label="Pull to refresh">
+      <div class="phone" id="phone">
+        <h2>Treinos</h2>
+        <div class="hint" id="hint"><span id="hint-t">Puxe para atualizar</span></div>
+        <div class="list" id="list" tabindex="0" aria-label="Lista de treinos; puxe para baixo ou use o botão"></div>
+      </div>
+      <div class="bar" style="margin-top:var(--ds-space-sm)"><button id="btn-refresh">Atualizar (teclado)</button></div>
+      <p class="log" id="log1" aria-live="polite"></p>
+    </section>
+
+    <section aria-label="Voz com gradiente">
+      <div class="phone voice" id="voice">
+        <h2>Assistente</h2>
+        <div class="stage"><div><div id="vstate" aria-live="polite" style="font-size:var(--ds-text-lg-size)">Parado</div><p>O rótulo diz o estado; o brilho só acompanha.</p></div></div>
+        <div class="glow" aria-hidden="true"><i class="bloom"></i><i class="core"></i></div>
+      </div>
+      <div class="bar" style="margin-top:var(--ds-space-sm)"><button id="btn-voice" aria-pressed="false">Falar (simulado)</button></div>
+      <p class="log" id="log2" aria-live="polite"></p>
+    </section>
+  </div>
+  <p class="tag">Som sintetizado aqui com Web Audio (sem arquivo), pico baixo e 60 a 200 ms. Vibração usa navigator.vibrate: não existe no Safari do iPhone. Texto e animação respeitam prefers-reduced-motion.</p>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+const prefs={haptic:false,sound:false};
+$('#sup').textContent=('vibrate' in navigator)?'Este navegador tem navigator.vibrate.':'Sem navigator.vibrate aqui: o log mostra o que vibraria.';
+
+/* temas */
+document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{
+  document.body.dataset.product=b.dataset.p;
+  document.querySelectorAll('[data-p]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+});
+/* preferências (opt-in; padrão desligado) */
+function bindToggle(id,key,label,on,off){const b=$(id);b.onclick=()=>{prefs[key]=!prefs[key];b.setAttribute('aria-checked',prefs[key]);b.textContent=label+': '+(prefs[key]?on:off);if(prefs[key])play('select',true)}}
+bindToggle('#tg-haptic','haptic','Vibração','ligada','desligada');bindToggle('#tg-sound','sound','Som','ligado','desligado');
+
+/* feedback.play(papel): único ponto que consulta preferência e suporte */
+let ctx;const last={t:0};
+const ROLES={'pull-commit':{vib:[14],snd:'tick',note:'impacto médio'},'confirm':{vib:[10,40,18],snd:'ok',note:'notificação sucesso'},'voice-start':{vib:[8],snd:'tick',note:'impacto leve'}};
+const SND={tick:[{f:1900,to:1500,ms:60,g:.035}],ok:[{f:660,ms:110,g:.04},{f:990,ms:200,g:.04,at:90}]};
+function tone(n){const t0=ctx.currentTime+.005+(n.at||0)/1000,t1=t0+n.ms/1000;const o=ctx.createOscillator(),g=ctx.createGain(),f=ctx.createBiquadFilter();
+  o.type='sine';o.frequency.setValueAtTime(n.f,t0);if(n.to)o.frequency.exponentialRampToValueAtTime(n.to,t1);
+  f.type='lowpass';f.frequency.value=3000;g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(n.g,t0+.004);g.gain.exponentialRampToValueAtTime(.0001,t1);
+  o.connect(f).connect(g).connect(ctx.destination);o.start(t0);o.stop(t1+.02)}
+function play(role,force){
+  const r=ROLES[role]||{vib:[8],snd:'tick',note:'seleção'};const now=performance.now();
+  if(!force&&now-last.t<150)return 'ignorado (menos de 150 ms do anterior)';last.t=now;
+  const out=[];
+  if(prefs.haptic&&!reduce.matches&&navigator.vibrate)navigator.vibrate(r.vib),out.push('vibrou ('+r.note+')');
+  else out.push(prefs.haptic?'vibração indisponível/reduzida':'vibração desligada');
+  if(prefs.sound){ctx??=new AudioContext();ctx.resume();SND[r.snd].forEach(tone);out.push('tocou '+r.snd)}else out.push('som desligado');
+  return out.join(' · ');
+}
+
+/* pull to refresh: o compromisso acontece ao CRUZAR o limiar, não ao soltar */
+const TH=70,list=$('#list'),hint=$('#hint');
+['Treino A — peito','Treino B — costas','Treino C — pernas','Treino D — ombros','Treino E — cardio'].forEach((t,i)=>list.insertAdjacentHTML('beforeend',`<div class="row"><b>${t}</b><span class="tag" data-n>há ${i+1} d</span></div>`));
+let y0=null,pull=0,armed=false,busy=false;
+function setPull(v,anim){list.style.transition=anim?'transform .3s cubic-bezier(.34,1.45,.64,1)':'none';list.style.transform=`translateY(${v}px)`;hint.style.transition=list.style.transition.replace('transform','height');hint.style.height=v+'px'}
+function refresh(){if(busy)return;busy=true;$('#hint-t').innerHTML='<span class="spin" style="display:inline-block;vertical-align:middle"></span>Atualizando';setPull(44,true);
+  setTimeout(()=>{list.querySelectorAll('[data-n]').forEach((n,i)=>n.textContent='agora '+(i?'+'+i:''));$('#hint-t').textContent='Puxe para atualizar';setPull(0,true);busy=false;$('#log1').textContent+=' | concluído (sem haptic: o conteúdo já avisa)'},900)}
+list.addEventListener('pointerdown',e=>{if(!busy&&list.scrollTop<=0){y0=e.clientY;armed=false;list.setPointerCapture(e.pointerId)}});
+list.addEventListener('pointermove',e=>{if(y0==null)return;pull=Math.max(0,(e.clientY-y0)*.55);setPull(Math.min(pull,110));
+  if(pull>=TH&&!armed){armed=true;$('#hint-t').textContent='Solte para atualizar';$('#log1').textContent='limiar cruzado → '+play('pull-commit')}
+  if(pull<TH&&armed){armed=false;$('#hint-t').textContent='Puxe para atualizar'}});
+const end=()=>{if(y0==null)return;y0=null;if(armed){armed=false;refresh()}else setPull(0,true)};
+list.addEventListener('pointerup',end);list.addEventListener('pointercancel',end);
+$('#btn-refresh').onclick=()=>{$('#log1').textContent='botão → '+play('pull-commit');refresh()};
+
+/* voz simulada: nível 0..1 -> envelope (attack 100 ms, release 500 ms) -> --lvl; o gradiente desliza com o nível */
+const v=$('#voice');let talking=false,lvl=0,pos=0,tprev=performance.now();
+$('#btn-voice').onclick=e=>{talking=!talking;e.currentTarget.setAttribute('aria-pressed',talking);$('#vstate').textContent=talking?'Ouvindo':'Parado';$('#log2').textContent=talking?'início → '+play('voice-start'):'fim (sem som de interface com microfone ativo)'};
+function frame(t){const dt=Math.min(.05,(t-tprev)/1000);tprev=t;
+  const raw=talking?Math.max(0,Math.min(1,.45+.35*Math.sin(t/170)+.25*Math.sin(t/57+1)+(Math.random()-.5)*.2)):0;
+  const gate=Math.max(0,(raw-.03)/.97),tau=gate>lvl?.1:.5;lvl+=(gate-lvl)*(1-Math.exp(-dt/tau));
+  const shown=reduce.matches?(talking?.5:0):lvl;
+  if(!reduce.matches)pos=(pos+dt*lvl*60)%200;
+  v.style.setProperty('--lvl',shown.toFixed(3));v.style.setProperty('--pos',(-pos)+'%');requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

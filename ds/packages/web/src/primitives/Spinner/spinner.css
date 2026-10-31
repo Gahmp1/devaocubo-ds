@@ -1,0 +1,69 @@
+/* Arco cônico que gira; sem canvas, então não há nada a pausar fora da tela. */
+.ds-spinner {
+  --ds-spinner-size: 32px;
+  --ds-spinner-color: var(--ds-color-accent);
+  display: inline-block;
+  flex: none;
+  position: relative;
+  width: var(--ds-spinner-size);
+  height: var(--ds-spinner-size);
+}
+
+.ds-spinner--small {
+  --ds-spinner-size: 20px;
+}
+
+.ds-spinner--large {
+  --ds-spinner-size: 48px;
+}
+
+.ds-spinner--on-accent {
+  --ds-spinner-color: var(--ds-color-on-accent);
+}
+
+.ds-spinner--on-danger {
+  --ds-spinner-color: var(--ds-color-on-danger);
+}
+
+.ds-spinner--bg {
+  --ds-spinner-color: var(--ds-color-bg);
+}
+
+.ds-spinner--text {
+  --ds-spinner-color: var(--ds-color-text);
+}
+
+.ds-spinner__arc {
+  --ds-spinner-ring: calc(var(--ds-spinner-size) / 8);
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0turn, var(--ds-spinner-color) 0.75turn, transparent 0.75turn);
+  mask: radial-gradient(farthest-side, transparent calc(100% - var(--ds-spinner-ring)), black calc(100% - var(--ds-spinner-ring) + 0.5px));
+  animation: ds-spinner-rotate calc(var(--ds-duration-slow) * 3) linear infinite;
+}
+
+/* Movimento reduzido: arco parado que só pulsa em opacidade, devagar. */
+:root[data-reduced-motion="true"] .ds-spinner__arc {
+  animation: ds-spinner-pulse calc(var(--ds-duration-slow) * 5) ease-in-out infinite alternate;
+}
+
+.ds-spinner--paused .ds-spinner__arc {
+  animation-play-state: paused;
+}
+
+@keyframes ds-spinner-rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes ds-spinner-pulse {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.4;
+  }
+}

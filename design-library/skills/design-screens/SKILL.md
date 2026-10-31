@@ -17,7 +17,9 @@ um esqueleto coerente com a família.
 4. **Carregamento**: esqueleto com brilho que varre, depois conteúdo com entrada direcional; números do destaque contam.
 5. **Microinteração por papel**: pressão encolhe e solta onda na cor do produto; interruptor com mola; toast sobe e some;
    lista entra escalonada.
-6. Entregue como mockup navegável (um por produto, trocando tokens) antes de tocar no app real.
+6. **Feedback sensorial (opcional, parcimônia):** pull to refresh, confirmar e concluir podem ganhar um haptic e, só se a
+   pessoa ligar, um som curto; resto fica mudo. Regras e mapa em `design-feedback` e `references/som-e-haptics.md`.
+7. Entregue como mockup navegável (um por produto, trocando tokens) antes de tocar no app real.
 
 ## Armadilhas
 - Movimento só em `transform` e `opacity`.
@@ -25,4 +27,4 @@ um esqueleto coerente com a família.
 - Em produto claro (Trippo), o acento é neutro: não force cor.
 
 ## Referências
-`examples/lab-apps` (seções "Telas" e "Gestos"), `examples/lab-swfitness`.
+`examples/lab-apps` (seções "Telas" e "Gestos"), `examples/lab-swfitness`, `examples/feedback-sensorial` (pull to refresh).

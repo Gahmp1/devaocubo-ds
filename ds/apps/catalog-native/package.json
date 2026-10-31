@@ -3,23 +3,32 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "expo start"
+    "start": "expo start",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
-    "@expo-google-fonts/geist": "^0.4.2",
-    "@expo-google-fonts/ibm-plex-mono": "^0.4.1",
-    "@expo-google-fonts/outfit": "^0.4.3",
+    "@gahmp1/ds-core": "*",
+    "@gahmp1/ds-fonts": "*",
+    "@gahmp1/ds-native": "*",
     "@gahmp1/ds-theme": "*",
-    "expo": "~57.0.15",
-    "expo-font": "~57.0.4",
-    "expo-status-bar": "~57.0.1",
-    "react": "19.2.3",
-    "react-native": "0.86.3",
-    "react-native-reanimated": "4.5.1",
-    "react-native-safe-area-context": "~5.7.0",
-    "react-native-worklets": "0.10.1"
+    "@shopify/flash-list": "2.3.2",
+    "@shopify/react-native-skia": "2.14.0",
+    "expo": "~58.0.21",
+    "expo-audio": "~58.0.10",
+    "expo-blur": "~58.0.5",
+    "expo-font": "~58.0.11",
+    "expo-haptics": "~58.0.7",
+    "expo-status-bar": "~58.0.4",
+    "lucide-react-native": "^1.65.0",
+    "react": "19.3.0",
+    "react-native": "0.88.1",
+    "react-native-gesture-handler": "~3.3.0",
+    "react-native-reanimated": "4.7.1",
+    "react-native-safe-area-context": "~5.10.1",
+    "react-native-svg": "15.16.0",
+    "react-native-worklets": "0.13.0"
   },
   "devDependencies": {
-    "@types/react": "~19.2.0"
+    "@types/react": "~19.3.0"
   }
 }

@@ -1,0 +1,79 @@
+/* Camada dos overlays: o scrim e o conteúdo (Sheet, Dialog) ficam acima da página; popups de Select e Menu, abertos depois, ficam acima deles. */
+.ds-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--ds-color-scrim);
+}
+
+/* Popup (Select, Menu): superfície, traço e itens compartilhados. */
+.ds-popup {
+  z-index: 1000;
+  box-sizing: border-box;
+  padding: var(--ds-space-xxs);
+  border: var(--ds-border-thin) solid var(--ds-color-border-muted);
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-color-surface2);
+  color: var(--ds-color-text);
+}
+
+.ds-popup--shadow {
+  box-shadow: var(--ds-shadow-overlay);
+}
+
+.ds-popup[data-state="open"] {
+  animation: ds-popup-in var(--ds-duration-fast) var(--ds-ease-enter);
+}
+
+.ds-popup[data-state="closed"] {
+  animation: ds-popup-out var(--ds-duration-fast) var(--ds-ease-exit) forwards;
+}
+
+@keyframes ds-popup-in {
+  from { opacity: 0; transform: translateY(-4px); }
+}
+
+@keyframes ds-popup-out {
+  to { opacity: 0; transform: translateY(-4px); }
+}
+
+.ds-popup__item {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-sm);
+  box-sizing: border-box;
+  min-block-size: 44px;
+  padding: var(--ds-space-xs) var(--ds-space-md);
+  border-radius: max(0px, calc(var(--ds-radius-lg) - var(--ds-space-xxs)));
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-text-base-size);
+  line-height: var(--ds-text-base-line);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+
+/* Realce do item ativo (teclado ou ponteiro); o anel de foco fica por dentro porque o popup corta o que sai dele. */
+.ds-popup__item[data-highlighted] {
+  background: var(--ds-color-surface3);
+}
+
+.ds-popup__item:focus-visible {
+  outline: 2px solid var(--ds-color-focus);
+  outline-offset: -2px;
+}
+
+.ds-popup__item[data-disabled] {
+  color: var(--ds-color-text-disabled);
+  cursor: not-allowed;
+}
+
+.ds-popup__item--destructive {
+  color: var(--ds-color-danger);
+}
+
+.ds-popup__sep {
+  block-size: var(--ds-border-thin);
+  margin: var(--ds-space-xxs) var(--ds-space-xs);
+  background: var(--ds-color-border-muted);
+}

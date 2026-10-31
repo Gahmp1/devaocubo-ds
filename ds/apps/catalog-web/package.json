@@ -4,20 +4,25 @@
   "type": "module",
   "scripts": {
     "storybook": "storybook dev -p 6006 --no-open",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
+    "@gahmp1/ds-core": "*",
+    "@gahmp1/ds-fonts": "*",
     "@gahmp1/ds-theme": "*",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "react-native": "0.86.3",
-    "react-native-web": "^0.21.2"
+    "@gahmp1/ds-web": "*",
+    "lucide-react": "^1.65.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-native": "0.88.1",
+    "react-native-web": "^0.21.4"
   },
   "devDependencies": {
-    "@storybook/addon-docs": "^10.5.2",
-    "@storybook/react-native-web-vite": "^10.5.2",
-    "@types/react": "~19.2.0",
-    "storybook": "^10.5.2",
-    "vite": "^5.4.21"
+    "@storybook/addon-docs": "^10.6.5",
+    "@storybook/react-native-web-vite": "^10.6.5",
+    "@types/react": "~19.3.0",
+    "storybook": "^10.6.5",
+    "vite": "^8.3.5"
   }
 }

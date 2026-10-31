@@ -1,0 +1,131 @@
+.ds-text {
+  font-family: var(--ds-font-body);
+  font-weight: var(--ds-weight-regular);
+  font-variant-numeric: var(--ds-numeric);
+  letter-spacing: var(--ds-tracking-normal);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.ds-text--xs {
+  font-size: var(--ds-text-xs-size);
+  line-height: var(--ds-text-xs-line);
+}
+
+.ds-text--sm {
+  font-size: var(--ds-text-sm-size);
+  line-height: var(--ds-text-sm-line);
+}
+
+.ds-text--base {
+  font-size: var(--ds-text-base-size);
+  line-height: var(--ds-text-base-line);
+}
+
+.ds-text--lg {
+  font-size: var(--ds-text-lg-size);
+  line-height: var(--ds-text-lg-line);
+}
+
+.ds-text--xl {
+  font-size: var(--ds-text-xl-size);
+  line-height: var(--ds-text-xl-line);
+}
+
+.ds-text--display {
+  font-size: var(--ds-text-display-size);
+  line-height: var(--ds-text-display-line);
+}
+
+.ds-text--display {
+  font-family: var(--ds-font-display);
+}
+
+.ds-text--medium {
+  font-weight: var(--ds-weight-medium);
+}
+
+.ds-text--color-text {
+  color: var(--ds-color-text);
+}
+
+.ds-text--color-text-muted {
+  color: var(--ds-color-text-muted);
+}
+
+.ds-text--color-text-subtle {
+  color: var(--ds-color-text-subtle);
+}
+
+.ds-text--color-text-disabled {
+  color: var(--ds-color-text-disabled);
+}
+
+.ds-text--color-bg {
+  color: var(--ds-color-bg);
+}
+
+.ds-text--color-accent {
+  color: var(--ds-color-accent);
+}
+
+.ds-text--color-on-accent {
+  color: var(--ds-color-on-accent);
+}
+
+.ds-text--color-danger {
+  color: var(--ds-color-danger);
+}
+
+.ds-text--color-on-danger {
+  color: var(--ds-color-on-danger);
+}
+
+.ds-text--color-warning {
+  color: var(--ds-color-warning);
+}
+
+.ds-text--color-success {
+  color: var(--ds-color-success);
+}
+
+.ds-text--color-info {
+  color: var(--ds-color-info);
+}
+
+.ds-text--label {
+  text-transform: var(--ds-label-case);
+  letter-spacing: var(--ds-tracking-wide);
+}
+
+.ds-text--mono {
+  font-family: var(--ds-font-mono);
+}
+
+.ds-text--tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-text--proportional {
+  font-variant-numeric: normal;
+}
+
+.ds-text--clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--ds-text-lines);
+  line-clamp: var(--ds-text-lines);
+  overflow: hidden;
+}
+
+.ds-text--color-on-warning {
+  color: var(--ds-color-on-warning);
+}
+
+.ds-text--color-on-success {
+  color: var(--ds-color-on-success);
+}
+
+.ds-text--color-on-info {
+  color: var(--ds-color-on-info);
+}

@@ -1,0 +1,12 @@
+.ds-stat-card__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--ds-control-sm);
+  block-size: var(--ds-control-sm);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-surface2);
+  color: var(--ds-color-text);
+}

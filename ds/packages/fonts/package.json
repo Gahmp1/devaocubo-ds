@@ -1,0 +1,28 @@
+{
+  "name": "@gahmp1/ds-fonts",
+  "version": "0.0.0",
+  "description": "Arquivos de fonte (Gilroy e famílias OFL) e registro por id para os temas do devaocubo-ds.",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./native": "./dist/native.js",
+    "./css/*": "./css/*"
+  },
+  "types": "./dist/index.d.ts",
+  "typesVersions": { "*": { "native": ["dist/native.d.ts"] } },
+  "files": [
+    "dist",
+    "css",
+    "files"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build": "node scripts/generate.mjs && tsc -b",
+    "check": "node scripts/check.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0"
+  }
+}

@@ -1,4 +1,4 @@
-import { contrastRatio, type ColorRoles, type DSTheme, type Scheme, type TypeStep } from '@gahmp1/ds-theme'
+import { colorRoles, contrastRatio, type ColorRoles, type DSTheme, type Scheme, type TypeStep } from '@gahmp1/ds-theme'
 
 const kebab = (s: string) => s.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase())
 const v = (name: string) => `var(--ds-${name})`
@@ -10,7 +10,7 @@ const motionCss = `
 @media (prefers-reduced-motion: reduce) { .ds-tokens-box { animation: none; } }
 `
 
-function ratio(c: ColorRoles, role: keyof ColorRoles): string {
+function ratio(c: ColorRoles, role: ReturnType<typeof colorRoles>[number]): string {
   try {
     return contrastRatio(c[role], c.bg).toFixed(2)
   } catch {
@@ -38,7 +38,7 @@ export function TokensPage({ theme, scheme }: { theme: DSTheme; scheme: Scheme }
       <section style={section}>
         <h2 style={heading}>Cor (razão contra bg)</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: v('space-sm') }}>
-          {(Object.keys(c) as (keyof ColorRoles)[]).map((role) => (
+          {colorRoles(c).map((role) => (
             <div key={role} style={{ display: 'grid', gap: v('space-xxs') }}>
               <div style={{ height: 48, background: v(`color-${kebab(role)}`), borderRadius: v('radius-sm'), border: `1px solid ${v('color-border-muted')}` }} />
               <span style={{ fontSize: v('text-sm-size'), lineHeight: v('text-sm-line') }}>{role}</span>

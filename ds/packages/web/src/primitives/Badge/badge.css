@@ -1,0 +1,74 @@
+.ds-badge {
+  --ds-badge-bg: var(--ds-color-danger);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-badge-bg);
+}
+
+.ds-badge--neutral {
+  --ds-badge-bg: var(--ds-color-surface3);
+}
+
+.ds-badge--accent {
+  --ds-badge-bg: var(--ds-color-accent);
+}
+
+.ds-badge--success {
+  --ds-badge-bg: var(--ds-color-success);
+}
+
+.ds-badge--warning {
+  --ds-badge-bg: var(--ds-color-warning);
+}
+
+.ds-badge--info {
+  --ds-badge-bg: var(--ds-color-info);
+}
+
+.ds-badge--dot {
+  inline-size: 8px;
+  block-size: 8px;
+}
+
+.ds-badge--count {
+  min-inline-size: 18px;
+  min-block-size: 18px;
+  padding-inline: var(--ds-space-xs);
+}
+
+/* Anel da cor do fundo, por fora da caixa (sombra, não borda): separa o selo da âncora sem encolher o ponto nem a pílula. */
+.ds-badge--ring {
+  box-shadow: 0 0 0 var(--ds-border-thick) var(--ds-color-bg);
+}
+
+/* O número rola dentro de uma janela de uma linha. */
+.ds-badge__roll {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  line-height: var(--ds-text-xs-line);
+  block-size: var(--ds-text-xs-line);
+}
+
+.ds-badge__num {
+  display: inline-flex;
+}
+
+.ds-badge-anchor {
+  position: relative;
+  display: inline-flex;
+  align-self: flex-start;
+}
+
+/* Centro do selo no canto superior direito da âncora, recuado um passo. */
+.ds-badge__corner {
+  position: absolute;
+  inset-block-start: var(--ds-space-xxs);
+  inset-inline-end: var(--ds-space-xxs);
+  display: inline-flex;
+  transform: translate(50%, -50%);
+  pointer-events: none;
+}

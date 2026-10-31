@@ -3,15 +3,18 @@
   "private": true,
   "description": "Workspace root of the @gahmp1/ds-* packages and catalogs. The repo root package (devaocubo-ds) stays tokens-only.",
   "workspaces": [
+    "packages/theme",
+    "packages/core",
     "packages/*",
     "apps/*"
   ],
   "scripts": {
+    "prebuild": "node scripts/barrels.mjs",
     "build": "npm run build --workspaces --if-present",
     "check": "npm run check --workspaces --if-present"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.0",
+    "@changesets/cli": "^3.0.3",
     "typescript": "~6.0.3"
   }
 }

@@ -26,11 +26,17 @@ intermediárias. A skill propõe e monta a camada visual; o SDK de chat do proje
    num cartão de aprovação quando a IA propõe uma ação.
 5. Respeite `prefers-reduced-motion`: troque o movimento por troca de texto e opacidade.
 
+## Voz (ouvindo / falando) — rascunho
+Para microfone e resposta falada: brilho cuja altura segue o nível de voz 0–1 (envelope attack ≈100 ms, release ≈500 ms),
+gradiente nas cores do produto que desliza enquanto há voz, `idle` respirando no silêncio. Padrão, mapeamento amplitude →
+forma/cor e as duas saídas de tokens (derivar do acento ou criar `ai.gradient`) estão em `references/orbes-e-loaders-de-ia.md`
+("Voz com gradiente"). No nativo é Skia + Reanimated; no web, CSS com `--lvl`. Sem som de interface com o microfone ativo.
+
 ## Armadilhas
 - Visibilidade: pause o canvas fora da tela (IntersectionObserver).
 - Estado vem do SDK, não de timers: o mockup usa tempo só para demonstrar.
 - Borda luminosa usa `@property --ang` (CSS Houdini); tenha um fallback estático.
 
 ## Referências
-`examples/lab-apps` (seção "Espera"), `examples/lab-swfitness`. Fontes: libraries.dev (beam, orbs; código MIT),
+`examples/lab-apps` (seção "Espera"), `examples/lab-swfitness`, `examples/feedback-sensorial` (voz). Fontes: libraries.dev (beam, orbs; código MIT),
 thinkingorbs.com. Veja `references/sources.md`.
