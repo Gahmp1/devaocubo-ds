@@ -1,0 +1,65 @@
+/* Gaveta inferior: coluna (cabeçalho, corpo que rola, rodapé fixo) com altura vinda de `--ds-sheet-height`. */
+.ds-sheet {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: 560px;
+  block-size: var(--ds-sheet-height, auto);
+  max-block-size: 90dvh;
+  margin-inline: auto;
+  border: var(--ds-border-thin) solid var(--ds-color-border-muted);
+  border-block-end: 0;
+  border-start-start-radius: var(--ds-radius-xl);
+  border-start-end-radius: var(--ds-radius-xl);
+  background: var(--ds-color-surface1);
+  color: var(--ds-color-text);
+  transition: block-size var(--ds-duration-base) var(--ds-ease-standard);
+  outline: none;
+}
+
+.ds-sheet--shadow {
+  box-shadow: var(--ds-shadow-overlay);
+}
+
+.ds-sheet__head {
+  flex: none;
+  padding: var(--ds-space-sm) var(--ds-space-lg) 0;
+  touch-action: none;
+  cursor: grab;
+}
+
+/* Alça 36×4 (Zenith: BottomSheet). */
+.ds-sheet__handle {
+  display: block;
+  inline-size: 36px;
+  block-size: 4px;
+  margin: 0 auto var(--ds-space-xs);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-text-subtle);
+}
+
+.ds-sheet__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-sm);
+  min-block-size: 44px;
+}
+
+.ds-sheet__body {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  padding: var(--ds-space-sm) var(--ds-space-lg) var(--ds-space-lg);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.ds-sheet__footer {
+  flex: none;
+  padding: var(--ds-space-md) var(--ds-space-lg) calc(var(--ds-space-lg) + env(safe-area-inset-bottom));
+  border-block-start: var(--ds-border-thin) solid var(--ds-color-border-muted);
+}

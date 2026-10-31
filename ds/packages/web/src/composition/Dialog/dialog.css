@@ -1,0 +1,42 @@
+/* Diálogo centrado: título, descrição e ações; largura limitada, margem de respiro nas bordas. */
+.ds-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-md);
+  box-sizing: border-box;
+  inline-size: min(420px, calc(100% - 2 * var(--ds-space-lg)));
+  block-size: fit-content;
+  max-block-size: calc(100dvh - 2 * var(--ds-space-lg));
+  margin: auto;
+  padding: var(--ds-space-xl);
+  overflow-y: auto;
+  border: var(--ds-border-thin) solid var(--ds-color-border-muted);
+  border-radius: var(--ds-radius-xl);
+  background: var(--ds-color-surface2);
+  color: var(--ds-color-text);
+  outline: none;
+}
+
+.ds-dialog--shadow {
+  box-shadow: var(--ds-shadow-overlay);
+}
+
+.ds-dialog__title {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-sm);
+}
+
+.ds-dialog__title--destructive {
+  color: var(--ds-color-danger);
+}
+
+.ds-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--ds-space-sm);
+}

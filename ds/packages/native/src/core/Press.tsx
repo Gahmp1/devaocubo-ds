@@ -1,6 +1,6 @@
 import { useDS } from '@gahmp1/ds-core'
-import { useState } from 'react'
-import { Pressable, StyleSheet, type LayoutChangeEvent, type PressableProps, type StyleProp, type ViewStyle } from 'react-native'
+import { useState, type ComponentRef, type Ref } from 'react'
+import { Pressable, StyleSheet, type LayoutChangeEvent, type PressableProps, type StyleProp, type View, type ViewStyle } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { usePressFeedback } from './usePressFeedback.js'
 
@@ -18,6 +18,8 @@ export type PressProps = Omit<PressableProps, 'style'> & {
   feedback?: boolean
   /** Evento de telemetria no lugar do `press` padrão (alternadores emitem `toggle` com o novo valor); `null` não emite nada. */
   event?: { kind: 'toggle'; value: string | number | boolean } | null
+  /** Para mover o foco do leitor de tela de volta ao botão (`Select`, `Menu`). */
+  ref?: Ref<ComponentRef<typeof View>>
 }
 
 /**

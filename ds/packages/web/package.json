@@ -4,9 +4,18 @@
   "description": "Componentes React DOM do devaocubo-ds: provedor, CSS em camada, movimento, primitivos e composição.",
   "type": "module",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
-    "./motion": { "types": "./dist/motion.d.ts", "default": "./dist/motion.js" },
-    "./ai": { "types": "./dist/ai.d.ts", "default": "./dist/ai.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./motion": {
+      "types": "./dist/motion.d.ts",
+      "default": "./dist/motion.js"
+    },
+    "./ai": {
+      "types": "./dist/ai.d.ts",
+      "default": "./dist/ai.js"
+    },
     "./styles.css": "./dist/styles.css"
   },
   "types": "./dist/index.d.ts",
@@ -26,7 +35,8 @@
   "dependencies": {
     "@gahmp1/ds-core": "*",
     "@gahmp1/ds-theme": "*",
-    "motion": "^14.8.0"
+    "motion": "^14.8.0",
+    "radix-ui": "^1.8.1"
   },
   "peerDependencies": {
     "react": ">=19.3",
