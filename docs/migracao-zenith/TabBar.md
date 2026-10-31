@@ -9,9 +9,9 @@ Destino: `TabBar` de `@gahmp1/ds-native` e `@gahmp1/ds-web`, mesma API. O `BlurP
 | (sem rótulo; só ícone) | `label` obrigatório: aparece sob o ícone e dá o nome acessível da aba |
 | (novo) `badge` | selo numérico (`Badge`, `99+` acima de 99) sobre o ícone |
 | `tabBarVisible` e a animação de esconder (opacidade + `translateY`) | removidos: esconder a barra é não renderizar o `footer` da tela |
-| indicador `Blur` de três camadas que desliza (`withTiming` 280 ms) | pílula `accent` que desliza com a mola do tema (`motion` `layoutId` no web; Reanimated no nativo); com movimento reduzido troca sem deslizar |
+| indicador `Blur` de três camadas que desliza (`withTiming` 280 ms) | pílula `surface3` que desliza com a mola do tema (`motion` `layoutId` no web; Reanimated no nativo); com movimento reduzido troca sem deslizar |
 | cápsula `card` (um só visual) | `variant` `'floating' \| 'glass' \| 'solid'`, padrão `components.tabBar` do tema. `floating`: cápsula flutuante centrada, traço `borderMuted` e sombra só com `depth.model = 'shadow'`; `glass`: largura toda sobre o `Blur`; `solid`: largura toda em `surface1` |
-| cores `primary` (ativo) e `mutedForeground` | ativo: ícone e rótulo `onAccent` sobre a pílula `accent`; inativo: `textMuted` |
+| cores `primary` (ativo) e `mutedForeground` | ativo: pílula `surface3` com o rótulo em `text` e o ícone em `accent`; inativo: `textMuted` |
 | `testID="tab_<key>"` | removido |
 | `analyticsId` e a telemetria por toque | evento `{ component: 'TabBar', kind: 'change', id: key, label, value: key }` ao trocar de aba; não há `interactionId`, o `key` da aba é o id |
 

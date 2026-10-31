@@ -29,7 +29,7 @@ export function Select({ value, onChange, options, placeholder, label, disabled 
     <div className="ds-select">
       {label && <Text as="label" htmlFor={id} variant="smMedium" color="textMuted">{label}</Text>}
       <Root.Root
-        value={value}
+        value={options.some((o) => o.value === value) ? value : ''} // sem opção correspondente, mostra o placeholder (como no nativo)
         disabled={disabled}
         onValueChange={(next) => {
           emit({ component: 'Select', kind: 'change', label: options.find((o) => o.value === next)?.label, value: next })

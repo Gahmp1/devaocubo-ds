@@ -5,7 +5,7 @@ import { useTheme } from '../../core/DSProvider.js'
 export type Direction = 'up' | 'down' | 'flat'
 
 /** Papel do tema de cada direção; `flat` usa `textMuted`. */
-export const DIRECTION_ROLE = { up: 'success', down: 'danger' } as const
+const DIRECTION_ROLE = { up: 'success', down: 'danger' } as const
 const TINT = 0.15 // mesmo tinte do Tag
 /** Parte de `text` na cor do glifo, como no ícone do Tag: o papel puro sobre o tinte não passa de 4.5:1 em todo tema. */
 const GLYPH_MIX = 0.6

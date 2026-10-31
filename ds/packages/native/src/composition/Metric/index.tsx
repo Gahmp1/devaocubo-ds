@@ -26,8 +26,8 @@ export function Metric({ label, value, format, unit, trend }: MetricProps) {
     <View style={s.root}>
       <Text variant="sm" color="textMuted">{label}</Text>
       <View style={s.valueRow}>
-        <NumberTicker value={value} format={format} trend={trend === 'up' || trend === 'down' ? trend : 'auto'} variant="display" />
-        {unit && <Text variant="base" color="textMuted">{unit}</Text>}
+        <NumberTicker value={value} format={format} trend={trend === 'up' || trend === 'down' ? trend : 'auto'} variant="xlMedium" />
+        {unit && <Text variant="sm" color="textMuted">{unit}</Text>}
         {trend && <DirectionGlyph direction={trend} />}
       </View>
     </View>

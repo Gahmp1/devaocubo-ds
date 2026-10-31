@@ -1,10 +1,10 @@
 import { useDS } from '@gahmp1/ds-core'
 import { useRef, type ReactNode } from 'react'
-import { Modal, Pressable, View } from 'react-native'
+import { Modal, Pressable, ScrollView, useWindowDimensions, View } from 'react-native'
 import { createStyles } from '../../core/createStyles.js'
 import { useTheme } from '../../core/DSProvider.js'
 import { useThemeMotion } from '../../core/useThemeMotion.js'
-import { useFocusOnOpen, useOverlayEvents, type ViewInstance } from '../../internal/overlay.js'
+import { ORIENTATIONS, useFocusOnOpen, useOverlayEvents, type ViewInstance } from '../../internal/overlay.js'
 import { Text } from '../../primitives/Text/index.js'
 
 export type DialogProps = {
@@ -43,6 +43,7 @@ const useStyles = createStyles((t) => {
     },
     titleRow: { flexDirection: 'row', alignItems: 'center', gap: density.space.sm },
     title: { flex: 1 },
+    body: { flexGrow: 0, flexShrink: 1 },
     actions: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-end', gap: density.space.sm, paddingTop: density.space.xs },
   }
 })
@@ -53,19 +54,21 @@ export function Dialog({ open, onClose, title, description, actions, destructive
   const { Icon } = useDS()
   const { reduced } = useThemeMotion()
   const s = useStyles()
+  const { height } = useWindowDimensions()
   const titleRef = useRef<ViewInstance>(null)
   useOverlayEvents('Dialog', open, title)
   useFocusOnOpen(open, titleRef)
   return (
-    <Modal visible={open} transparent animationType={reduced ? 'none' : 'fade'} statusBarTranslucent navigationBarTranslucent onRequestClose={onClose}>
+    <Modal visible={open} transparent animationType={reduced ? 'none' : 'fade'} supportedOrientations={[...ORIENTATIONS]} statusBarTranslucent navigationBarTranslucent onRequestClose={onClose}>
       <View style={s.root}>
         <Pressable accessible={false} importantForAccessibility="no" style={s.scrim} onPress={onClose} />
-        <View accessibilityViewIsModal style={s.card}>
+        <View accessibilityViewIsModal onAccessibilityEscape={onClose} style={[s.card, { maxHeight: height - 2 * t.density.space.xl }]}>
           <View ref={titleRef} accessible accessibilityRole="header" style={s.titleRow}>
             {destructive && <Icon name="warning" size={t.icon.size.md} color={t.color.danger} strokeWidth={t.icon.strokeWidth} />}
             <Text variant="lgMedium" color={destructive ? 'danger' : 'text'} style={s.title}>{title}</Text>
           </View>
-          {description ? <Text color="textMuted">{description}</Text> : null}
+          {/* Descrição longa ou fonte grande rolam; o título e as ações ficam à vista. */}
+          {description ? <ScrollView style={s.body} bounces={false}><Text color="textMuted">{description}</Text></ScrollView> : null}
           {actions ? <View style={s.actions}>{actions}</View> : null}
         </View>
       </View>

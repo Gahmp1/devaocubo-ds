@@ -16,3 +16,5 @@ Destino: `LineChart` de `@gahmp1/ds-native` e `@gahmp1/ds-web`, mesma API. SVG i
 Entrada: a linha se desenha (`pathLength`) e a área surge em fade, com a mola (tema `snappy`) ou a duração `slow` com a curva `enter` (tema `calm`); movimento reduzido monta pronto.
 
 A11y: `role="img"` com `aria-label` com os valores de `y` em ordem ("60, 62.5, ..."); sem `format` na API não há como dar unidade. Vazio não expõe `role`.
+
+Limite: com um único ponto só se desenha o marcador (sem linha nem área); com `height` o nativo e o web medem a área do desenho, sem os rótulos de eixo.

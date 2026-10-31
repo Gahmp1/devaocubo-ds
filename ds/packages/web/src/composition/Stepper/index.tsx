@@ -1,6 +1,6 @@
 // Referência: Zenith Stepper (SWFitness), molecules/Stepper/Stepper.tsx; WAI-ARIA APG, padrão Spinbutton (o `adjustable` do RN).
 import { useDS } from '@gahmp1/ds-core'
-import type { KeyboardEvent } from 'react'
+import { useRef, type KeyboardEvent } from 'react'
 import { IconButton } from '../../primitives/IconButton/index.js'
 import { Text } from '../../primitives/Text/index.js'
 
@@ -40,12 +40,18 @@ export function Stepper({ value, onChange, min = -Infinity, max = Infinity, step
     set(next)
   }
   const text = format ? format(value) : String(value)
+  const valueRef = useRef<HTMLDivElement>(null)
+  // O botão que chega ao limite fica desabilitado: o foco vai para o valor, não para um botão morto.
+  const press = (next: number) => {
+    set(next)
+    if (next <= min || next >= max) valueRef.current?.querySelector<HTMLElement>('[role="spinbutton"]')?.focus()
+  }
 
   return (
     <div className="ds-stepper">
-      <IconButton icon="minus" variant="outline" size="large" accessibilityLabel={strings.decrement} disabled={value <= min} onPress={() => set(value - step)} />
+      <IconButton icon="minus" variant="outline" size="large" accessibilityLabel={strings.decrement} disabled={value <= min} onPress={() => press(value - step)} />
       {/* Região viva: quem usa os botões ouve o valor novo. */}
-      <div className="ds-stepper__value" aria-live="polite">
+      <div ref={valueRef} className="ds-stepper__value" aria-live="polite">
         <Text
           variant="display"
           role="spinbutton"
@@ -60,7 +66,7 @@ export function Stepper({ value, onChange, min = -Infinity, max = Infinity, step
           {text}
         </Text>
       </div>
-      <IconButton icon="plus" variant="outline" size="large" accessibilityLabel={strings.increment} disabled={value >= max} onPress={() => set(value + step)} />
+      <IconButton icon="plus" variant="outline" size="large" accessibilityLabel={strings.increment} disabled={value >= max} onPress={() => press(value + step)} />
     </div>
   )
 }

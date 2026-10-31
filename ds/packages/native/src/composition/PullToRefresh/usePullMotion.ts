@@ -30,6 +30,7 @@ export function usePullMotion({ refreshing, threshold, onCommit }: Args) {
   const dragging = useSharedValue(false)
   const ignore = useSharedValue(false) // puxada que começou durante uma atualização
   const busy = useSharedValue(refreshing)
+  const shown = useSharedValue(false) // o indicador só aparece quando a lista está no topo e o conteúdo realmente desce
 
   const settle = (to: number) => {
     'worklet'
@@ -59,17 +60,18 @@ export function usePullMotion({ refreshing, threshold, onCommit }: Args) {
   const pan = usePanGesture({
     activeOffsetY: SLOP,
     failOffsetY: -SLOP,
+    failOffsetX: [-SLOP, SLOP], // gesto horizontal (swipe de linha, carrossel) não vira puxada
     onBegin: () => {
       'worklet'
       committed.value = false
       base.value = 0
       ignore.value = busy.value
+      shown.value = false
     },
     onActivate: () => {
       'worklet'
       if (ignore.value) return
       dragging.value = true
-      scheduleOnRN(setVisible, true)
     },
     onUpdate: (e) => {
       'worklet'
@@ -82,6 +84,10 @@ export function usePullMotion({ refreshing, threshold, onCommit }: Args) {
       const raw = Math.max(0, e.translationY - base.value)
       const pulled = reduced ? raw : Math.min(raw * RESISTANCE, threshold * OVERSHOOT)
       y.value = pulled
+      if (pulled > 0 && !shown.value) {
+        shown.value = true
+        scheduleOnRN(setVisible, true)
+      }
       if (!committed.value && pulled >= threshold) {
         committed.value = true
         scheduleOnRN(onCommit)

@@ -7,7 +7,7 @@ import Animated from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { createStyles } from '../../core/createStyles.js'
 import { useTheme } from '../../core/DSProvider.js'
-import { useFocusOnOpen, useOverlayEvents, type ViewInstance } from '../../internal/overlay.js'
+import { ORIENTATIONS, useFocusOnOpen, useOverlayEvents, type ViewInstance } from '../../internal/overlay.js'
 import { IconButton } from '../../primitives/IconButton/index.js'
 import { Text } from '../../primitives/Text/index.js'
 import type { SheetProps } from './index.js'
@@ -83,7 +83,7 @@ export function SheetPanel({ component, open, onClose, title, snap, dismissible 
   useFocusOnOpen(open && ready && !!title, titleRef)
 
   return (
-    <Modal visible={motion.mounted} transparent animationType="none" statusBarTranslucent navigationBarTranslucent onRequestClose={dismissible ? onClose : noop}>
+    <Modal visible={motion.mounted} transparent animationType="none" supportedOrientations={[...ORIENTATIONS]} statusBarTranslucent navigationBarTranslucent onRequestClose={dismissible ? onClose : noop}>
       <GestureHandlerRootView style={s.fill}>
         <Animated.View pointerEvents="none" style={[s.scrim, motion.scrimStyle]} />
         {/* O botão de fechar já serve ao leitor de tela; o fundo só recebe o toque. */}

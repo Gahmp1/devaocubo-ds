@@ -28,3 +28,9 @@ Nada desliza e não há elástico: o indicador surge no topo, por cima da lista,
 - `aria-busy` no recipiente enquanto `refreshing`; o indicador só é exposto ao leitor de tela nessa fase (`Spinner` tem `role="progressbar"` e o rótulo `strings.loading`).
 
 Telemetria: `{ component: 'PullToRefresh', kind: 'change', value: 'refresh' }` ao pedir a atualização (gesto ou botão).
+
+## Limites conhecidos (revisão da fatia D)
+
+- Com mouse o gesto só puxa a partir do topo da área rolável; arrastar a barra de rolagem ou selecionar texto não conta.
+- Nativo: o indicador só aparece quando o conteúdo realmente desce (no topo), e um gesto horizontal (`failOffsetX`) não vira puxada, para não brigar com linha deslizável ou carrossel.
+- Pendente de API: o `InteractionEvent` não distingue gesto de botão (`kind` de refresh).

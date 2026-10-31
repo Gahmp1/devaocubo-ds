@@ -106,7 +106,7 @@ export function ToastView({ item, onDone }: { item: ToastItem; onDone: (id: numb
 
   return (
     <GestureDetector gesture={pan}>
-      <Animated.View collapsable={false} accessibilityLiveRegion="polite" style={[s.toast, style]}>
+      <Animated.View collapsable={false} accessibilityLiveRegion={tone === 'danger' ? 'assertive' : 'polite'} style={[s.toast, style]}>
         <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
           <Icon name={ICON[tone]} size={t.icon.size.md} color={t.color[ICON_COLOR[tone]]} strokeWidth={t.icon.strokeWidth} />
         </View>

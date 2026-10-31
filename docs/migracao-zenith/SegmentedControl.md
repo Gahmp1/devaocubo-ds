@@ -10,7 +10,7 @@ Destino: `SegmentedControl` de `@gahmp1/ds-native` e `@gahmp1/ds-web`, mesma API
 | (novo) `size` `'small' \| 'normal'` | padrão `normal`; `small` tem o visual menor (`control.sm`) e mantém o alvo de 44 |
 | aba selecionada com fundo `primary` e texto `foregroundInverse`, trocando de uma vez | indicador `accent` que desliza com a mola do tema (`motion` `layoutId` no web; Reanimated no nativo); rótulo selecionado `onAccent`; com movimento reduzido troca sem deslizar |
 | trilho `muted` com raio `full` | trilho `surface2` com o raio de controle do tema (`pill`, `rounded` ou `square`) |
-| rótulo em uma linha que encolhe até 70 % (`adjustsFontSizeToFit`) | o rótulo quebra em mais de uma linha e nunca é cortado nem encolhido; peso `medium` em todas as opções, para a largura não mudar ao selecionar |
+| rótulo em uma linha que encolhe até 70 % (`adjustsFontSizeToFit`) | o rótulo fica em uma linha e encolhe até 70 % para caber, sem quebrar palavra (web: `clamp` pela contagem de opções e de caracteres; nativo: `adjustsFontSizeToFit`); a opção selecionada usa o peso `medium` |
 | `usePressAnimation` por aba | removido (o indicador é o retorno do toque) |
 | `testID` e `ds-segmented-option-<n>` | removidos |
 | telemetria | evento `{ component: 'SegmentedControl', kind: 'change', id: value, label, value }` ao trocar; não há `interactionId`, o `value` da opção é o id |

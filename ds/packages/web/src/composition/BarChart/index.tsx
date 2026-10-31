@@ -10,7 +10,7 @@ export type BarChartProps = {
   data: { label: string; value: number }[]
   /** Índice da barra em destaque: as outras recuam. */
   highlight?: number
-  /** Altura em px, rótulos incluídos. Padrão 180. */
+  /** Altura em px, rótulos incluídos. Padrão 160. */
   height?: number
   /** Texto do valor sobre cada barra e na descrição para o leitor de tela. Padrão `String(value)`. */
   formatValue?: (value: number) => string
@@ -43,7 +43,7 @@ export function BarChart({ data, highlight, height = 160, formatValue = String }
             return (
               <g key={i}>
                 <motion.rect
-                  className={cx('ds-bar-chart__bar', !active && 'ds-bar-chart__bar--dim')}
+                  className={cx('ds-bar-chart__bar', 'ds-anim', !active && 'ds-bar-chart__bar--dim')}
                   x={b.x}
                   y={top + b.y}
                   width={b.width}

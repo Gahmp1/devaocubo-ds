@@ -97,6 +97,7 @@ export function LineChart({ data, area, height = DEFAULT_HEIGHT, loading, emptyT
       accessible
       accessibilityRole={loading ? undefined : 'image'}
       accessibilityLabel={loading ? strings.loading : data.map((p) => p.y).join(', ')}
+      accessibilityLiveRegion={loading ? 'polite' : undefined}
       accessibilityState={loading ? { busy: true } : undefined}
       onLayout={onLayout}
       style={{ height }}

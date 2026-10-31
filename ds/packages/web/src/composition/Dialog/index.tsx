@@ -5,7 +5,7 @@ import { Dialog as Root } from 'radix-ui'
 import type { ReactNode } from 'react'
 import { cx } from '../../core/cx.js'
 import { useTheme } from '../../core/useTheme.js'
-import { Scrim, useOpenEmit, useOverlayTransition } from '../../internal/overlay.js'
+import { Scrim, useOpenEmit, useOverlayTransition, useRestoreFocus } from '../../internal/overlay.js'
 import { Text } from '../../primitives/Text/index.js'
 
 export type DialogProps = {
@@ -24,6 +24,7 @@ export function Dialog({ open, onClose, title, description, actions, destructive
   const { Icon } = useDS()
   const transition = useOverlayTransition()
   useOpenEmit('Dialog', open, title)
+  const restoreFocus = useRestoreFocus(open)
 
   return (
     <Root.Root open={open} onOpenChange={(next) => !next && onClose()}>
@@ -31,7 +32,7 @@ export function Dialog({ open, onClose, title, description, actions, destructive
         {open && (
           <Root.Portal forceMount>
             <Scrim />
-            <Root.Content asChild forceMount {...(description ? {} : { 'aria-describedby': undefined })}>
+            <Root.Content asChild forceMount onCloseAutoFocus={restoreFocus} {...(description ? {} : { 'aria-describedby': undefined })}>
               <motion.div
                 className={cx('ds-dialog', 'ds-anim', theme.depth.model === 'shadow' && 'ds-dialog--shadow')}
                 initial={{ opacity: 0, scale: 0.96 }}

@@ -1,5 +1,5 @@
 // Referência: Zenith BottomSheet (SWFitness), organisms/BottomSheet; o arrastar saiu do PanResponder (thread de JS) para o gesture-handler + Reanimated (thread de UI).
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { usePanGesture } from 'react-native-gesture-handler'
 import { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated'
@@ -7,6 +7,7 @@ import { scheduleOnRN } from 'react-native-worklets'
 import { useThemeMotion } from '../../core/useThemeMotion.js'
 
 const DRAG_SLOP = 8 // pt; abaixo disso o toque continua sendo toque (botão de fechar)
+const REFUSAL_CHECK_MS = 120 // ms; tempo para o app aplicar `open={false}` antes de conferir se recusou
 const PROJECTION_S = 0.12 // s; a posição de soltura é projetada pela velocidade para decidir o pouso
 
 type Args = {
@@ -33,6 +34,8 @@ export function useSheetMotion({ open, ready, full, rests, dismissible, onClose 
   const start = useSharedValue(0)
   const target = useSharedValue(-1)
   const rest = rests[Math.min(index, rests.length - 1)] ?? 0
+  const openRef = useRef(open)
+  openRef.current = open
   const closedY = full > 0 ? full : windowHeight
 
   useEffect(() => {
@@ -68,6 +71,13 @@ export function useSheetMotion({ open, ready, full, rests, dismissible, onClose 
     })
   }, [open, mounted, closedY, reduced, duration, easing, y, scrim, target])
 
+  // O app pode recusar o fechamento (`open` segue true): a gaveta volta à altura de repouso em vez de ficar onde o dedo largou.
+  const dismiss = useCallback(() => {
+    onClose()
+    setTimeout(() => {
+      if (openRef.current) y.value = reduced ? target.value : withSpring(target.value, spring)
+    }, REFUSAL_CHECK_MS)
+  }, [onClose, reduced, spring, target, y])
   const top = Math.min(...rests)
   const landings = dismissible ? [...rests, full] : rests
   const pan = usePanGesture({
@@ -90,7 +100,7 @@ export function useSheetMotion({ open, ready, full, rests, dismissible, onClose 
       }
       if (pick === rests.length) {
         // Soltou perto do fundo: o app fecha e a saída continua de onde o dedo largou.
-        scheduleOnRN(onClose)
+        scheduleOnRN(dismiss)
         return
       }
       target.value = landings[pick]

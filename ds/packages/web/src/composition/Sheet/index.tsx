@@ -2,10 +2,10 @@
 import { useDS } from '@gahmp1/ds-core'
 import { AnimatePresence, motion, useDragControls, type PanInfo } from 'motion/react'
 import { Dialog } from 'radix-ui'
-import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
+import { useState, type CSSProperties, type ReactNode } from 'react'
 import { cx } from '../../core/cx.js'
 import { useTheme } from '../../core/useTheme.js'
-import { Scrim, useOpenEmit, useOverlayTransition } from '../../internal/overlay.js'
+import { Scrim, useOpenEmit, useOverlayTransition, useRestoreFocus } from '../../internal/overlay.js'
 import { IconButton } from '../../primitives/IconButton/index.js'
 import { Text } from '../../primitives/Text/index.js'
 
@@ -31,10 +31,14 @@ export function Sheet({ open, onClose, title, snap = ['content'], dismissible = 
   const transition = useOverlayTransition()
   const drag = useDragControls()
   const [index, setIndex] = useState(0)
-  useEffect(() => {
+  // Reaberta, volta à primeira altura antes de pintar (um efeito mostraria um quadro na altura anterior).
+  const [was, setWas] = useState(open)
+  if (open !== was) {
+    setWas(open)
     if (open) setIndex(0)
-  }, [open])
+  }
   useOpenEmit('Sheet', open, title)
+  const restoreFocus = useRestoreFocus(open)
 
   const size = snap[Math.min(index, snap.length - 1)]
   const style = { '--ds-sheet-height': size === 'content' ? 'auto' : `min(${size}px, 90dvh)` } as CSSProperties
@@ -57,6 +61,7 @@ export function Sheet({ open, onClose, title, snap = ['content'], dismissible = 
               asChild
               forceMount
               aria-describedby={undefined}
+              onCloseAutoFocus={restoreFocus}
               onEscapeKeyDown={(e) => !dismissible && e.preventDefault()}
               onInteractOutside={(e) => !dismissible && e.preventDefault()}
             >

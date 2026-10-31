@@ -82,8 +82,10 @@ export function Select({ value, onChange, options, placeholder, label, disabled 
             selected={o.value === value}
             disabled={o.disabled}
             onPress={() => {
-              emit({ component: 'Select', kind: 'change', value: o.value, label: o.label })
-              onChange(o.value)
+              if (o.value !== value) {
+                emit({ component: 'Select', kind: 'change', value: o.value, label: o.label })
+                onChange(o.value)
+              }
               close()
             }}
           />

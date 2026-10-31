@@ -10,9 +10,9 @@ import type { ProgressBarTone } from '../../primitives/ProgressBar/index.js'
 export type CircularProgressProps = {
   /** 0 a 1. */
   value: number
-  /** Lado em px. Padrão: `control.md` do tema, no mínimo 44. */
+  /** Lado em px. Padrão 56. */
   size?: number
-  /** Espessura do traço em px. Padrão: `borderWidth.thick` do tema. */
+  /** Espessura do traço em px. Padrão: `borderWidth.thick` × 2 do tema. */
   thickness?: number
   /** Cor do arco. Padrão `accent`. */
   tone?: ProgressBarTone

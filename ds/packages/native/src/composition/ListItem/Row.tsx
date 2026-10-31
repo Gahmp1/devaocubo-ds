@@ -44,7 +44,7 @@ export function Row({ component, title, subtitle, description, leading, media, p
 
   if (loading) {
     return (
-      <View accessible accessibilityLabel={strings.loading} accessibilityState={{ busy: true }} style={s.row}>
+      <View accessible accessibilityLabel={strings.loading} accessibilityLiveRegion="polite" accessibilityState={{ busy: true }} style={s.row}>
         {(leading || media) && <Skeleton width={t.density.control.md} height={t.density.control.md} radius="md" />}
         <View style={s.texts}>
           <Skeleton lines={description ? 3 : subtitle ? 2 : 1} />
@@ -55,8 +55,8 @@ export function Row({ component, title, subtitle, description, leading, media, p
 
   const content = (
     <>
-      {leading}
       {media}
+      {leading}
       <View style={s.texts}>
         <Text variant="lgMedium">{title}</Text>
         {subtitle && <Text variant="sm" color="textMuted">{subtitle}</Text>}
@@ -64,7 +64,7 @@ export function Row({ component, title, subtitle, description, leading, media, p
       </View>
       {progress !== undefined && (
         <CircularProgress value={progress} size={RING} thickness={RING_THICKNESS}>
-          <Text variant="xs" tabular maxFontSizeMultiplier={RING_MAX_FONT_SCALE}>{`${Math.round(Math.min(1, Math.max(0, progress)) * 100)}%`}</Text>
+          <Text variant="xs" tabular maxFontSizeMultiplier={RING_MAX_FONT_SCALE}>{`${Math.round(Math.min(1, Math.max(0, Number.isFinite(progress) ? progress : 0)) * 100)}%`}</Text>
         </CircularProgress>
       )}
       {trailing === 'chevron' ? <Icon name="chevron-right" size={icon} color={t.color.textMuted} strokeWidth={t.icon.strokeWidth} /> : trailing}
@@ -78,7 +78,6 @@ export function Row({ component, title, subtitle, description, leading, media, p
       component={component}
       interactionId={interactionId}
       accessibilityRole="button"
-      accessibilityLabel={[title, subtitle, description].filter(Boolean).join(', ')}
       accessibilityState={{ selected }}
       onPress={onPress}
       style={s.row}

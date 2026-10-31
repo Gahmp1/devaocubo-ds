@@ -26,3 +26,5 @@ Destino: `Toast` de `@gahmp1/ds-native` e `@gahmp1/ds-web`, mesma API, em três 
 ## Acessibilidade
 
 Duas regiões vivas sempre montadas e escondidas visualmente, `role="status"` (neutro e sucesso) e `role="alert"` (erro), recebem `título. descrição` quando o toast aparece e esvaziam quando sai; o toast visível em si não é região viva (uma região inserida junto com o texto pode não ser anunciada, e assim o botão da ação continua alcançável). Limite conhecido: o toast fica no fim do documento, então quem navega só por teclado chega a ele com Tab depois do resto da página; e um modal do Radix aberto antes do primeiro `show` aplica `aria-hidden` às regiões já montadas.
+
+Limites conhecidos (revisão da fatia D): no nativo o toast fica na árvore do app, então um `Modal` aberto (Dialog, Sheet, Select) o cobre; é uma limitação do RN, não do DS. No web um modal do Radix aberto deixa as regiões vivas inertes. O tom `danger` anuncia como assertivo nas duas plataformas; os demais, como educado.

@@ -56,9 +56,9 @@ export function TabBar({ items, value, onChange, variant }: TabBarProps) {
             }}
           >
             {active && <motion.span layoutId={pill} className="ds-tab-bar__pill" transition={reduced ? { duration: 0 } : { type: 'spring', ...spring }} />}
-            <span className="ds-tab-bar__icon" aria-hidden>
+            <span className="ds-tab-bar__icon">
               <Badge count={it.badge}>
-                <Icon name={it.icon} {...icon} />
+                <span aria-hidden><Icon name={it.icon} {...icon} /></span>
               </Badge>
             </span>
             <span className="ds-tab-bar__label">{it.label}</span>

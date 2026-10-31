@@ -88,6 +88,7 @@ export function PullToRefresh({ refreshing, onRefresh, threshold = 72, refreshLa
 
   // Dados chegaram (ou a atualização começou por fora): a área vai para a posição de repouso, sem som.
   useEffect(() => {
+    if (pull.current?.active) return // o dedo manda; ao soltar `end` assenta
     settle(refreshing ? threshold : 0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshing])
@@ -122,6 +123,8 @@ export function PullToRefresh({ refreshing, onRefresh, threshold = 72, refreshLa
   }
   const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === 'touch') return
+    // Soltou fora da área (sem captura): o botão não está mais apertado, então o gesto acabou.
+    if (e.buttons === 0) return end(false)
     const was = pull.current?.active
     if (move(e.clientY) && !was) {
       try {

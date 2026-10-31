@@ -55,7 +55,7 @@ export function Table({ columns, rows, sort, onSortChange, empty }: TableProps) 
                   {sortable ? (
                     <button type="button" className={cx('ds-table__sort', 'ds-anim', active && 'ds-table__sort--active')} onClick={() => toggle(c)}>
                       {title}
-                      <span className={cx('ds-table__arrow', active?.direction === 'asc' && 'ds-table__arrow--asc')} aria-hidden>
+                      <span className={cx('ds-table__arrow', 'ds-anim', active?.direction === 'asc' && 'ds-table__arrow--asc')} aria-hidden>
                         <Icon name="arrow-down" {...icon} />
                       </span>
                     </button>

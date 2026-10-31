@@ -11,7 +11,7 @@ export type LineChartProps = {
   data: { x: number; y: number }[]
   /** Preenche o espaço entre a linha e a base. */
   area?: boolean
-  /** Altura em px. Padrão 180. */
+  /** Altura em px. Padrão 160. */
   height?: number
   /** Mostra uma linha de espera que respira no lugar dos dados. */
   loading?: boolean

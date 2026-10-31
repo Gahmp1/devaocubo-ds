@@ -4,6 +4,9 @@ import { AccessibilityInfo, findNodeHandle, type View } from 'react-native'
 
 export type ViewInstance = ComponentRef<typeof View>
 
+/** iOS só gira um `Modal` para paisagem se ele declarar; sem isto o diálogo e a gaveta travam em retrato. */
+export const ORIENTATIONS = ['portrait', 'landscape'] as const
+
 const FOCUS_DELAY = 350 // ms; deixa o Modal terminar de montar (ou de sair) antes de mover o foco do leitor de tela
 
 function focus(ref: RefObject<ViewInstance | null>) {

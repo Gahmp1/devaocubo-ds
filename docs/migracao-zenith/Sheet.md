@@ -25,3 +25,9 @@ Movimento reduzido (`data-reduced-motion`): sem deslize nem fade, a gaveta entra
 Acessibilidade: `role="dialog"` modal (Radix), foco preso e devolvido a quem abriu, `aria-hidden` no resto, Esc fecha só o overlay de cima (um `Dialog` aberto sobre um `Sheet` fecha sozinho). Sem `title` o diálogo fica sem nome acessível: o Radix exige o elemento e ele é renderizado vazio e oculto.
 
 Telemetria: `{ component: 'Sheet', kind: 'open' | 'close', label: title }` quando `open` muda.
+
+## Limites conhecidos (revisão da fatia D)
+
+- Sem `title` a gaveta não tem nome acessível; passe sempre um `title`, mesmo que o visual o esconda no futuro.
+- Recusar o fechamento (`onClose` sem pôr `open={false}`): no nativo a gaveta volta à altura de repouso depois de largada; no web o painel não sai do lugar.
+- `Modal` do nativo declara retrato e paisagem (`supportedOrientations`); sem isso o iOS prende a gaveta em retrato.

@@ -7,11 +7,11 @@ import { createStyles } from '../../core/createStyles.js'
 export type ScreenProps = {
   /** Fixo acima da área de conteúdo. */
   header?: ReactNode
-  /** Fixo abaixo da área de conteúdo, acima da área segura de baixo. */
+  /** Fixo abaixo da área de conteúdo; só fica acima da área segura de baixo se `edges` incluir `'bottom'`. */
   footer?: ReactNode
   /** O conteúdo rola num `ScrollView`; sem isso ele ocupa o espaço entre cabeçalho e rodapé. */
   scroll?: boolean
-  /** Bordas que respeitam a área segura (padrão: as duas). */
+  /** Bordas que respeitam a área segura (padrão: só `'top'`). */
   edges?: ('top' | 'bottom')[]
   onScroll?: ScrollViewProps['onScroll']
   children?: ReactNode

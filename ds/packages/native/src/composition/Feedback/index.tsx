@@ -47,7 +47,7 @@ export function Feedback({ kind, title, description, action, layout = 'screen' }
   const inline = layout === 'inline'
   const button = action && <Button title={action.label} variant={inline ? 'outline' : 'primary'} fullWidth={!inline} onPress={action.onPress} />
   const content = (
-    <View style={[s.content, inline && s.contentInline]}>
+    <View accessibilityRole={kind === 'error' ? 'alert' : undefined} accessibilityLiveRegion={kind === 'error' ? 'assertive' : kind === 'success' ? 'polite' : undefined} style={[s.content, inline && s.contentInline]}>
       <View style={[s[`badge_${kind}`], s.badgeGap]} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
         <Icon name={ICON[kind]} size={t.icon.size.lg} color={t.color[TONE[kind]]} strokeWidth={t.icon.strokeWidth} />
       </View>

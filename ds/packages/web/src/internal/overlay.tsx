@@ -37,3 +37,14 @@ export function useOpenEmit(component: string, open: boolean, label?: string) {
     emit({ component, kind: open ? 'open' : 'close', label })
   }, [open, emit, component, label])
 }
+
+/** O Radix só devolve o foco a um `Dialog.Trigger`; o overlay controlado por `open` não tem um. Guarda quem tinha o foco ao abrir e o devolve ao fechar (passe o resultado a `onCloseAutoFocus`). */
+export function useRestoreFocus(open: boolean) {
+  const opener = useRef<HTMLElement | null>(null)
+  if (open && !opener.current && typeof document !== 'undefined') opener.current = document.activeElement as HTMLElement | null
+  return (e: Event) => {
+    e.preventDefault()
+    opener.current?.focus()
+    opener.current = null
+  }
+}

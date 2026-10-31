@@ -40,7 +40,7 @@ export function HeaderTitle({ title, subtitle, size, leading, trailing, loading 
     <View style={s.row}>
       {leading}
       {loading ? (
-        <View accessible accessibilityLabel={strings.loading} accessibilityState={{ busy: true }} style={s.texts}>
+        <View accessible accessibilityLabel={strings.loading} accessibilityLiveRegion="polite" accessibilityState={{ busy: true }} style={s.texts}>
           <Skeleton width={TITLE_SKELETON} height={t.type.scale[TITLE[kind]].size} />
           {subtitle !== undefined && <Skeleton width={SUBTITLE_SKELETON} height={t.type.scale[SUBTITLE[kind]].size} />}
         </View>
