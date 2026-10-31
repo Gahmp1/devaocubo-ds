@@ -1,0 +1,64 @@
+/* Palco fixo no topo, acima dos overlays (1000); só o toast recebe ponteiro, mesmo com um modal travando o resto. */
+.ds-toast-viewport {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 1100;
+  display: flex;
+  justify-content: center;
+  padding: max(var(--ds-space-lg), env(safe-area-inset-top)) var(--ds-space-lg) 0;
+  pointer-events: none;
+}
+
+.ds-toast {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-sm);
+  box-sizing: border-box;
+  inline-size: min(420px, 100%);
+  min-block-size: 44px;
+  padding: var(--ds-space-xs) var(--ds-space-xs) var(--ds-space-xs) var(--ds-space-md);
+  border: var(--ds-border-thin) solid var(--ds-color-border-muted);
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-color-surface2);
+  color: var(--ds-color-text);
+  pointer-events: auto;
+  touch-action: pan-y;
+}
+
+.ds-toast--shadow {
+  box-shadow: var(--ds-shadow-overlay);
+}
+
+/* O tom aparece no ícone (e no texto do leitor de tela), nunca só na cor. */
+.ds-toast__icon {
+  display: inline-flex;
+  flex: none;
+}
+
+.ds-toast--success .ds-toast__icon {
+  color: var(--ds-color-success);
+}
+
+.ds-toast--danger .ds-toast__icon {
+  color: var(--ds-color-danger);
+}
+
+.ds-toast__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--ds-space-xxs);
+  min-inline-size: 0;
+  padding-block: var(--ds-space-xs);
+}
+
+/* Texto só para o leitor de tela. */
+.ds-toast__announce {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

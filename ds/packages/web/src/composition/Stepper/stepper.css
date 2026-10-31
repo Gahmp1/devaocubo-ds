@@ -1,0 +1,11 @@
+.ds-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-xl);
+}
+
+/* Zenith: largura estável (80) para o número não pular ao mudar. */
+.ds-stepper__value {
+  min-inline-size: calc(var(--ds-space-huge) * 2);
+  text-align: center;
+}

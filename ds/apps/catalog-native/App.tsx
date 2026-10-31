@@ -1,6 +1,6 @@
 import type { FeedbackPrefs } from '@gahmp1/ds-core'
 import { fontFamilies, fontFamily } from '@gahmp1/ds-fonts'
-import { createStyles, DSProvider, Press, useTheme, useThemeFonts } from '@gahmp1/ds-native'
+import { createStyles, DSProvider, Press, ToastHost, useTheme, useThemeFonts } from '@gahmp1/ds-native'
 import { themes, withFont } from '@gahmp1/ds-theme'
 import { StatusBar } from 'expo-status-bar'
 import { useEffect, useState } from 'react'
@@ -99,7 +99,9 @@ export default function App() {
     <SafeAreaProvider>
       <DSProvider theme={theme} scheme={sel.scheme} reducedMotion={sel.reduced} Icon={CatalogIcon} feedback={prefs}>
         <SetFeedbackPrefs.Provider value={(p) => setPrefs((prev) => ({ ...prev, ...p }))}>
-          <Shell sel={sel} set={set} />
+          <ToastHost>
+            <Shell sel={sel} set={set} />
+          </ToastHost>
         </SetFeedbackPrefs.Provider>
       </DSProvider>
     </SafeAreaProvider>

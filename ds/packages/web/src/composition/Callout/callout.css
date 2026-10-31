@@ -1,0 +1,43 @@
+/* Balão invertido (fundo `text`, texto `bg`): destaca-se sobre qualquer superfície do tema. */
+.ds-callout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Bico em cima: o bico vem antes do balão. */
+.ds-callout--top {
+  flex-direction: column-reverse;
+}
+
+.ds-callout__bubble {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ds-space-sm);
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding: var(--ds-space-md) var(--ds-space-md) var(--ds-space-md) var(--ds-space-lg);
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-color-text);
+  color: var(--ds-color-bg);
+}
+
+.ds-callout__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--ds-space-xxs);
+  min-inline-size: 0;
+  padding-block: var(--ds-space-xxs);
+}
+
+.ds-callout__tip {
+  inline-size: calc(var(--ds-space-sm) * 2);
+  block-size: var(--ds-space-sm);
+  background: var(--ds-color-text);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.ds-callout--top .ds-callout__tip {
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
