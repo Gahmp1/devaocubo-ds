@@ -1,0 +1,114 @@
+.ds-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-md);
+  box-sizing: border-box;
+  inline-size: 100%;
+  /* Alvo de toque mínimo de 44px (spec 14) mesmo quando o `control` do tema é menor. */
+  min-block-size: max(44px, var(--ds-control-md));
+  margin: 0;
+  padding: var(--ds-space-md) var(--ds-space-lg);
+  border: 0;
+  background: none;
+  color: var(--ds-color-text);
+  font: inherit;
+  text-align: start;
+}
+
+button.ds-list-item--pressable {
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-fast) var(--ds-ease-standard);
+}
+
+.ds-list-item--press-opacity:active {
+  opacity: var(--ds-press-value);
+}
+
+/* Escala: a mola do tema aproximada por duração `base` e curva `enter`. */
+.ds-list-item--press-scale {
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-base) var(--ds-ease-enter);
+}
+
+.ds-list-item--press-scale:active {
+  transform: scale(var(--ds-press-value));
+}
+
+.ds-list-item__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--ds-space-xxs);
+  min-inline-size: 0;
+}
+
+.ds-list-item__leading,
+.ds-list-item__trailing,
+.ds-list-item__check {
+  display: inline-flex;
+  flex: none;
+}
+
+.ds-list-item__trailing {
+  color: var(--ds-color-text-muted);
+}
+
+.ds-list-item__check {
+  color: var(--ds-color-accent);
+}
+
+.ds-list-item__check--off {
+  visibility: hidden;
+}
+
+.ds-list-item__media {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-color-surface2);
+}
+
+.ds-list-item__media > img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* Anel de progresso do DetailedListItem. */
+.ds-ring {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: max(44px, var(--ds-control-md));
+  block-size: max(44px, var(--ds-control-md));
+}
+
+.ds-ring__svg {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.ds-ring__track,
+.ds-ring__bar {
+  fill: none;
+  stroke-width: var(--ds-border-thick);
+}
+
+.ds-ring__track {
+  stroke: var(--ds-color-border-muted);
+}
+
+.ds-ring__bar {
+  stroke: var(--ds-color-accent);
+  transition: stroke-dasharray var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+.ds-ring__value {
+  position: relative;
+}

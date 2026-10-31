@@ -1,0 +1,69 @@
+/* Superfície, traço e fundo por tipo em custom properties; só `elevated` + `depth.model = shadow` leva sombra. */
+.ds-card {
+  --ds-card-bg: var(--ds-color-surface1);
+  --ds-card-line: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-sm);
+  box-sizing: border-box;
+  inline-size: 100%;
+  margin: 0;
+  padding: var(--ds-card-padding);
+  border: var(--ds-border-thin) solid var(--ds-card-line);
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-card-bg);
+  color: var(--ds-color-text);
+  font: inherit;
+  text-align: start;
+}
+
+.ds-card--outline {
+  --ds-card-bg: transparent;
+  --ds-card-line: var(--ds-color-border);
+}
+
+.ds-card--elevated {
+  --ds-card-bg: var(--ds-color-surface2);
+  --ds-card-line: var(--ds-color-border-muted);
+}
+
+.ds-card--shadow {
+  --ds-card-line: transparent;
+  box-shadow: var(--ds-shadow-card);
+}
+
+.ds-card--ghost {
+  --ds-card-bg: transparent;
+}
+
+/* Selecionado: traço de acento mais grosso, sem mudar o tamanho da caixa (o espaço sai do padding). */
+.ds-card--selected {
+  --ds-card-line: var(--ds-color-accent);
+  border-width: var(--ds-border-thick);
+  padding: calc(var(--ds-card-padding) - (var(--ds-border-thick) - var(--ds-border-thin)));
+}
+
+.ds-card__body {
+  min-inline-size: 0;
+}
+
+button.ds-card--pressable {
+  min-block-size: 44px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-fast) var(--ds-ease-standard);
+}
+
+.ds-card--press-opacity:active {
+  opacity: var(--ds-press-value);
+}
+
+/* Escala: a mola do tema aproximada por duração `base` e curva `enter`. */
+.ds-card--press-scale {
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard), transform var(--ds-duration-base) var(--ds-ease-enter);
+}
+
+.ds-card--press-scale:active {
+  transform: scale(var(--ds-press-value));
+}

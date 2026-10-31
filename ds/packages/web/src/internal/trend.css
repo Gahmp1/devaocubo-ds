@@ -1,0 +1,28 @@
+.ds-trend {
+  --ds-trend-color: var(--ds-color-text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-xxs);
+  color: var(--ds-trend-color);
+}
+
+.ds-trend--up {
+  --ds-trend-color: var(--ds-color-success);
+}
+
+.ds-trend--down {
+  --ds-trend-color: var(--ds-color-danger);
+}
+
+.ds-trend__icon {
+  display: inline-flex;
+}
+
+.ds-trend--up .ds-trend__icon {
+  transform: rotate(180deg);
+}
+
+/* `Text` fixa a cor por classe; dentro da tendência ela segue a do papel. */
+.ds-trend .ds-text {
+  color: inherit;
+}
