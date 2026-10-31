@@ -57,7 +57,8 @@ export function ChipBase({ label, onPress, onRemove, selected, icon, disabled, i
   // Selecionado = preenchido de accent (hairline quando não); desabilitado vem das cores do tema, não da opacidade.
   const onColor = disabled ? c.textDisabled : c.accent
   const edgeOff = rgba(disabled ? c.borderMuted : c.border)
-  const edge = useAnimatedStyle(() => ({ borderColor: interpolateColor(fill.value, [0, 1], [edgeOff, rgba(onColor)]) }))
+  const edgeOn = rgba(onColor)
+  const edge = useAnimatedStyle(() => ({ borderColor: interpolateColor(fill.value, [0, 1], [edgeOff, edgeOn]) }))
   const fillStyle = useAnimatedStyle(() => ({ opacity: fill.value }))
   // Largura e margem negativa (que cancela o gap do `inner`) crescem juntas: fechado, o slot não deixa vão.
   const gap = t.density.space.xxs

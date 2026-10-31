@@ -26,6 +26,8 @@ export type GlowBorderProps = {
 // Opacidade do contorno estático (movimento reduzido), alfa do bloom e quanto o bloom desfoca, em múltiplos da borda grossa.
 const STATIC_ALPHA = 0.7
 const BLOOM_BLUR = 3
+// Margem do Canvas além do contêiner, para o bloom (traço duplo + desfoque) não ser cortado.
+const BLOOM_MARGIN = 3
 
 export function GlowBorder({ active, radius = 'lg', periodMs, paused, style, children }: GlowBorderProps) {
   const t = useTheme()
@@ -55,9 +57,10 @@ export function GlowBorder({ active, radius = 'lg', periodMs, paused, style, chi
   const w = t.shape.borderWidth.thick
   const beam = t.color.aiBeam
   const bloom = glowAlphas(1, t.depth.model).bloom
-  const center = vec(size.width / 2, size.height / 2)
-  // Bloom e traço compartilham o contorno; o traço fica dentro do retângulo para não sair do contêiner.
-  const rect = { x: w / 2, y: w / 2, width: Math.max(size.width - w, 0), height: Math.max(size.height - w, 0) }
+  const m = w * BLOOM_MARGIN
+  const center = vec(m + size.width / 2, m + size.height / 2)
+  // Bloom e traço compartilham o contorno; o traço fica dentro do retângulo, o bloom vaza pela margem do Canvas.
+  const rect = { x: m + w / 2, y: m + w / 2, width: Math.max(size.width - w, 0), height: Math.max(size.height - w, 0) }
   const colors = BEAM_STOPS.alphas.map((a) => withAlpha(beam, a))
 
   return (
@@ -65,7 +68,7 @@ export function GlowBorder({ active, radius = 'lg', periodMs, paused, style, chi
       {children}
       <View pointerEvents="none" style={StyleSheet.absoluteFill} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
         {size.width > 0 && (
-          <Canvas style={StyleSheet.absoluteFill}>
+          <Canvas style={{ position: 'absolute', left: -m, top: -m, width: size.width + 2 * m, height: size.height + 2 * m }}>
             <Group opacity={fade}>
               {reduced ? (
                 <RoundedRect {...rect} r={r} style="stroke" strokeWidth={w} color={withAlpha(beam, STATIC_ALPHA)} />

@@ -5,6 +5,7 @@
     "version": "0.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
+    "scheme": "me.devaocubo.ds.catalog",
     "ios": { "bundleIdentifier": "me.devaocubo.ds.catalog" },
     "android": { "package": "me.devaocubo.ds.catalog" }
   }

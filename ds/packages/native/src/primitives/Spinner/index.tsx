@@ -61,7 +61,7 @@ function Rotating({ px, colors }: Layer) {
   const uniforms = useDerivedValue(() => ({
     resolution: [px, px], time: (clock.value / CYCLE_MS) * SPEED, thickness: THICKNESS, softness: SOFTNESS, opacity: OPACITY,
     headColor: colors.head, energyColor: colors.energy, depthColor: colors.depth, tailColor: colors.tail,
-  }), [clock, px, colors])
+  }))
   return source && (
     <Canvas style={{ width: px, height: px }}>
       <Fill>
